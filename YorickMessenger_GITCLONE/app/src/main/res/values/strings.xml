@@ -1,0 +1,22 @@
+<resources>
+    <string name="app_name">Yorick Messenger</string>
+    <string name="app_misc_authorTG">t.me/kerne1_pan1c</string>
+    <string name="app_misc_authorNAME">Developed by Yaroslav Yevdokimov</string>
+    <!-- TODO: Remove or change this placeholder text -->
+
+    <!-- New Users Support Activity strings -->
+    <string name="fragment_noWifi_title">No Wi-Fi Needed</string>
+    <string name="fragment_noWifi_description">You need <b>only Bluetooth</b> to speak with another people</string>
+
+    <string name="fragment_easyToUse_title">Easy to Use</string>
+    <string name="fragment_easyToUse_description">Just launch application and start talking</string>
+    
+    <string name="fragment_privacy_title">Privacy</string>
+    <string name="fragment_privacy_description">Your privacy is under our <b>protection</b>. There is no way
+    to steal conversations</string>
+
+    <string name="app_newUserSupport_title">Why Yorick Messenger?</string>
+    <string name="app_newUserSupport_buttonNext">NEXT</string>
+    <string name="app_newUserSupport_buttonGetStarted">GET STARTED</string>
+
+</resources>

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="purple_200">#FFBB86FC</color>
+    <color name="purple_500">#FF6200EE</color>
+    <color name="purple_700">#FF3700B3</color>
+    <color name="teal_200">#FF03DAC5</color>
+    <color name="teal_700">#FF018786</color>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+
+    <!-- Block of mine color definition -->
+    <color name="mainAppBackgroundColorLightBlue">#cbe5f2</color>
+    <color name="yellowColor">#F7CD2E</color>
+    <color name="carrotOrange">#fa983a</color>
+    <color name="squashBlossom">#f6b93b</color>
+    <color name="myBlack">#191919</color>
+    <color name="lightBlueGray">#576380</color>
+    <color name="tomatoRed">#eb2f06</color>
+    <color name="auroraGreen">#78e08f</color>
+    <!-- End -->
+
+</resources>
