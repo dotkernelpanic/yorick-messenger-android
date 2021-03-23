@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+    android:id="@+id/scanFragmentContainer"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ScanDevicesFragment"
+    android:background="@color/myBlack">
+    
+    <LinearLayout
+        android:id="@+id/mainContainer"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:weightSum="5">
+        
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="4.2">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                
+                <LinearLayout
+                    android:id="@+id/pairedDevicesContainer"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+                    
+                    <TextView
+                        android:id="@+id/pairedLabel"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Paired Devices:"
+                        android:fontFamily="@font/ubuntu_medium"
+                        android:textSize="14sp"
+                        android:textColor="@color/yellowColor"
+                        android:layout_marginEnd="10dp"
+                        android:layout_marginStart="30dp"
+                        android:layout_marginTop="15dp"
+                        android:visibility="gone" />
+
+                    
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/headerLabelContainer"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/pairedDevicesContainer"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/headerLabel"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginEnd="10dp"
+                        android:layout_marginStart="30dp"
+                        android:text="Searching..."
+                        android:textColor="@color/yellowColor"
+                        android:textStyle="bold" />
+
+                    <ProgressBar
+                        android:id="@+id/progressBar"
+                        android:layout_width="18dp"
+                        android:layout_height="18dp"
+                        android:layout_marginTop="16dp"
+                        android:visibility="gone" />
+
+                </LinearLayout>
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/discovarableDevicesList"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/headerLabelContainer" />
+
+            </RelativeLayout>
+
+        </androidx.core.widget.NestedScrollView>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="0.8"
+            android:weightSum="2">
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/searchDevicesButton"
+                android:layout_width="0dp"
+                android:layout_height="50dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginStart="32dp"
+                android:layout_weight="1"
+                android:fontFamily="@font/montserrat"
+                android:background="@drawable/app_ui_gradient_sunnymorning"
+                android:text="(open chat [test])"
+                android:textAllCaps="false"
+                android:textColor="@color/myBlack" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/makeUserDeviceVisibleButton"
+                android:layout_width="0dp"
+                android:layout_height="50dp"
+                android:layout_marginBottom="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="32dp"
+                android:layout_weight="1"
+                android:background="@drawable/app_ui_gradient_sunnymorning"
+                android:text="Make Visible"
+                android:textAllCaps="false"
+                android:textColor="@color/myBlack"
+                android:fontFamily="@font/montserrat"/>
+
+        </LinearLayout>
+        
+    </LinearLayout>
+
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

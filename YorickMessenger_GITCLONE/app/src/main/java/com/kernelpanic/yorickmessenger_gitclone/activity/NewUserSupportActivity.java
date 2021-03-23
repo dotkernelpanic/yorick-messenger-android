@@ -6,7 +6,6 @@ import androidx.viewpager2.widget.ViewPager2;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -99,8 +98,8 @@ public class NewUserSupportActivity extends AppCompatActivity {
         buttonGetStarted.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent chatActivity = new Intent(getApplicationContext(), ChatActivity.class);
-                startActivity(chatActivity);
+                Intent mainAppActivity = new Intent(getApplicationContext(), MainAppActivity.class);
+                startActivity(mainAppActivity);
                 saveUserSharedPreferences();
                 finish();
             }

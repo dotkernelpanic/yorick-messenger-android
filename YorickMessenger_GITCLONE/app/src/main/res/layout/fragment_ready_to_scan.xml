@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/homeFragmentContainer"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activity.fragments.ReadyToScanFragment"
+    android:background="@color/myBlack">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:src="@drawable/ic_bluetooth_scan"
+            android:layout_above="@id/readyToScanTitle"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="10dp" />
+        <TextView
+            android:id="@+id/readyToScanTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/fragment_readyToScan_title"
+            android:textColor="@color/yellowColor"
+            android:fontFamily="@font/ubuntu_medium"
+            android:layout_centerVertical="true"
+            android:layout_centerHorizontal="true"
+            android:textAlignment="center"
+            android:textSize="20sp"/>
+
+        <TextView
+            android:id="@+id/readyToScanDescription"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/readyToScanTitle"
+            android:text="@string/fragment_readyToScan_description"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="10dp"
+            android:textColor="@color/yellowColor"
+            android:fontFamily="@font/ubuntu"
+            android:textSize="14sp" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/readyToScanButton"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/app_ui_gradient_sunnymorning"
+            android:text="@string/fragment_scanButton_label"
+            android:layout_below="@id/readyToScanDescription"
+            android:layout_marginTop="20dp"
+            android:layout_centerHorizontal="true"
+            android:textColor="@color/myBlack" />
+
+
+    </RelativeLayout>
+
+</FrameLayout>

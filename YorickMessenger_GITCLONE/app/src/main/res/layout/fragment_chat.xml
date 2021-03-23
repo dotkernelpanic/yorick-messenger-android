@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activity.fragments.ChatFragment"
+    android:background="@color/myBlack">
+   
+   <RelativeLayout
+       android:id="@+id/chatContainer"
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content"
+       android:layout_alignParentBottom="true">
+      
+      
+      <LinearLayout
+          android:id="@+id/messagingLayout"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_margin="10dp"
+          android:background="@drawable/app_rounded_background_lightbluegray"
+          android:orientation="horizontal"
+          android:weightSum="5"
+          android:maxHeight="120dp">
+
+         <FrameLayout
+             android:id="@+id/chatSendButton"
+             android:layout_width="wrap_content"
+             android:layout_height="20dp"
+             android:layout_gravity="left|center"
+             android:layout_margin="15dp"
+             android:background="@drawable/support_buttons_states"
+             android:clickable="true"
+             android:focusable="false">
+
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:src="@drawable/ic_attach"
+                android:layout_gravity="center"
+                android:layout_marginStart="2dp" />
+
+         </FrameLayout>
+
+         <EditText
+             android:id="@+id/chatFieldInput"
+             android:layout_width="0dp"
+             android:layout_height="wrap_content"
+             android:layout_weight="5"
+             android:background="@color/lightBlueGray"
+             android:hint="@string/app_mainActivity_editText_startTyping"
+             android:textColorHint="#9F9F9F"
+             android:textSize="15sp"
+             android:layout_gravity="center"
+             android:layout_margin="10dp"
+             android:autoSizeTextType="uniform"
+             android:autoSizeMinTextSize="9sp"
+             android:autoSizeMaxTextSize="100sp"
+             android:maxHeight="150dp"
+             android:fontFamily="@font/ubuntu" />
+
+         <FrameLayout
+             android:id="@+id/chatSendFilesButton"
+             android:layout_width="wrap_content"
+             android:layout_height="20dp"
+             android:layout_margin="15dp"
+             android:layout_gravity="right|center"
+             android:background="@drawable/support_buttons_states"
+             android:clickable="true"
+             android:focusable="false">
+
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:src="@drawable/ic_send"
+                android:layout_gravity="center"
+                android:layout_marginStart="2dp"/>
+
+         </FrameLayout>
+         
+      </LinearLayout>
+
+      
+   </RelativeLayout>
+   
+   <androidx.recyclerview.widget.RecyclerView
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content"
+       android:layout_above="@id/chatContainer"
+       android:layout_marginBottom="20dp" />
+
+
+</RelativeLayout>

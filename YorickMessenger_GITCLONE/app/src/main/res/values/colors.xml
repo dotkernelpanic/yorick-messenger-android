@@ -17,6 +17,7 @@
     <color name="lightBlueGray">#576380</color>
     <color name="tomatoRed">#eb2f06</color>
     <color name="auroraGreen">#78e08f</color>
+    <color name="transparent">#80000000</color>
     <!-- End -->
 
 </resources>
