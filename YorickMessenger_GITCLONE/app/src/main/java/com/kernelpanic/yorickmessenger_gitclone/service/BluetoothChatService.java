@@ -56,6 +56,7 @@ public class BluetoothChatService implements IBluetoothChatService {
         mHandler = handler;
     }
 
+
     /**
      * Set the current state
      * @param state  - An integer param that indicates current connection sate
@@ -65,7 +66,7 @@ public class BluetoothChatService implements IBluetoothChatService {
         Log.d(TAG, "setState() " + mState + " --- " + state);
         mState = state;
 
-        mHandler.obtainMessage(Constants.MESSAGE_STATE_ID_CHANGE, state, -1).sendToTarget();
+        mHandler.obtainMessage(Constants.MESSAGE_STATE_CHANGE, state, -1).sendToTarget();
     }
 
     // Returns the current state
@@ -162,7 +163,7 @@ public class BluetoothChatService implements IBluetoothChatService {
         mConnectedThread = new ConnectedThread(socket, SOCKET_TYPE);
         mConnectedThread.start();
 
-        Message message = mHandler.obtainMessage(Constants.MESSAGE_ID_DEVICE_NAME);
+        Message message = mHandler.obtainMessage(Constants.MESSAGE_DEVICE_NAME);
         Bundle bundle = new Bundle();
         bundle.putString(Constants.DEVICE_NAME, device.getName());
         message.setData(bundle);
@@ -219,9 +220,9 @@ public class BluetoothChatService implements IBluetoothChatService {
     // Indicates that current connection is failed
     @Override
     public void connectionFailedErrorHandler() {
-        Message message = mHandler.obtainMessage(Constants.MESSAGE_ID_TOAST);
+        Message message = mHandler.obtainMessage(Constants.MESSAGE_TOAST);
         Bundle bundle = new Bundle();
-        bundle.putString(Constants.TOAST, "We are unnable to connect to a remote device");
+        bundle.putString(Constants.TOAST, "We are unable to connect to a remote device");
         message.setData(bundle);
         mHandler.sendMessage(message);
 
@@ -231,9 +232,9 @@ public class BluetoothChatService implements IBluetoothChatService {
     // Indicates that connection is lost
     @Override
     public void connectionLostErrorHandler() {
-        Message message = mHandler.obtainMessage(Constants.MESSAGE_ID_TOAST);
+        Message message = mHandler.obtainMessage(Constants.MESSAGE_TOAST);
         Bundle bundle = new Bundle();
-        bundle.putString(Constants.TOAST, "We are unnable to connect to a remote device");
+        bundle.putString(Constants.TOAST, "We are unable to connect to a remote device");
         message.setData(bundle);
         mHandler.sendMessage(message);
 

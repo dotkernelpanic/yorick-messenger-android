@@ -14,7 +14,7 @@
         <!-- Customize your theme here. -->
     </style>
 
-    <style name="YorickMessengerDark" >
+    <style name="YorickMessengerDark">
         <item name="colorPrimary">@color/myBlack</item>
         <item name="colorOnPrimary">@color/squashBlossom</item>
         <!-- Light Yellow Gray -->
@@ -27,7 +27,7 @@
         <item name="android:textSize">18sp</item>
     </style>
 
-    <style name="secondaryTextAppearance" >
+    <style name="secondaryTextAppearance">
         <item name="android:fontFamily">@font/montserrat</item>
         <item name="android:textColor">@color/lightBlueGray</item>
         <item name="android:textSize">14sp</item>
@@ -37,5 +37,14 @@
         <item name="tabIndicatorColor">@color/white</item>
         <item name="tabSelectedTextColor">@color/yellowColor</item>
     </style>
+
+    <style name="Theme.YorickMessenger_GITCLONE.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="Theme.YorickMessenger_GITCLONE.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="Theme.YorickMessenger_GITCLONE.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
 </resources>

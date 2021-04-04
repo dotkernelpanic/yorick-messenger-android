@@ -7,11 +7,14 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
+
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.fragment.app.FragmentManager;
 
 import com.kernelpanic.yorickmessenger_gitclone.R;
-import com.kernelpanic.yorickmessenger_gitclone.ScanDevicesFragment;
+
+import org.w3c.dom.Text;
 
 public class ReadyToScanFragment extends Fragment {
 
@@ -31,6 +34,7 @@ public class ReadyToScanFragment extends Fragment {
                              Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.fragment_ready_to_scan, container, false);
+        
         launchScanDevicesFragmentButton = view.findViewById(R.id.readyToScanButton);
         scanDevicesFragment = new ScanDevicesFragment();
         chatFragment        = new ChatFragment();
@@ -45,6 +49,8 @@ public class ReadyToScanFragment extends Fragment {
                         .commit();
             }
         });
+
+        //AppCompatButton testbtn = getActivity().findViewById(R.id.tstbtn);
 
         return view;
     }

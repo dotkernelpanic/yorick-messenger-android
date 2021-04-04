@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout
-    android:id="@+id/scanFragmentContainer"
+<androidx.coordinatorlayout.widget.CoordinatorLayout android:id="@+id/scanFragmentContainer"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ScanDevicesFragment"
-    android:background="@color/myBlack">
+    tools:context=".activity.fragments.ScanDevicesFragment"
+    android:background="@color/myBlack"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
     
     <LinearLayout
         android:id="@+id/mainContainer"
@@ -14,22 +14,22 @@
         android:layout_height="match_parent"
         android:orientation="vertical"
         android:weightSum="5">
-        
+
         <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="4.2">
+            android:layout_height="match_parent"
+            android:layout_weight="5">
 
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
-                
+
                 <LinearLayout
                     android:id="@+id/pairedDevicesContainer"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
-                    
+
                     <TextView
                         android:id="@+id/pairedLabel"
                         android:layout_width="wrap_content"
@@ -43,10 +43,11 @@
                         android:layout_marginTop="15dp"
                         android:visibility="gone" />
 
-                    
-                    <androidx.recyclerview.widget.RecyclerView
+
+                    <ListView
+                        android:id="@+id/deviceList"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content" />
+                        android:layout_height="300dp" />
 
                 </LinearLayout>
 
@@ -68,6 +69,7 @@
                         android:textColor="@color/yellowColor"
                         android:textStyle="bold" />
 
+
                     <ProgressBar
                         android:id="@+id/progressBar"
                         android:layout_width="18dp"
@@ -77,10 +79,11 @@
 
                 </LinearLayout>
 
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/discovarableDevicesList"
+                <ListView
+                    android:id="@+id/devicePairedList"
+                    android:layout_marginTop="10dp"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="300dp"
                     android:layout_below="@id/headerLabelContainer" />
 
             </RelativeLayout>

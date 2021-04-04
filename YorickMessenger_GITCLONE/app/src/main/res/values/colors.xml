@@ -9,6 +9,8 @@
     <color name="white">#FFFFFFFF</color>
 
     <!-- Block of mine color definition -->
+    <!-- using https://randomwordgenerator.com/ to generate random words for my colors name,
+            because just 'black', 'yellow', 'red' etc is so boring... -->
     <color name="mainAppBackgroundColorLightBlue">#cbe5f2</color>
     <color name="yellowColor">#F7CD2E</color>
     <color name="carrotOrange">#fa983a</color>
@@ -18,6 +20,7 @@
     <color name="tomatoRed">#eb2f06</color>
     <color name="auroraGreen">#78e08f</color>
     <color name="transparent">#80000000</color>
+    <color name="blue_indirectResort">#549dde</color>
     <!-- End -->
 
 </resources>

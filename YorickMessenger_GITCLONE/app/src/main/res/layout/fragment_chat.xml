@@ -24,7 +24,7 @@
           android:maxHeight="120dp">
 
          <FrameLayout
-             android:id="@+id/chatSendButton"
+             android:id="@+id/attachButtonContainer"
              android:layout_width="wrap_content"
              android:layout_height="20dp"
              android:layout_gravity="left|center"
@@ -34,6 +34,7 @@
              android:focusable="false">
 
             <ImageView
+                android:id="@+id/btnAttach"
                 android:layout_width="20dp"
                 android:layout_height="20dp"
                 android:src="@drawable/ic_attach"
@@ -60,21 +61,19 @@
              android:fontFamily="@font/ubuntu" />
 
          <FrameLayout
-             android:id="@+id/chatSendFilesButton"
-             android:layout_width="wrap_content"
+             android:id="@+id/sendMsgButtonContainer"
+             android:layout_width="20dp"
              android:layout_height="20dp"
              android:layout_margin="15dp"
-             android:layout_gravity="right|center"
-             android:background="@drawable/support_buttons_states"
-             android:clickable="true"
-             android:focusable="false">
+             android:layout_gravity="right|center">
 
-            <ImageView
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-                android:src="@drawable/ic_send"
-                android:layout_gravity="center"
-                android:layout_marginStart="2dp"/>
+            <ImageButton
+               android:id="@+id/btnSend"
+               android:layout_width="20dp"
+               android:layout_height="20dp"
+               android:layout_gravity="center"
+               android:src="@drawable/ic_send"
+               android:clickable="true" />
 
          </FrameLayout>
          
@@ -83,7 +82,8 @@
       
    </RelativeLayout>
    
-   <androidx.recyclerview.widget.RecyclerView
+   <ListView
+       android:id="@+id/messagesContainer"
        android:layout_width="match_parent"
        android:layout_height="wrap_content"
        android:layout_above="@id/chatContainer"

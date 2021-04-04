@@ -1,41 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".activity.NewUserSupportActivity"
     android:background="@color/myBlack">
-
-    <com.google.android.material.tabs.TabLayout
-        android:id="@+id/tabIndicator"
-        android:layout_width="250dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="50dp"
-        android:layout_marginEnd="20dp"
-        android:background="@color/myBlack"
-        style="@style/tabLayoutItemAppearance"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/viewpager"
-        app:tabIndicator="@drawable/tab_indicator_default">
-
-        <com.google.android.material.tabs.TabItem
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="1" />
-
-        <com.google.android.material.tabs.TabItem
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="2" />
-
-        <com.google.android.material.tabs.TabItem
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="3" />
-    </com.google.android.material.tabs.TabLayout>
 
     <View
         android:layout_width="wrap_content"
@@ -45,28 +15,53 @@
 
     <!-- TODO: Add string to strings.xml -->
     <TextView
+        android:id="@+id/whyYorickMsngr"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginEnd="20dp"
+        android:layout_marginTop="80dp"
         android:fontFamily="@font/ubuntu_medium"
         android:text="Why YorickMessenger?"
         android:textColor="@color/yellowColor"
         android:textSize="30sp"
-        app:layout_constraintBottom_toTopOf="@id/viewpager"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        android:layout_centerHorizontal="true"/>
 
-    <androidx.viewpager2.widget.ViewPager2
-        android:id="@+id/viewpager"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="30dp"
-        android:layout_marginTop="100dp"
-        android:layout_marginEnd="30dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:layout_height="600dp"
+        android:orientation="vertical"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true">
+
+        <androidx.viewpager2.widget.ViewPager2
+            android:id="@+id/viewpager"
+            android:layout_width="match_parent"
+            android:layout_height="500dp" />
+
+        <com.google.android.material.tabs.TabLayout
+            android:id="@+id/tabIndicator"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/myBlack"
+            style="@style/tabLayoutItemAppearance"
+            app:tabIndicator="@drawable/tab_indicator_default">
+
+            <com.google.android.material.tabs.TabItem
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="1" />
+
+            <com.google.android.material.tabs.TabItem
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="2" />
+
+            <com.google.android.material.tabs.TabItem
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="3" />
+        </com.google.android.material.tabs.TabLayout>
+
+    </LinearLayout>
 
     <!-- TODO: Add the 'NEXT' string to strings.xml -->
     <androidx.appcompat.widget.AppCompatButton
@@ -81,9 +76,9 @@
         android:fontFamily="@font/montserrat"
         android:backgroundTint="@null"
         android:text="@string/app_newUserSupport_buttonNext"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tabIndicator" />
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginVertical="80dp"/>
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/buttonGetStarted"
@@ -98,10 +93,9 @@
         android:fontFamily="@font/montserrat"
         android:backgroundTint="@null"
         android:text="@string/app_newUserSupport_buttonGetStarted"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tabIndicator" />
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginVertical="80dp"/>
 
 
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+</RelativeLayout>

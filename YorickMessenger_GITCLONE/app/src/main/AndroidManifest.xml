@@ -8,7 +8,9 @@
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_INTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.CAMERA" /> <!-- > LOLLIPOP -->
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
 
     <application
         android:allowBackup="true"
@@ -18,10 +20,13 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.YorickMessenger_GITCLONE">
         <activity
+            android:name=".activity.NavMenuActivity"
+            android:label="@string/title_activity_nav_menu"
+            android:theme="@style/Theme.YorickMessenger_GITCLONE.NoActionBar"></activity>
+        <activity
             android:name=".activity.MainAppActivity"
             android:windowSoftInputMode="stateHidden|adjustPan" />
         <activity android:name=".activity.NewUserSupportActivity" />
-        <activity android:name=".activity.ChatActivity" />
         <activity android:name=".activity.SplashScreenActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

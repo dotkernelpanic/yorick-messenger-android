@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@+id/nav_home">
+    <activity
+        android:id="@+id/mainAppActivity"
+        android:name="com.kernelpanic.yorickmessenger_gitclone.activity.MainAppActivity"
+        android:label="activity_main_app"
+        tools:layout="@layout/activity_main_app" />
+    <fragment
+        android:id="@+id/readyToScanFragment"
+        android:name="com.kernelpanic.yorickmessenger_gitclone.activity.fragments.ReadyToScanFragment"
+        android:label="fragment_ready_to_scan"
+        tools:layout="@layout/fragment_ready_to_scan" />
+    <fragment
+        android:id="@+id/chatFragment"
+        android:name="com.kernelpanic.yorickmessenger_gitclone.activity.fragments.ChatFragment"
+        android:label="fragment_chat"
+        tools:layout="@layout/fragment_chat" />
+    <fragment
+        android:id="@+id/scanDevicesFragment"
+        android:name="com.kernelpanic.yorickmessenger_gitclone.activity.fragments.ScanDevicesFragment"
+        android:label="fragment_scan_devices"
+        tools:layout="@layout/fragment_scan_devices" />
+</navigation>

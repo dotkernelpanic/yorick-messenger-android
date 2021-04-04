@@ -39,6 +39,12 @@ dependencies {
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     implementation 'androidx.viewpager:viewpager:1.0.0'
     implementation 'com.github.ViksaaSkool:AutoFitEditText:53238e2d29'
+    // This should bypass RecyclerView arrayadapter
+    implementation 'com.pascalwelsch.arrayadapter:arrayadapter:1.3.0'
+    implementation 'androidx.navigation:navigation-fragment:2.2.2'
+    implementation 'androidx.navigation:navigation-ui:2.2.2'
+    implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.2.0'
+    implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.2.0'
 
     testImplementation 'junit:junit:4.+'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'

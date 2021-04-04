@@ -17,6 +17,7 @@ import androidx.appcompat.widget.AppCompatButton;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
 import com.kernelpanic.yorickmessenger_gitclone.R;
+import com.kernelpanic.yorickmessenger_gitclone.adapters.UserSupportAdapter;
 
 public class NewUserSupportActivity extends AppCompatActivity {
 
