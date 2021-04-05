@@ -35,6 +35,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.kernelpanic.yorickmessenger_gitclone.R;
+import com.kernelpanic.yorickmessenger_gitclone.ScanListActivity;
 import com.kernelpanic.yorickmessenger_gitclone.activity.MainAppActivity;
 import com.kernelpanic.yorickmessenger_gitclone.service.BluetoothChatService;
 import com.kernelpanic.yorickmessenger_gitclone.util.Constants;
@@ -47,6 +48,7 @@ public class ChatFragment extends Fragment {
     private     ArrayAdapter<String>    conversationsListArrayAdapter;
     private     EditText                inputField;
     private     ImageButton             btnSend;
+    private     ScanDevicesFragment     scanDevicesFragment;
 
     private     StringBuffer            outStringBuffer;
     private     String                  connectedDeviceBluetoothName = null;
@@ -194,11 +196,12 @@ public class ChatFragment extends Fragment {
                 Intent enableBT = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
                 startActivityForResult(enableBT, PERMISSION_REQUEST_ENABLE_BLUETOOTH);
                 mBluetoothAdapter.enable();
-                Toast.makeText(getActivity(), "Enabling BT aЫdapter", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(), "Enabling BT adapter", Toast.LENGTH_SHORT).show();
             } else if (chatService == null) {
                 setupChat();
-                Intent server = new Intent(getActivity(), ScanDevicesFragment.class);
+                Intent server = new Intent(getActivity(), ScanListActivity.class);
                 startActivityForResult(server, PERMISSION_REQUEST_CONNECT_DEVICE_SECURE);
+                //startActivityForResult(server, PERMISSION_REQUEST_CONNECT_DEVICE_SECURE);
             }
         } catch (NullPointerException ex) {
             Log.d("YorickMessenger.onStart()", "We have caught an exception: " + ex.getMessage());

@@ -19,10 +19,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.YorickMessenger_GITCLONE">
+        <activity android:name=".ScanListActivity"></activity>
         <activity
             android:name=".activity.NavMenuActivity"
             android:label="@string/title_activity_nav_menu"
-            android:theme="@style/Theme.YorickMessenger_GITCLONE.NoActionBar"></activity>
+            android:theme="@style/Theme.YorickMessenger_GITCLONE.NoActionBar" />
         <activity
             android:name=".activity.MainAppActivity"
             android:windowSoftInputMode="stateHidden|adjustPan" />

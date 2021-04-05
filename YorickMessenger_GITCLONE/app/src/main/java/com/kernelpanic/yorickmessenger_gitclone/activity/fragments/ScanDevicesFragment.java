@@ -210,6 +210,7 @@ public class ScanDevicesFragment extends Fragment {
 
             Intent intent   = new Intent();
             intent.putExtra(EXTRA_DEVICE_ADDRESS, deviceAddress.getText().toString());
+            getActivity().setResult(Activity.RESULT_OK, intent);
 
             TextView status = getActivity().findViewById(R.id.statusLabel);
             status.setText(getString(R.string.app_mainActivity_connected, device.getName()));

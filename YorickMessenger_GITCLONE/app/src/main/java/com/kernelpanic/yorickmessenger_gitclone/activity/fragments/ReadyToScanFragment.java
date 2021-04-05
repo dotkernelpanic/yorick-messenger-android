@@ -1,5 +1,6 @@
 package com.kernelpanic.yorickmessenger_gitclone.activity.fragments;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -13,6 +14,7 @@ import androidx.appcompat.widget.AppCompatButton;
 import androidx.fragment.app.FragmentManager;
 
 import com.kernelpanic.yorickmessenger_gitclone.R;
+import com.kernelpanic.yorickmessenger_gitclone.ScanListActivity;
 
 import org.w3c.dom.Text;
 
@@ -44,9 +46,12 @@ public class ReadyToScanFragment extends Fragment {
             public void onClick(View v) {
                 getActivity().getSupportFragmentManager().beginTransaction()
                         .setCustomAnimations(R.anim.fragment_swipe_inleft, R.anim.fragment_swipe_outright)
-                        .replace(R.id.homeFragmentContainer, scanDevicesFragment, "scanFragment")
+                        .replace(R.id.homeFragmentContainer, chatFragment, "chatFragment")
                         .setReorderingAllowed(true)
                         .commit();
+
+                Intent scanListActivityIntent = new Intent(getActivity(), ScanListActivity.class);
+                startActivity(scanListActivityIntent);
             }
         });
 
