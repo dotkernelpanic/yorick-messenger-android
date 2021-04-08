@@ -44,8 +44,10 @@ public class ScanListActivity extends AppCompatActivity {
 
     protected boolean isAlreadyAskedForPermission = false;
     public static String EXTRA_DEVICE_ADDRESS = "device_address";
+    private String bluetoothDeviceAddress = " ";
+    public static final int SCANLIST_CLOSED_REQUEST_CODE = 1;
 
-    protected ListView deviceList;
+    protected   ListView deviceList;
     protected   ListView devicePairedList;
 
     private BluetoothAdapter mBluetoothAdapter;
@@ -61,6 +63,7 @@ public class ScanListActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         supportRequestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
+
         setContentView(R.layout.activity_scan_list);
 
         setResult(Activity.RESULT_CANCELED);
@@ -166,6 +169,7 @@ public class ScanListActivity extends AppCompatActivity {
         @Override
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
             mBluetoothAdapter.cancelDiscovery();
+            chatFragment = new ChatFragment();
 
             TextView btDeviceName       = view.findViewById(R.id.deviceNameListViewLabel);
             TextView btDeviceAddress    = view.findViewById(R.id.deviceAddressListViewLabel);
@@ -175,8 +179,23 @@ public class ScanListActivity extends AppCompatActivity {
             Intent intent               = new Intent();
             intent.putExtra(EXTRA_DEVICE_ADDRESS, btDeviceAddress.getText().toString());
 
+            Bundle bundle = new Bundle();
+            String macAdress = btDeviceAddress.getText().toString();
+            bundle.putString("bluetooth_device_mac_address", macAdress);
+            chatFragment.setArguments(bundle);
+
             setResult(Activity.RESULT_OK, intent);
+            setDeviceAddres(btDeviceAddress.getText().toString());
+            setResult(Activity.RESULT_OK);
             finish();
         }
     };
+
+    private void setDeviceAddres(String deviceAddress) {
+        bluetoothDeviceAddress = deviceAddress;
+    }
+
+    public String getDeviceAddress() {
+        return bluetoothDeviceAddress;
+    }
 }

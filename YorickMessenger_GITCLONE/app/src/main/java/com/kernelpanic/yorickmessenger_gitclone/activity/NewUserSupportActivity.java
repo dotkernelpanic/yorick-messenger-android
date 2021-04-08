@@ -6,6 +6,7 @@ import androidx.viewpager2.widget.ViewPager2;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -41,13 +42,13 @@ public class NewUserSupportActivity extends AppCompatActivity {
 
         getSupportActionBar().hide();
 
-        /*
+
         if (checkUserSharedPreferences()) {
             Log.i("YMSNGR_USER_ACT", "User has watched the intro before, launching ChatActivity");
-            Intent chatActivity = new Intent(getApplicationContext(), ChatActivity.class);
+            Intent chatActivity = new Intent(getApplicationContext(), MainAppActivity.class);
             startActivity(chatActivity);
             finish();
-        } */
+        }
 
         setContentView(R.layout.activity_new_user_support);
 

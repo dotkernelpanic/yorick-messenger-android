@@ -60,11 +60,26 @@ public class ChatFragment extends Fragment {
     protected final int PERMISSION_REQUEST_CONNECT_DEVICE_INSECURE = 4;
 
 
+    public ChatFragment() {
+
+    }
+
+    public static ChatFragment newInstance(String address) {
+        ChatFragment chatFragment = new ChatFragment();
+
+        Bundle args = new Bundle();
+        args.putString("bluetooth_device_mac_address", address);
+        chatFragment.setArguments(args);
+
+        return chatFragment;
+    }
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
+        Toast.makeText(getActivity(), getArguments().getString("bluetooth_device_mac_address"), Toast.LENGTH_SHORT).show();
 
         if (mBluetoothAdapter == null) {
             Toast.makeText(getActivity(), "Bluetooth is not available", Toast.LENGTH_SHORT).show();
@@ -191,6 +206,8 @@ public class ChatFragment extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
+        //String address = this.getArguments().getString("bluetooth_device_mac_address");
+        //Toast.makeText(getActivity(), address, Toast.LENGTH_SHORT).show();
         try {
             if (!mBluetoothAdapter.isEnabled()) {
                 Intent enableBT = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
@@ -200,7 +217,9 @@ public class ChatFragment extends Fragment {
             } else if (chatService == null) {
                 setupChat();
                 Intent server = new Intent(getActivity(), ScanListActivity.class);
-                startActivityForResult(server, PERMISSION_REQUEST_CONNECT_DEVICE_SECURE);
+                //BluetoothDevice device = mBluetoothAdapter.getRemoteDevice(address);
+                //chatService.connect(device, true);
+                //startActivityForResult(server, PERMISSION_REQUEST_CONNECT_DEVICE_SECURE);
                 //startActivityForResult(server, PERMISSION_REQUEST_CONNECT_DEVICE_SECURE);
             }
         } catch (NullPointerException ex) {
@@ -213,6 +232,13 @@ public class ChatFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         inputField = view.findViewById(R.id.chatFieldInput);
         btnSend = view.findViewById(R.id.btnSend);
+
+        try {
+            String address = this.getArguments().getString("bluetooth_device_mac_address");
+            Toast.makeText(getActivity(), address, Toast.LENGTH_SHORT).show();
+        } catch (NullPointerException ex) {
+            Log.d("Y.Messenger-EXCEPTIONS", "We have caught an exception: " + ex.getMessage());
+        }
     }
 
     @Override
@@ -304,7 +330,7 @@ public class ChatFragment extends Fragment {
 
     private void connectToDevice(Intent data, boolean isSecure) {
         String deviceAddress = data.getExtras()
-                .getString(ScanDevicesFragment.EXTRA_DEVICE_ADDRESS);
+                .getString(ScanListActivity.EXTRA_DEVICE_ADDRESS);
         Toast.makeText(getActivity(), deviceAddress, Toast.LENGTH_LONG).show();
         BluetoothDevice device = mBluetoothAdapter.getRemoteDevice(deviceAddress);
         chatService.connect(device, isSecure);

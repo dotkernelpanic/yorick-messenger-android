@@ -1,8 +1,10 @@
 package com.kernelpanic.yorickmessenger_gitclone.activity.fragments;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
@@ -25,6 +27,8 @@ public class ReadyToScanFragment extends Fragment {
     protected ChatFragment          chatFragment;
     protected ScanDevicesFragment   scanDevicesFragment;
 
+    private final int PERMISSION_REQUEST_CONNECT_DEVICE_SECURE = 3;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,19 +48,34 @@ public class ReadyToScanFragment extends Fragment {
         launchScanDevicesFragmentButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                getActivity().getSupportFragmentManager().beginTransaction()
-                        .setCustomAnimations(R.anim.fragment_swipe_inleft, R.anim.fragment_swipe_outright)
-                        .replace(R.id.homeFragmentContainer, chatFragment, "chatFragment")
-                        .setReorderingAllowed(true)
-                        .commit();
 
                 Intent scanListActivityIntent = new Intent(getActivity(), ScanListActivity.class);
                 startActivity(scanListActivityIntent);
+                startActivityForResult(scanListActivityIntent, ScanListActivity.SCANLIST_CLOSED_REQUEST_CODE);
             }
         });
 
         //AppCompatButton testbtn = getActivity().findViewById(R.id.tstbtn);
 
         return view;
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (data == null) return;
+        if (requestCode == ScanListActivity.SCANLIST_CLOSED_REQUEST_CODE) {
+            switch (resultCode) {
+                case Activity.RESULT_OK:
+                    getActivity().getSupportFragmentManager().beginTransaction()
+                            .setCustomAnimations(R.anim.fragment_swipe_inleft, R.anim.fragment_swipe_outright)
+                            .replace(R.id.homeFragmentContainer, chatFragment, "chatFragment")
+                            .setReorderingAllowed(true)
+                            .commit();
+                    break;
+                default:
+                    break;
+            }
+        }
     }
 }
