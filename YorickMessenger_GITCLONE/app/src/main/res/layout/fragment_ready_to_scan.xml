@@ -20,7 +20,7 @@
             android:layout_marginBottom="10dp" />
         <TextView
             android:id="@+id/readyToScanTitle"
-            android:layout_width="300dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/fragment_readyToScan_title"
             android:textColor="@color/yellowColor"
@@ -28,7 +28,9 @@
             android:layout_centerVertical="true"
             android:layout_centerHorizontal="true"
             android:textAlignment="center"
-            android:textSize="20sp"/>
+            android:textSize="20sp"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"/>
 
         <TextView
             android:id="@+id/readyToScanDescription"
@@ -49,17 +51,6 @@
             android:background="@drawable/app_ui_gradient_sunnymorning"
             android:text="@string/fragment_scanButton_label"
             android:layout_below="@id/readyToScanDescription"
-            android:layout_marginTop="20dp"
-            android:layout_centerHorizontal="true"
-            android:textColor="@color/myBlack" />
-
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/tstbtn"
-            android:layout_width="200dp"
-            android:layout_height="wrap_content"
-            android:background="@drawable/app_ui_gradient_sunnymorning"
-            android:text="123yaskjdhkjh"
-            android:layout_below="@id/readyToScanButton"
             android:layout_marginTop="20dp"
             android:layout_centerHorizontal="true"
             android:textColor="@color/myBlack" />

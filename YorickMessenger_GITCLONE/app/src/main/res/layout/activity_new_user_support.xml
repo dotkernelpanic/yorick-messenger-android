@@ -1,101 +1,126 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activity.NewUserSupportActivity"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/myBlack">
 
-    <View
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <!-- TODO: Add string to strings.xml -->
-    <TextView
-        android:id="@+id/whyYorickMsngr"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="80dp"
-        android:fontFamily="@font/ubuntu_medium"
-        android:text="Why YorickMessenger?"
-        android:textColor="@color/yellowColor"
-        android:textSize="30sp"
-        android:layout_centerHorizontal="true"/>
-
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="600dp"
-        android:orientation="vertical"
+        android:id="@+id/titleContainer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true">
+        android:layout_marginTop="80dp">
 
-        <androidx.viewpager2.widget.ViewPager2
-            android:id="@+id/viewpager"
-            android:layout_width="match_parent"
-            android:layout_height="500dp" />
-
-        <com.google.android.material.tabs.TabLayout
-            android:id="@+id/tabIndicator"
-            android:layout_width="match_parent"
+        <TextView
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@color/myBlack"
-            style="@style/tabLayoutItemAppearance"
-            app:tabIndicator="@drawable/tab_indicator_default">
-
-            <com.google.android.material.tabs.TabItem
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="1" />
-
-            <com.google.android.material.tabs.TabItem
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="2" />
-
-            <com.google.android.material.tabs.TabItem
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="3" />
-        </com.google.android.material.tabs.TabLayout>
+            android:text="@string/app_newUserSupport_title"
+            android:textColor="@color/yellowColor"
+            android:textSize="25sp"
+            android:fontFamily="@font/montserrat_bold"/>
 
     </LinearLayout>
 
-    <!-- TODO: Add the 'NEXT' string to strings.xml -->
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/buttonNext"
-        style="@style/Widget.AppCompat.Button"
-        android:layout_width="150dp"
-        android:layout_height="wrap_content"
+    <LinearLayout
+        android:layout_below="@id/titleContainer"
         android:layout_marginTop="50dp"
-        android:background="@drawable/app_ui_gradient_sunnymorning"
-        android:textColor="@color/myBlack"
-        android:textSize="18sp"
-        android:fontFamily="@font/montserrat"
-        android:backgroundTint="@null"
-        android:text="@string/app_newUserSupport_buttonNext"
-        android:layout_alignParentBottom="true"
+        android:id="@+id/fragments"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <androidx.viewpager2.widget.ViewPager2
+            android:id="@+id/viewpager"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+    </LinearLayout>
+
+    <com.google.android.material.tabs.TabLayout
+        android:layout_below="@id/fragments"
+        android:id="@+id/tabIndicator"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:background="@color/myBlack"
+        style="@style/tabLayoutItemAppearance"
+        android:layout_centerInParent="true"
+        app:tabIndicator="@drawable/tab_indicator_default">
+
+        <com.google.android.material.tabs.TabItem
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="1" />
+
+        <com.google.android.material.tabs.TabItem
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="2" />
+
+        <com.google.android.material.tabs.TabItem
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="3" />
+    </com.google.android.material.tabs.TabLayout>
+
+    <LinearLayout
+        android:id="@+id/continueAsContainer"
+        android:layout_below="@id/tabIndicator"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
         android:layout_centerHorizontal="true"
-        android:layout_marginVertical="80dp"/>
+        android:layout_margin="30dp">
+
+        <TextView
+            android:id="@+id/continueAs"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Продовжити українською"
+            android:textColor="@color/blue_indirectResort"
+            android:textSize="18sp"
+            android:fontFamily="@font/ubuntu"
+            android:clickable="true"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/buttonsContainer"
+        android:layout_below="@id/continueAsContainer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_centerHorizontal="true">
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/buttonNext"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:text="@string/app_newUserSupport_buttonNext"
+            android:textColor="@color/myBlack"
+            android:layout_marginEnd="5dp"
+            android:background="@drawable/app_ui_gradient_sunnymorning" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/buttonSkip"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:text="@string/app_newUserSupport_buttonSkip"
+            android:textColor="@color/myBlack"
+            android:background="@drawable/app_ui_gradient_sunnymorning" />
+
+    </LinearLayout>
 
     <androidx.appcompat.widget.AppCompatButton
+        android:visibility="gone"
+        android:textColor="@color/myBlack"
         android:id="@+id/buttonGetStarted"
-        android:visibility="invisible"
-        style="@style/Widget.AppCompat.Button"
-        android:layout_width="250dp"
-        android:layout_height="wrap_content"
         android:layout_marginTop="50dp"
-        android:background="@drawable/app_ui_gradient_sunnymorning"
-        android:textColor="@color/myBlack"
-        android:textSize="18sp"
-        android:fontFamily="@font/montserrat"
-        android:backgroundTint="@null"
+        android:layout_below="@id/buttonsContainer"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
         android:text="@string/app_newUserSupport_buttonGetStarted"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginVertical="80dp"/>
-
+        android:background="@drawable/app_ui_gradient_sunnymorning"
+        android:layout_centerInParent="true"/>
 
 </RelativeLayout>

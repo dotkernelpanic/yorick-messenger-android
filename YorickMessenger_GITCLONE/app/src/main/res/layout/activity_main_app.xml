@@ -1,87 +1,58 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".activity.MainAppActivity"
     android:background="@color/myBlack"
-    android:fitsSystemWindows="true">
-    
-    <RelativeLayout
+    tools:openDrawer="start">
+
+
+    <androidx.drawerlayout.widget.DrawerLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:fitsSystemWindows="true">
-        
-        <com.google.android.material.appbar.AppBarLayout
-            android:id="@+id/appBar"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:outlineSpotShadowColor="@color/myBlack"
-            android:background="@color/blue_indirectResort">
-            
-            <RelativeLayout
+        android:background="@color/myBlack"
+        android:id="@+id/drawerLayout"
+        tools:openDrawer="start">
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/appBar"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_margin="10dp"
-                android:orientation="horizontal">
+                app:title="@string/app_name"
+                app:subtitle="@string/app_mainActivity_notConnected"
+                android:background="@color/blue_indirectResort"
+                android:padding="15dp"
+                app:titleTextAppearance="@style/appBarTitleTextAppearance"
+                app:subtitleTextAppearance="@style/appBarSubTitleTextAppearance"
+                app:menu="@menu/drawer_menu" />
 
+            <androidx.fragment.app.FragmentContainerView
+                android:id="@+id/fragmentContainer"
+                android:layout_marginTop="10dp"
+                android:layout_below="@id/appBar"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
 
-                <ImageView
-                    android:id="@+id/menuFragmentButton"
-                    android:layout_width="25dp"
-                    android:layout_height="25dp"
-                    android:src="@drawable/ic_menu_arrow"
-                    android:layout_alignParentStart="true"
-                    android:layout_centerVertical="true"
-                    android:clickable="true"
-                    android:layout_marginStart="5dp"/>
+        </RelativeLayout>
 
-                <LinearLayout
-                    android:layout_toEndOf="@id/menuFragmentButton"
-                    android:layout_marginStart="15dp"
-                    android:layout_marginTop="5dp"
-                    android:layout_marginBottom="5dp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical">
+        <com.google.android.material.navigation.NavigationView
+            android:id="@+id/navigationView"
+            android:layout_width="300dp"
+            android:layout_height="match_parent"
+            android:background="@drawable/nav_background"
+            app:menu="@menu/drawer_menu"
+            app:headerLayout="@layout/yorickmessenger_nav_header"
+            app:itemTextAppearance="@style/navItemTextAppearance"
+            android:fitsSystemWindows="true"
+            android:layout_gravity="start"/>
 
-                    <TextView
-                        android:id="@+id/appBarTitle"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="5dp"
-                        android:text="@string/app_name"
-                        android:layout_toEndOf="@id/menuFragmentButton"
-                        android:layout_centerVertical="true"
-                        android:textColor="@color/yellowColor"
-                        android:fontFamily="@font/montserrat_bold"
-                        android:textSize="22sp" />
+    </androidx.drawerlayout.widget.DrawerLayout>
 
-                    <TextView
-                        android:id="@+id/statusLabel"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/app_mainActivity_notConnected"
-                        android:textColor="@color/white"
-                        android:fontFamily="@font/ubuntu"
-                        android:textSize="12sp" />
-                </LinearLayout>
-
-
-            </RelativeLayout>
-        </com.google.android.material.appbar.AppBarLayout>
-
-        <androidx.fragment.app.FragmentContainerView
-            android:id="@+id/fragmentContainer"
-            android:layout_below="@id/appBar"
-            android:layout_marginTop="10dp"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
-
-    </RelativeLayout>
-
-
-</RelativeLayout>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

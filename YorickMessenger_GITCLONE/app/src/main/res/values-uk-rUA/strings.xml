@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Yorick Messenger</string>
+    <string name="fragment_noWifi_title">Wi-Fi не потрібен</string>
+    <string name="fragment_noWifi_description">Для спілкування з іншими людьми вам треба мати лише Bluetooth</string>
+    <string name="fragment_easyToUse_title">Легкий до використання</string>
+    <string name="fragment_easyToUse_description">Запусти додаток та спілкуйся</string>
+    <string name="fragment_privacy_title">Конфідеційність</string>
+    <string name="fragment_privacy_description">Ваша приватність під нашою охороною</string>
+    <string name="app_newUserSupport_title">Чому Yorick Messenger?</string>
+    <string name="app_newUserSupport_buttonNext">ДАЛІ</string>
+    <string name="app_newUserSupport_buttonGetStarted">РОЗПОЧАТИ</string>
+    <string name="app_mainActivity_notConnected">Не з\'єднано</string>
+    <string name="app_mainActivity_connected">З\'єднано з <b>%1$s</b></string>
+    <string name="app_mainActivity_connecting">З\'єднання</string>
+    <string name="app_mainActivity_editText_startTyping">Почни писати....</string>
+    <string name="app_mainActivity_appbar_open">Відкрити</string>
+    <string name="app_mainActivity_appbar_close">Закрити</string>
+    <string name="fragment_readyToScan_title">Давай знайдемо пару нових друзів, з якими можна поспілкуватися 😉</string>
+    <string name="fragment_readyToScan_description">Тапні по кнопці сканування або обери цей пунт у боковому меню</string>
+    <string name="fragment_scanButton_label">СКАНУВАТИ</string>
+    <string name="app_navigation_action_scan">Сканувати</string>
+    <string name="app_navigation_action_home">Головна</string>
+    <string name="action_settings">Налаштування</string>
+    <string name="mainmenu_scanNewDevicesItem">Сканувати</string>
+    <string name="menu_home">Головна</string>
+    <string name="app_misc_authorNAME">Автор: Ярослав Євдокімов</string>
+    <string name="app_newUserSupport_continueAsUkr">Продовжити українською</string>
+    <string name="app_bluetoothservice_unableToConnect">Ми не можемо з\'єднатися з цим пристроєм</string>
+    <string name="app_bluetoothservice_connectionLost">Ми втратили зв\'язок</string>
+    <string name="app_newUserSupport_buttonSkip">ПРОПУСТИТИ</string>
+    <string name="scanlist_searching_title">Пошук...</string>
+    <string name="scanlist_scanButton_title">Зупинити пошук</string>
+</resources>

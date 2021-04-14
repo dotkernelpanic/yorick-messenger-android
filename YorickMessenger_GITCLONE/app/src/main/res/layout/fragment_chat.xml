@@ -58,7 +58,8 @@
              android:autoSizeMinTextSize="9sp"
              android:autoSizeMaxTextSize="100sp"
              android:maxHeight="150dp"
-             android:fontFamily="@font/ubuntu" />
+             android:fontFamily="@font/ubuntu"
+             android:capitalize="sentences"/>
 
          <FrameLayout
              android:id="@+id/sendMsgButtonContainer"
@@ -83,6 +84,7 @@
    </RelativeLayout>
    
    <ListView
+       android:stackFromBottom="true"
        android:id="@+id/messagesContainer"
        android:layout_width="match_parent"
        android:layout_height="wrap_content"

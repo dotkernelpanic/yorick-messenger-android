@@ -1,12 +1,19 @@
 <resources>
-    <string name="app_name">Yorick Messenger</string>
-    <string name="app_misc_authorTG">t.me/kerne1_pan1c</string>
+    <string name="app_name" translatable="false">Yorick Messenger</string>
+    <string name="app_misc_authorTG" translatable="false">t.me/kerne1_pan1c</string>
     <string name="app_misc_authorNAME">Developed by Yaroslav Yevdokimov</string>
+    <string name="app_bluetoothservice_unableToConnect">We are unable to connect to a remote bluetooth device</string>
+    <string name="app_bluetoothservice_connectionLost">We have lost the connection</string>
     <!-- TODO: Remove or change this placeholder text -->
 
     <!-- New Users Support Activity strings -->
     <string name="fragment_noWifi_title">No Wi-Fi Needed</string>
     <string name="fragment_noWifi_description">You need <b>only Bluetooth</b> to speak with another people</string>
+
+    <!-- ScanList Activity-->
+    <string name="scanlist_searching_title">Searching...</string>
+    <string name="scanlist_stopScanButton_title">Stop Scan</string>
+    <string name="scanlist_paired_label">Paired Devices</string>
 
     <string name="fragment_easyToUse_title">Easy to Use</string>
     <string name="fragment_easyToUse_description">Just launch application and start talking</string>
@@ -14,36 +21,43 @@
     <string name="fragment_privacy_title">Privacy</string>
     <string name="fragment_privacy_description">Your privacy is under our <b>protection</b>. There is no way
     to steal conversations</string>
+    <string name="app_newUserSupport_continueAsEnglish" translatable="false">Continue as English</string>
 
     <string name="app_newUserSupport_title">Why Yorick Messenger?</string>
     <string name="app_newUserSupport_buttonNext">NEXT</string>
     <string name="app_newUserSupport_buttonGetStarted">GET STARTED</string>
+    <string name="app_newUserSupport_buttonSkip">SKIP</string>
 
     <!-- Main Activity UI strings -->
     <string name="app_mainActivity_notConnected">NOT CONNECTED</string>
     <string name="app_mainActivity_connected">CONNECTED TO <b>%1$s</b></string>
     <string name="app_mainActivity_connecting">CONNECTING</string>
     <string name="app_mainActivity_editText_startTyping">Enter your text here…</string>
+    <string name="app_mainActivity_appbar_open">Open</string>
+    <string name="app_mainActivity_appbar_close">Close</string>
 
     <!-- Ready to scan fragment strings -->
     <string name="fragment_readyToScan_title">Lets find some new friends to speak with 😉</string>
     <string name="fragment_readyToScan_description">Tap this button or slide out the app menu</string>
     <string name="fragment_scanButton_label">SCAN DEVICES</string>
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="title_activity_nav_menu">NavMenuActivity</string>
-    <string name="navigation_drawer_open">Open navigation drawer</string>
-    <string name="navigation_drawer_close">Close navigation drawer</string>
-    <string name="nav_header_title">Android Studio</string>
-    <string name="nav_header_subtitle">android.studio@android.com</string>
-    <string name="nav_header_desc">Navigation header</string>
+    <string name="hello_blank_fragment" translatable="false">Hello blank fragment</string>
+    <string name="title_activity_nav_menu" translatable="false">NavMenuActivity</string>
+    <string name="navigation_drawer_open" translatable="false">Open navigation drawer</string>
+    <string name="navigation_drawer_close" translatable="false">Close navigation drawer</string>
+    <string name="nav_header_title" translatable="false">Android Studio</string>
+    <string name="nav_header_subtitle" translatable="false">android.studio@android.com</string>
+    <string name="nav_header_desc" translatable="false">Navigation header</string>
+    <string name="app_navigation_action_scan">Scan Devices</string>
+    <string name="app_navigation_action_home">Go Home</string>
+    <string name="app_navigation_header_tglink" translatable="false">t.me/kerne1_pan1c</string>
     <string name="action_settings">Settings</string>
     <string name="mainmenu_scanNewDevicesItem">Scan Devices</string>
 
     <string name="menu_home">Home</string>
-    <string name="menu_gallery">Gallery</string>
-    <string name="menu_slideshow">Slideshow</string>
+    <string name="menu_gallery" translatable="false">Gallery</string>
+    <string name="menu_slideshow" translatable="false">Slideshow</string>
 
-    <string name="util_bluetoothDeviceNoName">noname</string>
+    <string name="util_bluetoothDeviceNoName" translatable="false">noname</string>
 
 </resources>

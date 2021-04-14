@@ -11,7 +11,9 @@
         android:layout_width="25dp"
         android:layout_height="25dp"
         android:layout_margin="5dp"
-        android:src="@drawable/ic_kite" />
+        android:src="@drawable/ic_selector"
+
+        android:layout_centerVertical="true"/>
 
     <LinearLayout
         android:layout_width="wrap_content"
@@ -26,7 +28,9 @@
             android:layout_height="wrap_content"
             android:text="@string/util_bluetoothDeviceNoName"
             android:textColor="@color/white"
-            android:fontFamily="@font/ubuntu_medium"/>
+            android:fontFamily="@font/ubuntu_medium"
+            android:textSize="18sp"
+            android:layout_marginBottom="5dp"/>
 
         <TextView
             android:id="@+id/deviceAddressListViewLabel"
@@ -34,7 +38,8 @@
             android:layout_height="wrap_content"
             android:text="device address placeholder"
             android:textColor="#979797"
-            android:fontFamily="@font/ubuntu" />
+            android:fontFamily="@font/ubuntu"
+            android:textSize="16sp"/>
 
     </LinearLayout>
 
