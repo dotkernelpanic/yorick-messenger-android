@@ -1,26 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="wrap_content"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/myBlack"
     android:orientation="vertical"
-    android:layout_gravity="start">
+    android:layout_gravity="end">
 
     <LinearLayout
+        android:id="@+id/fileContainer"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="start"
+        android:layout_gravity="end"
         android:orientation="vertical"
-        android:layout_marginStart="10dp">
+        android:layout_marginEnd="10dp"
+        android:clickable="true">
 
         <TextView
             android:id="@+id/usernameLabel"
-            android:layout_gravity="start"
+            android:layout_gravity="end"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@color/yellowColor"
-            android:textSize="14sp"
+            android:textSize="12sp"
             android:fontFamily="@font/montserrat"
             android:text="username received placeholder" />
 
@@ -33,16 +35,17 @@
             android:padding="10dp"
             android:textColor="@color/white"
             android:fontFamily="@font/ubuntu"
-            android:textSize="14sp" />
+            android:textSize="14sp"
+            android:layout_gravity="end"/>
 
         <TextView
             android:id="@+id/timestampLabel"
-            android:layout_gravity="start"
+            android:layout_gravity="end"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="11:00 AM"
             android:textColor="@color/white"
-            android:textSize="12sp"
+            android:textSize="9sp"
             android:fontFamily="@font/montserrat"/>
     </LinearLayout>
 </LinearLayout>

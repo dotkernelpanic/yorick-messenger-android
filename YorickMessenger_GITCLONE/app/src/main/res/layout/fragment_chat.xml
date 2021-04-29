@@ -33,7 +33,7 @@
              android:clickable="true"
              android:focusable="false">
 
-            <ImageView
+            <ImageButton
                 android:id="@+id/btnAttach"
                 android:layout_width="20dp"
                 android:layout_height="20dp"
@@ -83,7 +83,7 @@
       
    </RelativeLayout>
    
-   <ListView
+   <androidx.recyclerview.widget.RecyclerView
        android:stackFromBottom="true"
        android:id="@+id/messagesContainer"
        android:layout_width="match_parent"

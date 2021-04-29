@@ -1,48 +1,44 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="wrap_content"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/myBlack"
-    android:orientation="vertical"
-    android:layout_gravity="start">
+    android:orientation="vertical">
 
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="start"
         android:orientation="vertical"
         android:layout_marginStart="10dp">
 
         <TextView
             android:id="@+id/usernameLabel"
-            android:layout_gravity="start"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@color/yellowColor"
-            android:textSize="14sp"
+            android:textSize="12sp"
             android:fontFamily="@font/montserrat"
-            android:text="username received placeholder" />
+            android:text="username sent placeholder" />
 
         <TextView
             android:id="@+id/messageLabel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@drawable/rounded_received_message_color"
+            android:background="@drawable/rounded_sent_message_color"
             android:text="message content placeholder"
             android:padding="10dp"
             android:textColor="@color/white"
             android:fontFamily="@font/ubuntu"
-            android:textSize="14sp" />
+            android:textSize="16sp" />
 
         <TextView
             android:id="@+id/timestampLabel"
-            android:layout_gravity="start"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="11:00 AM"
             android:textColor="@color/white"
-            android:textSize="12sp"
+            android:textSize="9sp"
             android:fontFamily="@font/montserrat"/>
     </LinearLayout>
 </LinearLayout>

@@ -1,5 +1,6 @@
 package com.kernelpanic.yorickmessenger.activity.fragments;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -12,6 +13,7 @@ import androidx.appcompat.widget.AppCompatButton;
 import androidx.fragment.app.FragmentManager;
 
 import com.kernelpanic.yorickmessenger.R;
+import com.kernelpanic.yorickmessenger.activity.TestActivity;
 
 public class ReadyToScanFragment extends Fragment {
 

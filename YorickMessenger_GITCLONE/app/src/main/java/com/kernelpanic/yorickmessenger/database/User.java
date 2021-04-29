@@ -3,13 +3,13 @@ package com.kernelpanic.yorickmessenger.database;
 public class User {
     public int id;
     public String name;
-    public String surname;
     public String fullname;
 
     public User(String fullname) {
         this.fullname = fullname;
     }
 
+    //Empty constructor
     public User() {
     }
 
@@ -25,7 +25,4 @@ public class User {
         return fullname;
     }
 
-    public void setFullname(String fullname) {
-        this.fullname = fullname;
-    }
 }

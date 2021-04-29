@@ -1,85 +1,161 @@
 package com.kernelpanic.yorickmessenger.activity.fragments;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
+import android.app.ProgressDialog;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
+import android.content.ActivityNotFoundException;
+import android.content.ContentResolver;
+import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.nfc.Tag;
+import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.net.Uri;
+import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.app.NotificationCompat;
-import androidx.core.app.TaskStackBuilder;
+import androidx.core.content.FileProvider;
 import androidx.fragment.app.Fragment;
 
+import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
+
+import android.provider.DocumentsContract;
+import android.provider.MediaStore;
+import android.provider.OpenableColumns;
+import android.provider.Settings;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
-import android.widget.ArrayAdapter;
+import android.webkit.MimeTypeMap;
 import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 import androidx.appcompat.widget.Toolbar;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.material.navigation.NavigationView;
+import com.google.android.material.snackbar.Snackbar;
 import com.kernelpanic.yorickmessenger.R;
-import com.kernelpanic.yorickmessenger.activity.ScanListActivity;
 import com.kernelpanic.yorickmessenger.activity.MainAppActivity;
+import com.kernelpanic.yorickmessenger.activity.ScanListActivity;
+import com.kernelpanic.yorickmessenger.adapters.ChatRecyclerAdapter;
+import com.kernelpanic.yorickmessenger.database.ChatMessage;
+import com.kernelpanic.yorickmessenger.database.SQLiteDbHelper;
 import com.kernelpanic.yorickmessenger.service.BluetoothChatService;
-import com.kernelpanic.yorickmessenger.service.BluetoothChatServiceClass;
 import com.kernelpanic.yorickmessenger.util.Constants;
+import com.kernelpanic.yorickmessenger.util.FileWizard;
+import com.kernelpanic.yorickmessenger.util.RealPathHelper;
+import com.kernelpanic.yorickmessenger.util.Tools;
+
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.util.ArrayList;
+import java.util.List;
+
+import static androidx.core.app.NotificationCompat.CATEGORY_MESSAGE;
+import static androidx.core.app.NotificationCompat.PRIORITY_HIGH;
 
 public class ChatFragment extends Fragment {
 
-    private     TextView                    status;
-    private     BluetoothAdapter            mBluetoothAdapter   = null;
-    private     BluetoothChatService        chatService = null;
-    private     ArrayAdapter<String>        conversationsListArrayAdapter;
-    private     EditText                    inputField;
-    private     ImageButton                 btnSend;
-    private     ScanDevicesFragment         scanDevicesFragment;
-    private     Toolbar                     toolbar;
-    private     ListView                    chatView;
+
+
+    private     String                      sentUsername = null;
+    private     String                      receivedUsername = null;
+    private     String                      databaseUsername;
 
     private     StringBuffer                outStringBuffer;
     private     String                      connectedDeviceBluetoothName = null;
-    private     SharedPreferences           statusPrefs;
-    private     String                      globalDeviceAddress = "";
+    private     String                      connectedDeviceBluetoothAddress = "";
+    private     SQLiteDbHelper              dbHelper;
+    private     NotificationManager         notificationManager;
+
+    private     ArrayList<com.kernelpanic.yorickmessenger.util.Message> messageList;
 
     private final String                    TAG = "Y.Messenger-Logs";
 
-    protected final int PERMISSION_REQUEST_LOCATION_ID = 1;
-    protected final int PERMISSION_REQUEST_ENABLE_BLUETOOTH = 2;
-    protected final int PERMISSION_REQUEST_CONNECT_DEVICE_SECURE = 3;
-    protected final int PERMISSION_REQUEST_CONNECT_DEVICE_INSECURE = 4;
+    private final int                       NOTIFY_ID = 1;
+    private final String                    CHANNEL_ID = "YorickMessenger_Notify_Channel";
+
+    private boolean isOnConnectExchangeDone = false;
+    private boolean isImageWrite = false;
 
 
     private Handler handler = new Handler() {
         @Override
-        public void handleMessage(@NonNull Message msg) {
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
             switch (msg.what) {
                 case Constants.MESSAGE_STATE_CHANGE:
                     switch (msg.arg1) {
                         case BluetoothChatService.STATE_CONNECTED:
                             try {
-                                Toast.makeText(getActivity(), "Connected", Toast.LENGTH_LONG).show();
-                                conversationsListArrayAdapter.clear();
+                                btnAttach.setEnabled(false);
+                                btnSend.setEnabled(false);
+                                inputField.setEnabled(false);
+                                Snackbar.make(getView(), "Wait until we done with transferring the user data", Snackbar.LENGTH_SHORT).show();
                                 toolbar = getActivity().findViewById(R.id.appBar);
-                                toolbar.setSubtitle(getString(R.string.app_mainActivity_connected));
+                                toolbar.setSubtitle(getString(R.string.app_mainActivity_connected, connectedDeviceBluetoothName));
+                                onConnectDataExchange();
+                                handler.postDelayed(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        isOnConnectExchangeDone = true;
+                                        btnSend.setEnabled(true);
+                                        btnAttach.setEnabled(true);
+                                        inputField.setEnabled(true);
+                                        Snackbar.make(getView(), "Done", Snackbar.LENGTH_SHORT).show();
+                                        Toast.makeText(getActivity(), "globalDeviceAddress: " + connectedDeviceBluetoothAddress, Toast.LENGTH_SHORT).show();
+                                        List<ChatMessage> chatList = dbHelper.querySelect(connectedDeviceBluetoothAddress);
+                                        for (ChatMessage chatMessage : chatList)
+                                            messageList.add(new com.kernelpanic.yorickmessenger.util.Message(chatMessage.getContent(), chatMessage.getCurrentTime(),
+                                                                                chatMessage.getType(), chatMessage.getUsername(), false));
+                                        chatListArrayAdapter.notifyDataSetChanged();
+                                        chatView.smoothScrollToPosition(messageList.size());
+                                    }
+                                }, 1500);
                             } catch (IllegalStateException ex) {
                                 Log.d(TAG, ex.getMessage());
                             }
+                            notificationManager = (NotificationManager) getActivity()
+                                    .getApplicationContext()
+                                    .getSystemService(Context.NOTIFICATION_SERVICE);
+                            Intent intent = new Intent(getActivity().getApplicationContext(), MainAppActivity.class);
+                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                            PendingIntent pendingIntent = PendingIntent.getActivity(getActivity().getApplicationContext(), 0, intent,
+                                    PendingIntent.FLAG_UPDATE_CURRENT);
+                            NotificationCompat.Builder notificationBuilder =
+                                    new NotificationCompat.Builder(getActivity().getApplicationContext(), CHANNEL_ID)
+                                    .setAutoCancel(false)
+                                    .setWhen(System.currentTimeMillis())
+                                    .setSmallIcon(R.drawable.ic_bluetooth_scan)
+                                    .setContentIntent(pendingIntent)
+                                    .setContentTitle(getString(R.string.app_name))
+                                    .setContentText(getString(R.string.app_mainActivity_connected, connectedDeviceBluetoothName))
+                                    .setPriority(PRIORITY_HIGH)
+                                    .setCategory(CATEGORY_MESSAGE)
+                                    .setOnlyAlertOnce(true);
+                            createChannel(notificationManager);
+                            notificationManager.notify(NOTIFY_ID, notificationBuilder.build());
                             break;
                         case BluetoothChatService.STATE_CONNECTING:
                             Toast.makeText(getActivity(), "Connecting", Toast.LENGTH_LONG).show();
@@ -91,60 +167,131 @@ public class ChatFragment extends Fragment {
                             Toast.makeText(getActivity(), "Not connected", Toast.LENGTH_LONG).show();
                             toolbar = getActivity().findViewById(R.id.appBar);
                             toolbar.setSubtitle(getString(R.string.app_mainActivity_notConnected));
+                            notificationManager = (NotificationManager) getActivity()
+                                    .getApplicationContext()
+                                    .getSystemService(Context.NOTIFICATION_SERVICE);
+                            intent = new Intent(getActivity().getApplicationContext(), MainAppActivity.class);
+                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                            pendingIntent = PendingIntent.getActivity(getActivity().getApplicationContext(), 0, intent,
+                                    PendingIntent.FLAG_UPDATE_CURRENT);
+                            Intent scanListIntent = new Intent(getActivity().getApplicationContext(), ScanListActivity.class);
+                            PendingIntent pendingScanListIntent = PendingIntent.getActivity(getActivity().getApplicationContext(), 0,
+                                    scanListIntent, PendingIntent.FLAG_ONE_SHOT);
+                            notificationBuilder =
+                                    new NotificationCompat.Builder(getActivity().getApplicationContext(), CHANNEL_ID)
+                                            .setAutoCancel(false)
+                                            .setWhen(System.currentTimeMillis())
+                                            .setContentIntent(pendingIntent)
+                                            .setSmallIcon(R.drawable.ic_bluetooth_scan)
+                                            .setContentTitle(getString(R.string.app_name))
+                                            .setContentText("Ready to connect")
+                                            .setPriority(PRIORITY_HIGH)
+                                            .setCategory(CATEGORY_MESSAGE)
+                                            .setOnlyAlertOnce(true)
+                                            .addAction(R.drawable.ic_bluetooth_scan, "SCAN", pendingScanListIntent);
+                            createChannel(notificationManager);
+                            notificationManager.notify(NOTIFY_ID, notificationBuilder.build());
                             break;
                     }
                     break;
-                case Constants.MESSAGE_WRITE:
-                    byte[] writeBuffer = (byte[]) msg.obj;
-                    String writeMessage = new String(writeBuffer);
-                    conversationsListArrayAdapter.add("You: " + writeMessage);
-                    break;
                 case Constants.MESSAGE_READ:
-                    byte[] readBuffer = (byte[]) msg.obj;
-                    String readMessage = new String(readBuffer, 0, msg.arg1);
-                    conversationsListArrayAdapter.add(connectedDeviceBluetoothName + ": " + readMessage);
-
-                    NotificationCompat.Builder notificationBuilder =
-                            new NotificationCompat.Builder(getActivity())
-                                    .setAutoCancel(true)
-                                    .setContentTitle(connectedDeviceBluetoothName)
-                                    .setContentText(readMessage);
-
-                    try {
-                        Intent resultIntent = new Intent(getActivity(), MainAppActivity.class);
-                        resultIntent.putExtra("chatFragment", "bluetoothChatFragment");
-                        resultIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                        resultIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
-
-                        TaskStackBuilder stackBuilder = TaskStackBuilder.create(getActivity());
-                        stackBuilder.addParentStack(MainAppActivity.class);
-                        stackBuilder.addNextIntent(resultIntent);
-
-                        int requestID = (int) System.currentTimeMillis();
-
-                        PendingIntent resultPendingIntent = PendingIntent.getActivity(getActivity(), requestID, resultIntent, 0);
-                        notificationBuilder.setContentIntent(resultPendingIntent);
-                        NotificationManager notificationManager = (NotificationManager) getActivity().getSystemService(Context.NOTIFICATION_SERVICE);
-                        int id = 0;
-                        //notificationManager.notify(id + 1, notificationBuilder.build());
-                    } catch (NullPointerException ex) {
-                        Log.d("Y.Messenger.handler()", ex.getMessage());
+                    Toast.makeText(getActivity(), "default read", Toast.LENGTH_SHORT).show();
+                    String readMessage = (String) msg.obj;
+                    if (isOnConnectExchangeDone) {
+                        Long currentTimeR = System.currentTimeMillis();
+                        messageList.add(new com.kernelpanic.yorickmessenger.util.Message(readMessage,
+                                currentTimeR, Constants.MESSAGE_TYPE_RECEIVED, receivedUsername, false));
+                        chatListArrayAdapter.notifyDataSetChanged();
+                        chatView.smoothScrollToPosition(messageList.size());
+                        Toast.makeText(getActivity(), receivedUsername + " received user", Toast.LENGTH_SHORT).show();
+                        dbHelper.addMessageRecord(new ChatMessage(connectedDeviceBluetoothAddress, Constants.MESSAGE_TYPE_RECEIVED, readMessage,
+                                receivedUsername, currentTimeR));
+                        break;
+                    } else {
+                        receivedUsername = (String) msg.obj;
+                        break;
                     }
+                    // dbHeelper.addMess(device_id, sent/received, devicename, messgae);
+                case Constants.MESSAGE_WRITE:
+                    Toast.makeText(getActivity(), "default write", Toast.LENGTH_SHORT).show();
+                    Long currentTimeMillisW = System.currentTimeMillis();
+                    String writeMessage = (String) msg.obj;
+                    if (isOnConnectExchangeDone) {
+                            Toast.makeText(getActivity(), sentUsername + " sent user", Toast.LENGTH_SHORT).show();
+                            Long currentTime = System.currentTimeMillis();
+                            messageList.add(new com.kernelpanic.yorickmessenger.util.Message(writeMessage,
+                                    currentTimeMillisW, Constants.MESSAGE_TYPE_SENT, sentUsername, false));
+                            chatListArrayAdapter.notifyDataSetChanged();
+                            chatView.smoothScrollToPosition(messageList.size());
+                            dbHelper.addMessageRecord(new ChatMessage(connectedDeviceBluetoothAddress, Constants.MESSAGE_TYPE_SENT, writeMessage,
+                                    sentUsername, currentTime));
+                            break;
+                    } else {
+                        sentUsername = (String) msg.obj;
+                        break;
+                    }
+                case Constants.MESSAGE_READ_FILE_NOW:
+                    //Snackbar.make(getView(), (String) msg.obj, Snackbar.LENGTH_SHORT).show();
                     break;
+                case Constants.MESSAGE_READ_FILE:
+                    Toast.makeText(getActivity(), "file read", Toast.LENGTH_SHORT).show();
+                    Long currentTime = System.currentTimeMillis();
+                    messageList.add(new com.kernelpanic.yorickmessenger.util.Message(msg.obj + "",
+                            currentTime, Constants.MESSAGE_TYPE_FILE_RECEIVED,
+                            receivedUsername, true));
+                    chatListArrayAdapter.notifyDataSetChanged();
+                    chatView.smoothScrollToPosition(messageList.size());
+                    break;
+                case Constants.MESSAGE_WRITE_FILE:
+                    Toast.makeText(getActivity(), "file write", Toast.LENGTH_SHORT).show();
+                    currentTime = System.currentTimeMillis();
+                    messageList.add(new com.kernelpanic.yorickmessenger.util.Message(
+                            msg.obj + "", currentTime,
+                            Constants.MESSAGE_TYPE_FILE_SENT,
+                            sentUsername, true));
+                    chatListArrayAdapter.notifyDataSetChanged();
+                    chatView.smoothScrollToPosition(messageList.size());
                 case Constants.MESSAGE_DEVICE_NAME:
-                        connectedDeviceBluetoothName = msg.getData().getString(Constants.DEVICE_NAME);
+                    connectedDeviceBluetoothName = msg.getData().getString(Constants.DEVICE_NAME);
                     if (null != getActivity()) {
                         Toast.makeText(getActivity(), "Connected to: " + connectedDeviceBluetoothName, Toast.LENGTH_SHORT).show();
                     }
+                    break;
+                case Constants.MESSAGE_DEVICE_ADDRESS:
+                    connectedDeviceBluetoothAddress = msg.getData().getString(Constants.DEVICE_ADDRESS);
                     break;
                 case Constants.MESSAGE_TOAST:
                     if (null != getActivity()) {
                         Toast.makeText(getActivity(), msg.getData().getString(Constants.TOAST), Toast.LENGTH_SHORT).show();
                     }
                     break;
+                }
             }
-        }
     };
+
+    private     BluetoothAdapter            mBluetoothAdapter   = null;
+    private     BluetoothChatService        chatService = null;
+    private     ChatRecyclerAdapter         chatListArrayAdapter;
+    private     EditText                    inputField;
+    private     ImageButton                 btnSend;
+    private     ImageButton                 btnAttach;
+    private     Toolbar                     toolbar;
+    private     RecyclerView                chatView;
+
+    private final int                       FILE_SELECT_CODE = 1;
+    private final String                    FILE_BROWSER_CACHE_DIR = "YorickCache";
+
+    protected final int PERMISSION_REQUEST_ENABLE_BLUETOOTH = 2;
+    protected final int PERMISSION_REQUEST_CONNECT_DEVICE_SECURE = 3;
+    protected final int PERMISSION_REQUEST_CONNECT_DEVICE_INSECURE = 4;
+
+
+    private void createChannel(NotificationManager manager) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            NotificationChannel notificationChannel = new NotificationChannel(CHANNEL_ID, CHANNEL_ID, NotificationManager.IMPORTANCE_DEFAULT);
+            manager.createNotificationChannel(notificationChannel);
+        }
+    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -163,6 +310,7 @@ public class ChatFragment extends Fragment {
 
         mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
 
+
         if (mBluetoothAdapter == null) {
             Toast.makeText(getActivity(), "Bluetooth is not available", Toast.LENGTH_SHORT).show();
         }
@@ -174,14 +322,22 @@ public class ChatFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_chat, container, false);
         //chatService = new BluetoothChatService(getActivity(), handler
+        dbHelper = new SQLiteDbHelper(getActivity().getApplicationContext());
+
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
+
+        messageList = new ArrayList<com.kernelpanic.yorickmessenger.util.Message>();
+
+        chatView = view.findViewById(R.id.messagesContainer);
+        chatView.setLayoutManager(linearLayoutManager);
+
         return view;
     }
 
     @Override
     public void onStart() {
         super.onStart();
-        //String address = this.getArguments().getString("bluetooth_device_mac_address");
-        //Toast.makeText(getActivity(), address, Toast.LENGTH_SHORT).show();
+
         try {
             if (!mBluetoothAdapter.isEnabled()) {
                 Intent enableBT = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
@@ -214,14 +370,15 @@ public class ChatFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         inputField = view.findViewById(R.id.chatFieldInput);
         btnSend = view.findViewById(R.id.btnSend);
-        chatView = view.findViewById(R.id.messagesContainer);
+        btnAttach = view.findViewById(R.id.btnAttach);
 
-        try {
-            String address = this.getArguments().getString("bluetooth_device_mac_address");
-            Toast.makeText(getActivity(), address, Toast.LENGTH_SHORT).show();
-        } catch (NullPointerException ex) {
-            Log.d(TAG, "We have caught an exception: " + ex.getMessage());
-        }
+        Long currentTime = System.currentTimeMillis();
+        //messageList.add(new com.kernelpanic.yorickmessenger.util.Message("Test Received",
+                //, Constants.MESSAGE_TYPE_RECEIVED, username, profilePic));
+
+        //messageList.add(new com.kernelpanic.yorickmessenger.util.Message("Test Sent",
+                //currentTime, Constants.MESSAGE_TYPE_SENT, username, profilePic));
+
     }
 
     @Override
@@ -241,27 +398,47 @@ public class ChatFragment extends Fragment {
     }
 
     private void setupChat() {
-        conversationsListArrayAdapter = new ArrayAdapter<String>(getActivity(), R.layout.message);
 
-        chatView.setAdapter(conversationsListArrayAdapter);
+        chatListArrayAdapter = new ChatRecyclerAdapter(messageList, getActivity());
+        chatView.setAdapter(chatListArrayAdapter);
 
         inputField.setOnEditorActionListener(writeListener);
 
         btnSend.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getActivity(), "beep boop bop", Toast.LENGTH_LONG).show();
                 View view = getView();
                 if (null != view) {
                     //EditText textField = view.findViewById(R.id.chatFieldInput);
                     String message = inputField.getText().toString();
-                    Toast.makeText(getActivity(), message, Toast.LENGTH_SHORT).show();
                     sendMessage(message);
                 }
             }
         });
 
+        btnAttach.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                View view = getView();
+                if (null != view) {
+                    Intent filePickIntent = new Intent(Intent.ACTION_OPEN_DOCUMENT);
+                    filePickIntent.setType("*/*");
+                    filePickIntent.addCategory(Intent.CATEGORY_OPENABLE);
+                    filePickIntent.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
+
+                    String FILE_PATH = Environment.getExternalStorageDirectory().getAbsolutePath() + "/YMessenger/";
+                    Toast.makeText(getActivity(), FILE_PATH, Toast.LENGTH_SHORT).show();
+                    File file = new File(FILE_PATH);
+
+                    if (filePickIntent.resolveActivity(getActivity().getPackageManager()) != null) {
+                        startActivityForResult(Intent.createChooser(filePickIntent, "Select a File to Upload"), FILE_SELECT_CODE);
+                    }
+                }
+            }
+        });
+
         chatService = new BluetoothChatService(getActivity(), handler);
+
         //chatService = new BluetoothChatServiceClass(getActivity(), handler);
         outStringBuffer = new StringBuffer(" ");
     }
@@ -286,34 +463,107 @@ public class ChatFragment extends Fragment {
 
         if (msg.length() > 0) {
             byte[] sendData = msg.getBytes();
-            Toast.makeText(getActivity(), sendData.toString(), Toast.LENGTH_SHORT).show();
-            chatService.write(sendData);
+            chatService.sendData(msg);
 
             outStringBuffer.setLength(0);
             inputField.setText(outStringBuffer);
         }
     }
 
-    public void onActivityResult(int reqCode, int resCode, Intent data) {
+
+    @Override
+    public void onActivityResult(int reqCode, int resCode, @Nullable Intent data) {
+        Bitmap bitmap = null;
         switch (reqCode) {
             case PERMISSION_REQUEST_CONNECT_DEVICE_SECURE:
                 if (resCode == Activity.RESULT_OK && chatService.getState() != BluetoothChatService.STATE_CONNECTED) {
                     connectToDevice(data);
-                    Toast.makeText(getActivity(), "The reqCode + " + reqCode + " The resCode: " + resCode,
-                            Toast.LENGTH_SHORT).show();
+                    onConnectDataExchange();
                 }
                 break;
             case PERMISSION_REQUEST_CONNECT_DEVICE_INSECURE:
                 if (resCode == Activity.RESULT_OK && chatService.getState() != BluetoothChatService.STATE_CONNECTED) {
                     connectToDevice(data);
+                    onConnectDataExchange();
                 }
             case PERMISSION_REQUEST_ENABLE_BLUETOOTH:
                 if (resCode == Activity.RESULT_OK) {
                     setupChat();
                 } else {
-                    Log.d("YorickMessenger.onActivityResult()", "Bluetooth is not enabled");
+                    Log.d("YMessenger.Result()", "Bluetooth is not enabled");
+                }
+            case FILE_SELECT_CODE:
+                if (resCode == Activity.RESULT_OK && data != null
+                                 && chatService.getState() == BluetoothChatService.STATE_CONNECTED) {
+                    Uri uri = data.getData();
+                    Context context = getActivity();
+                    final String path;
+                    try {
+                        path = writeFileContent(uri);
+                        Toast.makeText(getActivity(), path, Toast.LENGTH_SHORT).show();
+                        chatService.sendFile(path);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+/*                    final String path2 = RealPathHelper.getRealPath(context, uri);
+                    Toast.makeText(context, "FileWizard path " + path1, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context, "RealPathHelper path " + path2, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context, "Uri " + uri, Toast.LENGTH_SHORT).show();
+                    Long currentTime = System.currentTimeMillis();
+                    messageList.add(new com.kernelpanic.yorickmessenger.util.Message(path1, currentTime,
+                            Constants.MESSAGE_TYPE_FILE_RECEIVED, "username", true));
+                    chatListArrayAdapter.notifyDataSetChanged();*/
+/*                    try {
+                        path = writeFileContent(uri);
+                        Toast.makeText(getActivity(), path, Toast.LENGTH_SHORT).show();
+                        Long currentTime = System.currentTimeMillis();
+                        messageList.add(new com.kernelpanic.yorickmessenger.util.Message(path, currentTime,
+                                Constants.MESSAGE_TYPE_FILE_RECEIVED, "username", true));
+                        chatListArrayAdapter.notifyDataSetChanged();
+                        chatService.sendFile(path);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }*/
                 }
         }
+    }
+
+
+    private String writeFileContent(Uri uri) throws IOException {
+        InputStream inputStream = getContext().getContentResolver().openInputStream(uri);
+        if (inputStream != null) {
+            final File yorickCacheDir = new File(getContext().getFilesDir(), FILE_BROWSER_CACHE_DIR);
+            Log.d(TAG, yorickCacheDir.getAbsolutePath());
+            boolean isCacheDirExists = yorickCacheDir.exists();
+            if (!isCacheDirExists) {
+                isCacheDirExists = yorickCacheDir.mkdirs();
+            }
+            if (isCacheDirExists) {
+                String filePath = yorickCacheDir.getAbsolutePath() + "/" + getFileName(uri);
+                OutputStream outputStream = new FileOutputStream(filePath);
+                byte[] buffer = new byte[1024];
+                int length;
+                while((length = inputStream.read(buffer)) > 0) {
+                    outputStream.write(buffer, 0, length);
+                }
+                outputStream.flush();
+                outputStream.close();
+                return filePath;
+            }
+            inputStream.close();
+        }
+        return null;
+    }
+
+    private String getFileName(Uri uri) {
+        String displayName = null;
+        try (Cursor cursor = getContext().getContentResolver()
+                .query(uri, null, null, null, null, null)) {
+            if (cursor != null && cursor.moveToFirst()) {
+                displayName = cursor.getString(cursor.getColumnIndex(OpenableColumns.DISPLAY_NAME));
+            }
+        }
+        return displayName;
     }
 
     private void connectToDevice(Intent data) {
@@ -325,23 +575,12 @@ public class ChatFragment extends Fragment {
         chatService.connect(device);
     }
 
-    private void makeDiscovarable() {
-        if (mBluetoothAdapter.getScanMode() !=
-                                mBluetoothAdapter.SCAN_MODE_CONNECTABLE_DISCOVERABLE) {
-            Intent discoverable = new Intent(BluetoothAdapter.ACTION_REQUEST_DISCOVERABLE);
-            discoverable.putExtra(BluetoothAdapter.EXTRA_DISCOVERABLE_DURATION, 500);
-            startActivity(discoverable);
-        }
-    }
+    private void onConnectDataExchange() {
+        databaseUsername = dbHelper.getUserInfo();
 
-    private void saveDeviceAddress(Intent data) {
-        globalDeviceAddress = data.getExtras()
-                .getString(ScanListActivity.EXTRA_DEVICE_ADDRESS);
-    }
+        byte[] bytes = databaseUsername.getBytes();
 
-    private String loadDeviceAddress() {
-        return globalDeviceAddress;
+        chatService.sendData(databaseUsername);
     }
-
 
 }

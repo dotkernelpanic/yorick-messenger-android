@@ -1,9 +1,11 @@
 package com.kernelpanic.yorickmessenger.activity;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
+import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
@@ -13,7 +15,9 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.ResolveInfo;
 import android.graphics.Bitmap;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.MenuItem;
@@ -32,6 +36,7 @@ import androidx.appcompat.widget.Toolbar;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.snackbar.Snackbar;
 import com.kernelpanic.yorickmessenger.R;
+import com.kernelpanic.yorickmessenger.activity.fragments.ChatFragment;
 import com.kernelpanic.yorickmessenger.activity.fragments.CreateProfileFragment;
 import com.kernelpanic.yorickmessenger.activity.fragments.ReadyToScanFragment;
 import com.kernelpanic.yorickmessenger.database.SQLiteDbHelper;
@@ -42,21 +47,21 @@ import java.util.List;
 public class MainAppActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     protected   SoftInputAssist         softInputAssistant;
-    protected   AppCompatButton         launchScanDevicesFragmentButton;
     protected   FragmentManager         fragmentManager;
-    protected   ImageView               goBackToScanFragment;
-    protected   TextView                status;
     protected   Bitmap                  imageBitmap;
     protected   NavigationView          navigationView;
     protected   Toolbar                 toolbar;
     protected   ActionBarDrawerToggle   drawerToggle;
     protected   DrawerLayout            drawerLayout;
 
+    private     ChatFragment            chatFragment;
+    private     ReadyToScanFragment     readyToScanFragment;
+
     private     SQLiteDbHelper          dbHelper;
-    private     List<String>            dataList;
     private     String                  userInfo;
 
 
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @SuppressLint("WrongConstant")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,9 +77,11 @@ public class MainAppActivity extends AppCompatActivity implements NavigationView
         //window.setFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS, WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
 
         dbHelper = new SQLiteDbHelper(this);
+        chatFragment = new ChatFragment();
+        readyToScanFragment = new ReadyToScanFragment();
 
         //getSupportActionBar().hide();
-        if (checkUserProfile() == false) {
+        if (!checkUserProfile()) {
             Toast.makeText(this, "User Profile", Toast.LENGTH_SHORT).show();
             fragmentManager = getSupportFragmentManager();
             fragmentManager.beginTransaction()
@@ -89,7 +96,6 @@ public class MainAppActivity extends AppCompatActivity implements NavigationView
                     .commit();
             Toast.makeText(this, "Successfully loaded user's profile information", Toast.LENGTH_SHORT).show();
             userInfo = dbHelper.getUserInfo();
-            imageBitmap = dbHelper.getProfilePic();
         }
 
         toolbar = findViewById(R.id.appBar);
@@ -103,6 +109,7 @@ public class MainAppActivity extends AppCompatActivity implements NavigationView
         drawerToggle.syncState();
 
         navigationView = findViewById(R.id.navigationView);
+        navigationView.setNavigationItemSelectedListener(this);
 
         View navHeaderView = navigationView.getHeaderView(0);
         TextView userLabel = navHeaderView.findViewById(R.id.userInfo);
@@ -147,6 +154,8 @@ public class MainAppActivity extends AppCompatActivity implements NavigationView
         super.onPause();
     }
 
+
+
     @Override
     protected void onResume() {
         softInputAssistant.onResume();
@@ -166,7 +175,23 @@ public class MainAppActivity extends AppCompatActivity implements NavigationView
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
 
-        return false;
+        switch (item.getItemId()) {
+            case R.id.scanDevicesNavItem:
+                getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.fragmentContainer, chatFragment, null)
+                        .setCustomAnimations(R.anim.fragment_swipe_inleft, R.anim.fragment_swipe_outright)
+                        .setReorderingAllowed(true)
+                        .commit();
+                break;
+            case R.id.homeNavItem:
+                getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.fragmentContainer, readyToScanFragment, null)
+                        .setCustomAnimations(R.anim.fragment_swipe_inleft, R.anim.fragment_swipe_outright)
+                        .commit();
+                break;
+        }
+        drawerLayout.closeDrawer(GravityCompat.START);
+        return true;
     }
 
     private boolean checkUserProfile() {

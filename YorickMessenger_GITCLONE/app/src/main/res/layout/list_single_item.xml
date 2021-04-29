@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/recyclerViewSingleItemLabel"
+    android:id="@+id/singleItemRoot"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/myBlack">
+    android:background="@color/myBlack"
+    android:layout_margin="10dp">
 
     <ImageView
         android:id="@+id/dotPic"
@@ -16,11 +17,13 @@
         android:layout_centerVertical="true"/>
 
     <LinearLayout
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:layout_toEndOf="@id/dotPic"
-        android:layout_marginStart="10dp">
+        android:layout_marginStart="10dp"
+        android:layout_centerVertical="true"
+        android:padding="10dp">
 
         <TextView
             android:id="@+id/deviceNameListViewLabel"
@@ -37,7 +40,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="device address placeholder"
-            android:textColor="#979797"
+            android:textColor="#1C1C1C"
             android:fontFamily="@font/ubuntu"
             android:textSize="16sp"/>
 

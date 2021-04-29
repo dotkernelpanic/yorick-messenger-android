@@ -1,25 +1,42 @@
-package com.kernelpanic.yorickmessenger.service;
+    package com.kernelpanic.yorickmessenger.service;
 
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothServerSocket;
 import android.bluetooth.BluetoothSocket;
+import android.content.ContentResolver;
+import android.content.ContentValues;
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
+import android.provider.MediaStore;
 import android.util.Log;
+import android.widget.Toast;
 
+import com.kernelpanic.yorickmessenger.activity.MainAppActivity;
 import com.kernelpanic.yorickmessenger.activity.fragments.ChatFragment;
 import com.kernelpanic.yorickmessenger.util.Constants;
 
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.UUID;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+
+
 
 public class BluetoothChatService {
 
@@ -55,6 +72,7 @@ public class BluetoothChatService {
      */
     private ManageThread manageThread;
     private int mState;
+    private ContentResolver contentResolver;
 
     private Context mAndroidContext;
 
@@ -62,6 +80,11 @@ public class BluetoothChatService {
     public static final int STATE_LISTEN = 1;
     public static final int STATE_CONNECTING = 2;
     public static final int STATE_CONNECTED = 3;
+
+
+    private static String FILE_PATH;
+
+    private ExecutorService executor = Executors.newSingleThreadExecutor();
 
     /**
      * Just a constructor
@@ -75,7 +98,11 @@ public class BluetoothChatService {
         mState = STATE_NONE;
         mAndroidContext = context;
         this.handler = handler;
+        contentResolver = context.getContentResolver();
+        FILE_PATH = context.getExternalFilesDir(null).getAbsolutePath() + "/YorickCache/";
     }
+
+
 
     /**
      * This method created to change the state. Changing the state was made to listen to the
@@ -122,7 +149,7 @@ public class BluetoothChatService {
     }
 
     /**
-     * Method to connect to another remote bluetooth device
+     * Method that perform connect to another remote bluetooth device
      * Метод, який виконує з'єднання до іншого пристрою
      * @param device - object of BluetoothDevice class, what we get from the {@link ChatFragment}
      */
@@ -143,7 +170,7 @@ public class BluetoothChatService {
     }
 
     /**
-     * Method that start the ManageThread
+     * Method that starts the ManageThread
      * Метод, що запускає ManageThread
      * @param socket - object of the BluetoothSocket class; об'єкт класу BluetoothSocket
      * @param device - object of the BluetoothDevice class; об'єкт класу BluetoothDevice
@@ -169,10 +196,16 @@ public class BluetoothChatService {
         manageThread.start();
 
         Message message = handler.obtainMessage(Constants.MESSAGE_DEVICE_NAME);
+        Message messageAddress = handler.obtainMessage(Constants.MESSAGE_DEVICE_ADDRESS);
         Bundle bundle = new Bundle();
         bundle.putString(Constants.DEVICE_NAME, device.getName());
+        Bundle bundleAddress = new Bundle();
+        bundleAddress.putString(Constants.DEVICE_ADDRESS, device.getAddress());
         message.setData(bundle);
+        messageAddress.setData(bundleAddress);
+
         handler.sendMessage(message);
+        handler.sendMessage(messageAddress);
 
         setState(STATE_CONNECTED);
     }
@@ -200,12 +233,7 @@ public class BluetoothChatService {
         setState(STATE_NONE);
     }
 
-    /**
-     * Method that allows to write data (send)
-     * Метод, що дозволяє виконувати відправку набору байтів (повідомлення)
-     * @param out - array of bytes; масив байтів
-     */
-    public void write(byte[] out) {
+    public void sendData(String message) {
         ManageThread thread;
         synchronized (this) {
             if (mState != STATE_CONNECTED) {
@@ -213,7 +241,18 @@ public class BluetoothChatService {
             }
             thread = manageThread;
         }
-        thread.write(out);
+        thread.write(message);
+    }
+
+    public void sendFile(String filePath) {
+        ManageThread thread;
+        synchronized (this) {
+            if (mState != STATE_CONNECTED) {
+                return;
+            }
+            thread = manageThread;
+        }
+        thread.writeFile(filePath);
     }
 
     /**
@@ -381,6 +420,8 @@ public class BluetoothChatService {
 
         private final BluetoothSocket socket;
         private final InputStream inputStream;
+        private final DataInputStream dataInputStream;
+        private final DataOutputStream dataOutputStream;
         private final OutputStream outputStream;
 
         public ManageThread(BluetoothSocket socket) {
@@ -395,45 +436,113 @@ public class BluetoothChatService {
                 e.printStackTrace();
             }
             inputStream = intputTMP;
+            dataInputStream = new DataInputStream(inputStream);
             outputStream = outputTMP;
+            dataOutputStream = new DataOutputStream(outputStream);
         }
 
+
+
         public void run() {
-            byte[] buffer = new byte[1024];
-            int bytes;
 
             while (true) {
                 try {
-                    bytes = inputStream.read(buffer);
-
-                    handler.obtainMessage(Constants.MESSAGE_READ, bytes, -1,
-                            buffer).sendToTarget();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                    connectionLost();
+                    switch (dataInputStream.readInt()) {
+                        case Constants.TYPE_WRITE_DEFAULT:
+                            String message = dataInputStream.readUTF();
+                            sendMessageToUI(Constants.MESSAGE_READ, message);
+                            break;
+                        case Constants.TYPE_WRITE_FILE:
+                            File destinationDirectory = new File(mAndroidContext.getExternalFilesDir(null).getAbsolutePath() + "/YorickCache/");
+                            if (!destinationDirectory.exists())
+                                destinationDirectory.mkdirs();
+                            String filename = dataInputStream.readUTF();
+                            long fileSize = dataInputStream.readLong();
+                            sendMessageToUI(Constants.MESSAGE_READ_FILE_NOW, fileSize);
+                            long size = 0;
+                            int r;
+                            byte[] bytes = new byte[4 * 1024];
+                            FileOutputStream out = new FileOutputStream(FILE_PATH + filename);
+                            while ((r = inputStream.read(bytes)) != -1) {
+                                out.write(bytes, 0, r);
+                                size += r;
+                                if (size >= fileSize) {
+                                    break;
+                                }
+                            }
+                            if (Build.VERSION.SDK_INT >= 29) {
+                                ContentValues values = new ContentValues();
+                                values.put(MediaStore.Images.Media.DISPLAY_NAME, filename + ".jpg");
+                                values.put(MediaStore.Images.Media.MIME_TYPE, "image/jpg");
+                                values.put(MediaStore.Images.Media.RELATIVE_PATH, Environment.DIRECTORY_PICTURES + "/Yorick Pictures");
+                                Uri imageUri = contentResolver.insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values);
+                                Bitmap bitmap = MediaStore.Images.Media.getBitmap(contentResolver, imageUri);
+                                out = (FileOutputStream) contentResolver.openOutputStream(imageUri);
+                                bitmap.compress(Bitmap.CompressFormat.JPEG, 90, out);
+                            }
+                            sendMessageToUI(Constants.MESSAGE_READ_FILE, filename);
+                            break;
+                    }
+                } catch (IOException ioEX) {
+                    ioEX.printStackTrace();
+                    Log.d(TAG, "Receiving data error, exception: " + ioEX.getMessage());
                     BluetoothChatService.this.start();
                     break;
                 }
             }
         }
 
-        public void write(byte[] buffer) {
-            try {
-                outputStream.write(buffer);
-                handler.obtainMessage(Constants.MESSAGE_WRITE, -1, -1,
-                        buffer).sendToTarget();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+        public void write(final String message) {
+            executor.execute(new Runnable() {
+               public void run() {
+                   try {
+                       dataOutputStream.writeInt(Constants.TYPE_WRITE_DEFAULT);
+                       dataOutputStream.writeUTF(message);
+                   } catch (Throwable ex) {
+                       Log.e(TAG, "We have caught an exception: " + ex);
+                   }
+                   sendMessageToUI(Constants.MESSAGE_WRITE, message);
+               }
+            });
+        }
+        
+        public void writeFile(final String filePath) {
+            executor.execute(new Runnable() {
+                public void run() {
+                    try {
+                        sendMessageToUI(Constants.MESSAGE_WRITE_FILE_NOW, "Sendind file + " + filePath);
+                        FileInputStream fileInputStream = new FileInputStream(filePath);
+                        File file = new File(filePath);
+                        dataOutputStream.writeInt(Constants.TYPE_WRITE_FILE);
+                        dataOutputStream.writeUTF(file.getName());
+                        dataOutputStream.writeLong(file.length());
+                        int r;
+                        byte[] bytes = new byte[4 * 1024];
+                        while ((r = fileInputStream.read(bytes)) != -1) {
+                            dataOutputStream.write(bytes, 0, r);
+                        }
+                        sendMessageToUI(Constants.MESSAGE_WRITE_FILE, file.getName());
+                    } catch (Throwable ex) {
+                        Log.e(TAG, "We have caught the exception: ", ex);
+                    }
+                }
+            });
         }
 
         public void cancel() {
             try {
                 socket.close();
             } catch (IOException e) {
-                e.printStackTrace();
+                Log.e(TAG, "Exception", e);
             }
         }
 
+    }
+
+    private void sendMessageToUI(int what, Object object) {
+        Message message = handler.obtainMessage();
+        message.what = what;
+        message.obj = object;
+        handler.sendMessage(message);
     }
 }

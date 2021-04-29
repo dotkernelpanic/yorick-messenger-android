@@ -84,7 +84,7 @@ public class CreateProfileFragment extends Fragment {
                 readyToScanFragment = new ReadyToScanFragment();
 
                 User user = new User(fullname);
-                sqlHelper.createUser(user, imageBytes);
+                sqlHelper.createUser(user);
                 Toast.makeText(getActivity(), "Added new user", Toast.LENGTH_SHORT).show();
 
                 SharedPreferences sharedPreferences = getActivity().getSharedPreferences(PREFERENCE_NAME_USER_PROFILE, Context.MODE_PRIVATE);
@@ -92,27 +92,27 @@ public class CreateProfileFragment extends Fragment {
                 editor.putBoolean(PREFERENCE_KEY_USER_PROFILE, true);
                 editor.commit();
 
-                getActivity().getSupportFragmentManager().beginTransaction()
+                getActivity().finish();
+/*                getActivity().getSupportFragmentManager().beginTransaction()
                         .setCustomAnimations(R.anim.fragment_swipe_inleft, R.anim.fragment_swipe_outright)
-                        .replace(R.id.homeFragmentContainer, readyToScanFragment, "readyToScanFragment")
+                        .replace(R.id.fragmentContainer, readyToScanFragment, "readyToScanFragment")
                         .setReorderingAllowed(true)
-                        .commit();
-
+                        .commit();*/
             }
         });
 
-        browseButton.setOnClickListener(new View.OnClickListener() {
+/*        browseButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(Intent.ACTION_PICK);
                 intent.setType("image/*");
                 startActivityForResult(intent, IMAGE_PICK_CODE);
             }
-        });
+        });*/
     }
 
 
-    @Override
+/*    @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == Activity.RESULT_OK && requestCode == IMAGE_PICK_CODE) {
@@ -131,5 +131,5 @@ public class CreateProfileFragment extends Fragment {
             bitmap.compress(Bitmap.CompressFormat.JPEG, 90, byteArrayOutputStream);
             imageBytes = byteArrayOutputStream.toByteArray();
         }
-    }
+    }*/
 }

@@ -54,8 +54,8 @@ public class NewUserSupportActivity extends AppCompatActivity {
         getSupportActionBar().hide();
 
         String localeCode = getSharedPreferences(PREFERENCE_NAME_APPLICATION_LOCALE, MODE_PRIVATE)
-                .getString(PREFERENCE_KEY_APPLICATION_LOCALE, "");
-
+                .getString(PREFERENCE_KEY_APPLICATION_LOCALE, "en");
+        if (localeCode == null) localeCode = "en";
         setLocale(this, localeCode);
 
         if (checkUserSharedPreferences()) {
@@ -70,13 +70,15 @@ public class NewUserSupportActivity extends AppCompatActivity {
         buttonChangeAppLocale   = findViewById(R.id.continueAs);
         buttonSkip              = findViewById(R.id.buttonSkip);
 
+        Toast.makeText(this, localeCode, Toast.LENGTH_SHORT).show();
+
         if (checkLocaleSharedPreferences().equals("en")) {
             buttonChangeAppLocale.setText("Продовжити українською");
             buttonChangeAppLocale.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     setLocale(NewUserSupportActivity.this, "uk");
-                    Toast.makeText(NewUserSupportActivity.this, "Мову змінено, перезапустить додаток", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(NewUserSupportActivity.this, "Мову змінено, перезапустіть додаток", Toast.LENGTH_SHORT).show();
                 }
             });
         } else if (checkLocaleSharedPreferences().equals("uk")) {
@@ -85,7 +87,7 @@ public class NewUserSupportActivity extends AppCompatActivity {
                 @Override
                 public void onClick(View v) {
                     setLocale(NewUserSupportActivity.this, "en");
-                    Toast.makeText(NewUserSupportActivity.this, "The langauge have been changed, restart the app", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(NewUserSupportActivity.this, "The language has been changed, restart the app", Toast.LENGTH_SHORT).show();
                 }
             });
         }
