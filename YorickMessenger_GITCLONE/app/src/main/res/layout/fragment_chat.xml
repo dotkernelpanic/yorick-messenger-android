@@ -3,93 +3,93 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activity.fragments.ChatFragment"
-    android:background="@color/myBlack">
-   
-   <RelativeLayout
-       android:id="@+id/chatContainer"
-       android:layout_width="match_parent"
-       android:layout_height="wrap_content"
-       android:layout_alignParentBottom="true">
-      
-      
-      <LinearLayout
-          android:id="@+id/messagingLayout"
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          android:layout_margin="10dp"
-          android:background="@drawable/app_rounded_background_lightbluegray"
-          android:orientation="horizontal"
-          android:weightSum="5"
-          android:maxHeight="120dp">
+    android:background="@color/myBlack"
+    tools:context=".activity.fragments.ChatFragment">
 
-         <FrameLayout
-             android:id="@+id/attachButtonContainer"
-             android:layout_width="wrap_content"
-             android:layout_height="20dp"
-             android:layout_gravity="left|center"
-             android:layout_margin="15dp"
-             android:background="@drawable/support_buttons_states"
-             android:clickable="true"
-             android:focusable="false">
+    <RelativeLayout
+        android:id="@+id/chatContainer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true">
 
-            <ImageButton
-                android:id="@+id/btnAttach"
+
+        <LinearLayout
+            android:id="@+id/messagingLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:background="@drawable/app_rounded_background_lightbluegray"
+            android:maxHeight="120dp"
+            android:orientation="horizontal"
+            android:weightSum="5">
+
+            <FrameLayout
+                android:id="@+id/attachButtonContainer"
+                android:layout_width="wrap_content"
+                android:layout_height="20dp"
+                android:layout_gravity="left|center"
+                android:layout_margin="15dp"
+                android:background="@drawable/support_buttons_states"
+                android:clickable="true"
+                android:focusable="false">
+
+                <ImageButton
+                    android:id="@+id/btnAttach"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="2dp"
+                    android:src="@drawable/ic_attach" />
+
+            </FrameLayout>
+
+            <EditText
+                android:id="@+id/chatFieldInput"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_margin="10dp"
+                android:layout_weight="5"
+                android:autoSizeMaxTextSize="100sp"
+                android:autoSizeMinTextSize="9sp"
+                android:autoSizeTextType="uniform"
+                android:background="@color/lightBlueGray"
+                android:capitalize="sentences"
+                android:fontFamily="@font/ubuntu"
+                android:hint="@string/app_mainActivity_editText_startTyping"
+                android:maxHeight="150dp"
+                android:textColorHint="#9F9F9F"
+                android:textSize="15sp" />
+
+            <FrameLayout
+                android:id="@+id/sendMsgButtonContainer"
                 android:layout_width="20dp"
                 android:layout_height="20dp"
-                android:src="@drawable/ic_attach"
-                android:layout_gravity="center"
-                android:layout_marginStart="2dp" />
+                android:layout_gravity="right|center"
+                android:layout_margin="15dp">
 
-         </FrameLayout>
+                <ImageButton
+                    android:id="@+id/btnSend"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_gravity="center"
+                    android:clickable="true"
+                    android:src="@drawable/ic_send" />
 
-         <EditText
-             android:id="@+id/chatFieldInput"
-             android:layout_width="0dp"
-             android:layout_height="wrap_content"
-             android:layout_weight="5"
-             android:background="@color/lightBlueGray"
-             android:hint="@string/app_mainActivity_editText_startTyping"
-             android:textColorHint="#9F9F9F"
-             android:textSize="15sp"
-             android:layout_gravity="center"
-             android:layout_margin="10dp"
-             android:autoSizeTextType="uniform"
-             android:autoSizeMinTextSize="9sp"
-             android:autoSizeMaxTextSize="100sp"
-             android:maxHeight="150dp"
-             android:fontFamily="@font/ubuntu"
-             android:capitalize="sentences"/>
+            </FrameLayout>
 
-         <FrameLayout
-             android:id="@+id/sendMsgButtonContainer"
-             android:layout_width="20dp"
-             android:layout_height="20dp"
-             android:layout_margin="15dp"
-             android:layout_gravity="right|center">
+        </LinearLayout>
 
-            <ImageButton
-               android:id="@+id/btnSend"
-               android:layout_width="20dp"
-               android:layout_height="20dp"
-               android:layout_gravity="center"
-               android:src="@drawable/ic_send"
-               android:clickable="true" />
 
-         </FrameLayout>
-         
-      </LinearLayout>
+    </RelativeLayout>
 
-      
-   </RelativeLayout>
-   
-   <androidx.recyclerview.widget.RecyclerView
-       android:stackFromBottom="true"
-       android:id="@+id/messagesContainer"
-       android:layout_width="match_parent"
-       android:layout_height="wrap_content"
-       android:layout_above="@id/chatContainer"
-       android:layout_marginBottom="20dp" />
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/messagesContainer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/chatContainer"
+        android:layout_marginBottom="20dp"
+        android:stackFromBottom="true" />
 
 
 </RelativeLayout>

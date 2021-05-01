@@ -1,42 +1,24 @@
 package com.kernelpanic.yorickmessenger.activity;
 
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-
-import android.app.Activity;
-import android.content.ActivityNotFoundException;
-import android.content.ContentResolver;
 import android.content.Intent;
-import android.content.res.Configuration;
-import android.database.Cursor;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.DocumentsContract;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.jaiselrahman.filepicker.activity.FilePickerActivity;
-import com.jaiselrahman.filepicker.config.Configurations;
-import com.jaiselrahman.filepicker.model.MediaFile;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.kernelpanic.yorickmessenger.R;
-import com.kernelpanic.yorickmessenger.service.BluetoothChatService;
-import com.kernelpanic.yorickmessenger.util.Constants;
-import com.kernelpanic.yorickmessenger.util.RealPathHelper;
-
-import java.io.File;
-import java.util.ArrayList;
 
 public class TestActivity extends AppCompatActivity {
 
-    final int FILE_SELECT_CODE =1;
+    final int FILE_SELECT_CODE = 1;
 
     Button btn;
     TextView pathText;

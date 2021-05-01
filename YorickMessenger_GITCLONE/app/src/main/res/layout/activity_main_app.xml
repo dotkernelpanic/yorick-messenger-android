@@ -4,16 +4,16 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activity.MainAppActivity"
     android:background="@color/myBlack"
+    tools:context=".activity.MainAppActivity"
     tools:openDrawer="start">
 
 
     <androidx.drawerlayout.widget.DrawerLayout
+        android:id="@+id/drawerLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/myBlack"
-        android:id="@+id/drawerLayout"
         tools:openDrawer="start">
 
         <RelativeLayout
@@ -25,20 +25,20 @@
                 android:id="@+id/appBar"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:title="@string/app_name"
-                app:subtitle="@string/app_mainActivity_notConnected"
                 android:background="@color/blue_indirectResort"
                 android:padding="15dp"
-                app:titleTextAppearance="@style/appBarTitleTextAppearance"
+                app:menu="@menu/drawer_menu"
+                app:subtitle="@string/app_mainActivity_notConnected"
                 app:subtitleTextAppearance="@style/appBarSubTitleTextAppearance"
-                app:menu="@menu/drawer_menu" />
+                app:title="@string/app_name"
+                app:titleTextAppearance="@style/appBarTitleTextAppearance" />
 
             <androidx.fragment.app.FragmentContainerView
                 android:id="@+id/fragmentContainer"
-                android:layout_marginTop="10dp"
-                android:layout_below="@id/appBar"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent" />
+                android:layout_height="match_parent"
+                android:layout_below="@id/appBar"
+                android:layout_marginTop="10dp" />
 
         </RelativeLayout>
 
@@ -46,12 +46,12 @@
             android:id="@+id/navigationView"
             android:layout_width="300dp"
             android:layout_height="match_parent"
+            android:layout_gravity="start"
             android:background="@drawable/nav_background"
-            app:menu="@menu/drawer_menu"
+            android:fitsSystemWindows="true"
             app:headerLayout="@layout/yorickmessenger_nav_header"
             app:itemTextAppearance="@style/navItemTextAppearance"
-            android:fitsSystemWindows="true"
-            android:layout_gravity="start"/>
+            app:menu="@menu/drawer_menu" />
 
     </androidx.drawerlayout.widget.DrawerLayout>
 

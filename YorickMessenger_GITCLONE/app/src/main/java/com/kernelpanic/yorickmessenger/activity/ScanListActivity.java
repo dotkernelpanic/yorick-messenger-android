@@ -1,13 +1,5 @@
 package com.kernelpanic.yorickmessenger.activity;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.AppCompatButton;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
-import androidx.fragment.app.FragmentManager;
-
 import android.Manifest;
 import android.app.Activity;
 import android.bluetooth.BluetoothAdapter;
@@ -19,7 +11,6 @@ import android.content.IntentFilter;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -29,13 +20,13 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.android.material.snackbar.Snackbar;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.AppCompatButton;
+import androidx.core.content.ContextCompat;
+
 import com.kernelpanic.yorickmessenger.R;
-import com.kernelpanic.yorickmessenger.activity.MainAppActivity;
 import com.kernelpanic.yorickmessenger.activity.fragments.ChatFragment;
 import com.kernelpanic.yorickmessenger.adapters.DevicesListAdapter;
-import com.kernelpanic.yorickmessenger.service.BluetoothChatService;
-import com.kernelpanic.yorickmessenger.service.BluetoothChatServiceClass;
 import com.kernelpanic.yorickmessenger.util.CustomConnectAlertDialogClass;
 import com.kernelpanic.yorickmessenger.util.Device;
 
@@ -44,29 +35,69 @@ import java.util.Set;
 
 public class ScanListActivity extends AppCompatActivity {
 
-    protected ChatFragment      chatFragment;
-    protected AppCompatButton   stopScanButton;
-    protected ProgressBar       progressBar;
-
-
-    public static String EXTRA_DEVICE_ADDRESS = "device_address";
-    private String bluetoothDeviceAddress = " ";
     public static final int BLUETOOTH_ENABLE_REQUEST_CODE = 2;
-
-    protected   ListView deviceList;
-    protected   ListView devicePairedList;
-
+    public static String EXTRA_DEVICE_ADDRESS = "device_address";
+    private final int PERMISSIONS_REQUEST_CODE = 3;
+    private final String[] PERMISSIONS = new String[]{Manifest.permission.INTERNET, Manifest.permission.WRITE_EXTERNAL_STORAGE,
+            Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.BLUETOOTH, Manifest.permission.BLUETOOTH_ADMIN,
+            Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION};
+    protected ChatFragment chatFragment;
+    protected AppCompatButton stopScanButton;
+    protected ProgressBar progressBar;
+    protected ListView deviceList;
+    protected ListView devicePairedList;
+    private String bluetoothDeviceAddress = " ";
     private BluetoothAdapter mBluetoothAdapter;
-
     private ArrayList<Device> devices = new ArrayList<Device>();
     private DevicesListAdapter newDevicesListArrayAdapter;
-    private     ArrayList<Device>       newDevicesListArray;
-    private     DevicesListAdapter      pairedDevicesListArrayAdapter;
+    private ArrayList<Device> newDevicesListArray;
+    private final BroadcastReceiver broadcastReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
 
-    private final int PERMISSIONS_REQUEST_CODE = 3;
-    private final String[]  PERMISSIONS     = new String[] {Manifest.permission.INTERNET, Manifest.permission.WRITE_EXTERNAL_STORAGE,
-            Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.BLUETOOTH, Manifest.permission.BLUETOOTH_ADMIN,
-            Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION };
+            String receivedAction = intent.getAction();
+
+            if (BluetoothDevice.ACTION_FOUND.equals(receivedAction)) {
+                BluetoothDevice btDevice = intent.getParcelableExtra(BluetoothDevice.EXTRA_DEVICE);
+                if (btDevice.getBondState() != BluetoothDevice.BOND_BONDED) {
+                    Device mBtDevice = new Device(btDevice.getName(), btDevice.getAddress());
+                    newDevicesListArrayAdapter.add(mBtDevice);
+                }
+            } else if (BluetoothAdapter.ACTION_DISCOVERY_FINISHED.equals(receivedAction)) {
+                if (newDevicesListArray.size() == 0) {
+                    newDevicesListArrayAdapter.notifyDataSetChanged();
+                }
+            }
+        }
+    };
+    private DevicesListAdapter pairedDevicesListArrayAdapter;
+    private AdapterView.OnItemClickListener onDeviceTapListener = new AdapterView.OnItemClickListener() {
+        @Override
+        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+            mBluetoothAdapter.cancelDiscovery();
+            chatFragment = new ChatFragment();
+
+            mBluetoothAdapter.cancelDiscovery();
+
+            CustomConnectAlertDialogClass connectionDialog = new CustomConnectAlertDialogClass(ScanListActivity.this);
+
+            TextView btDeviceName = view.findViewById(R.id.deviceNameListViewLabel);
+            TextView btDeviceAddress = view.findViewById(R.id.deviceAddressListViewLabel);
+
+            Intent intent = new Intent();
+            connectionDialog.initData(intent,
+                    EXTRA_DEVICE_ADDRESS,
+                    btDeviceName.getText().toString(),
+                    btDeviceAddress.getText().toString());
+            connectionDialog.show();
+/*            intent.putExtra(EXTRA_DEVICE_ADDRESS, btDeviceAddress.getText().toString());
+
+            Toast.makeText(ScanListActivity.this, "BT DEVICE: " + btDeviceAddress.getText().toString(), Toast.LENGTH_SHORT).show();
+
+            setResult(Activity.RESULT_OK, intent);
+            finish();*/
+        }
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,12 +112,12 @@ public class ScanListActivity extends AppCompatActivity {
 
         setResult(Activity.RESULT_CANCELED);
 
-        pairedDevicesListArrayAdapter   = new DevicesListAdapter(this, R.layout.list_single_item);
-        newDevicesListArray             = new ArrayList<Device>();
-        newDevicesListArrayAdapter      = new DevicesListAdapter(this, R.layout.list_single_item);
+        pairedDevicesListArrayAdapter = new DevicesListAdapter(this, R.layout.list_single_item);
+        newDevicesListArray = new ArrayList<Device>();
+        newDevicesListArrayAdapter = new DevicesListAdapter(this, R.layout.list_single_item);
 
-        deviceList                      = findViewById(R.id.deviceList);
-        devicePairedList                = findViewById(R.id.devicePairedList);
+        deviceList = findViewById(R.id.deviceList);
+        devicePairedList = findViewById(R.id.devicePairedList);
 
         deviceList.setAdapter(newDevicesListArrayAdapter);
         deviceList.setOnItemClickListener(onDeviceTapListener);
@@ -159,7 +190,6 @@ public class ScanListActivity extends AppCompatActivity {
         return true;
     }
 
-
     private void findSomeRemoteDevices() {
         checkPermissions();
     }
@@ -174,26 +204,6 @@ public class ScanListActivity extends AppCompatActivity {
         }
         return true;
     }
-
-    private final BroadcastReceiver broadcastReceiver = new BroadcastReceiver() {
-        @Override
-        public void onReceive(Context context, Intent intent) {
-
-            String receivedAction = intent.getAction();
-
-            if (BluetoothDevice.ACTION_FOUND.equals(receivedAction)) {
-                BluetoothDevice btDevice = intent.getParcelableExtra(BluetoothDevice.EXTRA_DEVICE);
-                if (btDevice.getBondState() != BluetoothDevice.BOND_BONDED) {
-                    Device mBtDevice = new Device(btDevice.getName(), btDevice.getAddress());
-                    newDevicesListArrayAdapter.add(mBtDevice);
-                }
-            } else if (BluetoothAdapter.ACTION_DISCOVERY_FINISHED.equals(receivedAction)) {
-                if (newDevicesListArray.size() == 0) {
-                    newDevicesListArrayAdapter.notifyDataSetChanged();
-                }
-            }
-        }
-    };
 
     private void checkPermissions() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
@@ -215,33 +225,5 @@ public class ScanListActivity extends AppCompatActivity {
         }
         mBluetoothAdapter.startDiscovery();
     }
-
-    private AdapterView.OnItemClickListener onDeviceTapListener = new AdapterView.OnItemClickListener() {
-        @Override
-        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-            mBluetoothAdapter.cancelDiscovery();
-            chatFragment = new ChatFragment();
-
-            mBluetoothAdapter.cancelDiscovery();
-
-            CustomConnectAlertDialogClass connectionDialog = new CustomConnectAlertDialogClass(ScanListActivity.this);
-
-            TextView btDeviceName       = view.findViewById(R.id.deviceNameListViewLabel);
-            TextView btDeviceAddress    = view.findViewById(R.id.deviceAddressListViewLabel);
-
-            Intent intent               = new Intent();
-            connectionDialog.initData(intent,
-                    EXTRA_DEVICE_ADDRESS,
-                    btDeviceName.getText().toString(),
-                    btDeviceAddress.getText().toString());
-            connectionDialog.show();
-/*            intent.putExtra(EXTRA_DEVICE_ADDRESS, btDeviceAddress.getText().toString());
-
-            Toast.makeText(ScanListActivity.this, "BT DEVICE: " + btDeviceAddress.getText().toString(), Toast.LENGTH_SHORT).show();
-
-            setResult(Activity.RESULT_OK, intent);
-            finish();*/
-        }
-    };
 
 }

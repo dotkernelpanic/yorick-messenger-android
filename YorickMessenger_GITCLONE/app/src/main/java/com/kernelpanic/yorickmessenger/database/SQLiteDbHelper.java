@@ -5,8 +5,6 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -17,30 +15,24 @@ import java.util.List;
 
 public class SQLiteDbHelper extends SQLiteOpenHelper {
 
+    public static final String ID = "message_id"; // Message ID
+    public static final String DEVICE_MAC_ADDRESS = "message_device_mac_address";
+    public static final String USER_NAME = "message_username";
+    public static final String CONTENTS = "message_contents"; // Content of the message
+    public static final String TYPE = "message_type"; // Type of the message (Sent Or Received)
+    public static final String TIMESTAMP = "message_timestamp";
+    public static final String uID = "user_id";
+    public static final String FULLNAME = "fullname";
     private static final int DB_VERSION = 3;
     private static final String DB_NAME = "yorickmessenger_database";
-
-
-    private static final String TABLE_MESSAGES      = "messages";
-    private static final String TABLE_USER_INFO     = "user_info";
-
-    public static final String ID                   = "message_id"; // Message ID
-    public static final String DEVICE_MAC_ADDRESS   = "message_device_mac_address";
-    public static final String USER_NAME            = "message_username";
-    public static final String CONTENTS             = "message_contents"; // Content of the message
-    public static final String TYPE                 = "message_type"; // Type of the message (Sent Or Received)
-    public static final String TIMESTAMP            = "message_timestamp";
-
-    public static final String uID          = "user_id";
-    public static final String FULLNAME     = "fullname";
-
+    private static final String TABLE_MESSAGES = "messages";
+    private static final String TABLE_USER_INFO = "user_info";
     private Context context;
 
     public SQLiteDbHelper(@Nullable Context context) {
         super(context, DB_NAME, null, DB_VERSION);
         this.context = context;
     }
-
 
 
     @Override

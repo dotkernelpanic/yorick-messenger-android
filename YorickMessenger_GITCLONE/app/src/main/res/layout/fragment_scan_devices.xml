@@ -1,13 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout android:id="@+id/scanFragmentContainer"
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/scanFragmentContainer"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activity.fragments.ScanDevicesFragment"
     android:background="@color/myBlack"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
-    
+    tools:context=".activity.fragments.ScanDevicesFragment">
+
     <LinearLayout
         android:id="@+id/mainContainer"
         android:layout_width="match_parent"
@@ -34,13 +33,13 @@
                         android:id="@+id/pairedLabel"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Paired Devices:"
-                        android:fontFamily="@font/ubuntu_medium"
-                        android:textSize="14sp"
-                        android:textColor="@color/yellowColor"
-                        android:layout_marginEnd="10dp"
                         android:layout_marginStart="30dp"
                         android:layout_marginTop="15dp"
+                        android:layout_marginEnd="10dp"
+                        android:fontFamily="@font/ubuntu_medium"
+                        android:text="Paired Devices:"
+                        android:textColor="@color/yellowColor"
+                        android:textSize="14sp"
                         android:visibility="gone" />
 
 
@@ -62,9 +61,9 @@
                         android:id="@+id/headerLabel"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginStart="30dp"
                         android:layout_marginTop="10dp"
                         android:layout_marginEnd="10dp"
-                        android:layout_marginStart="30dp"
                         android:text="Searching..."
                         android:textColor="@color/yellowColor"
                         android:textStyle="bold" />
@@ -81,10 +80,10 @@
 
                 <ListView
                     android:id="@+id/devicePairedList"
-                    android:layout_marginTop="10dp"
                     android:layout_width="match_parent"
                     android:layout_height="300dp"
-                    android:layout_below="@id/headerLabelContainer" />
+                    android:layout_below="@id/headerLabelContainer"
+                    android:layout_marginTop="10dp" />
 
             </RelativeLayout>
 
@@ -100,13 +99,13 @@
                 android:id="@+id/searchDevicesButton"
                 android:layout_width="0dp"
                 android:layout_height="50dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginBottom="10dp"
-                android:layout_marginEnd="8dp"
                 android:layout_marginStart="32dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginBottom="10dp"
                 android:layout_weight="1"
-                android:fontFamily="@font/montserrat"
                 android:background="@drawable/app_ui_gradient_sunnymorning"
+                android:fontFamily="@font/montserrat"
                 android:text="(open chat [test])"
                 android:textAllCaps="false"
                 android:textColor="@color/myBlack" />
@@ -115,18 +114,18 @@
                 android:id="@+id/makeUserDeviceVisibleButton"
                 android:layout_width="0dp"
                 android:layout_height="50dp"
-                android:layout_marginBottom="10dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginEnd="32dp"
+                android:layout_marginBottom="10dp"
                 android:layout_weight="1"
                 android:background="@drawable/app_ui_gradient_sunnymorning"
+                android:fontFamily="@font/montserrat"
                 android:text="Make Visible"
                 android:textAllCaps="false"
-                android:textColor="@color/myBlack"
-                android:fontFamily="@font/montserrat"/>
+                android:textColor="@color/myBlack" />
 
         </LinearLayout>
-        
+
     </LinearLayout>
 
 

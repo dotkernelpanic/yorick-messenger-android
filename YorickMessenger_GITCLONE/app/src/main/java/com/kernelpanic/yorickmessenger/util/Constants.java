@@ -17,9 +17,9 @@ public interface Constants {
     int TYPE_WRITE_FILE = 1;
 
     //Message types: sent, received, image_sent, image_received
-    int MESSAGE_TYPE_SENT            = 0;
-    int MESSAGE_TYPE_RECEIVED       = 1;
-    int MESSAGE_TYPE_FILE_SENT     = 2;
+    int MESSAGE_TYPE_SENT = 0;
+    int MESSAGE_TYPE_RECEIVED = 1;
+    int MESSAGE_TYPE_FILE_SENT = 2;
     int MESSAGE_TYPE_FILE_RECEIVED = 3;
 
     String APP_LOG_TAG = "Y.Messenger-Logs";

@@ -3,26 +3,26 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activity.fragments.CreateProfileFragment"
-    android:background="@color/myBlack">
+    android:background="@color/myBlack"
+    tools:context=".activity.fragments.CreateProfileFragment">
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Create your profile"
-        android:textColor="@color/yellowColor"
-        android:fontFamily="@font/montserrat"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="30dp"
+        android:fontFamily="@font/montserrat"
+        android:text="Create your profile"
+        android:textColor="@color/yellowColor"
         android:textSize="30sp" />
 
     <RelativeLayout
         android:id="@+id/profilePicContainer"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="30dp"
         android:layout_above="@id/fullnameContainer"
-        android:layout_centerHorizontal="true">
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="30dp">
 
         <ImageView
             android:id="@+id/profilePic"
@@ -36,67 +36,67 @@
             android:id="@+id/browseButton"
             android:layout_width="100dp"
             android:layout_height="100dp"
-            android:text="TAP TO CHANGE"
-            android:textColor="@color/white"
             android:layout_centerInParent="true"
-            android:background="@drawable/circle_change_pic_button_background" />
+            android:background="@drawable/circle_change_pic_button_background"
+            android:text="TAP TO CHANGE"
+            android:textColor="@color/white" />
 
     </RelativeLayout>
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Profile Picture"
-        android:layout_centerHorizontal="true"
         android:layout_above="@id/fullnameContainer"
+        android:layout_centerHorizontal="true"
         android:layout_margin="10dp"
-        android:textColor="@color/yellowColor"
         android:fontFamily="@font/ubuntu"
-        android:textSize="16sp"/>
+        android:text="Profile Picture"
+        android:textColor="@color/yellowColor"
+        android:textSize="16sp" />
 
     <LinearLayout
         android:id="@+id/fullnameContainer"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_centerInParent="true">
+        android:layout_centerInParent="true"
+        android:orientation="vertical">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Fullname"
             android:fontFamily="@font/ubuntu_medium"
-            android:textSize="18sp"
-            android:textColor="@color/yellowColor" />
+            android:text="Fullname"
+            android:textColor="@color/yellowColor"
+            android:textSize="18sp" />
 
         <EditText
             android:id="@+id/nameField"
             android:layout_width="300dp"
             android:layout_height="40dp"
-            android:layout_weight="5"
-            android:background="@drawable/app_rounded_background_lightbluegray"
-            android:hint="Enter your name..."
-            android:textColorHint="#9F9F9F"
-            android:textSize="15sp"
             android:layout_gravity="center"
             android:layout_margin="10dp"
-            android:autoSizeTextType="uniform"
-            android:autoSizeMinTextSize="9sp"
+            android:layout_weight="5"
             android:autoSizeMaxTextSize="100sp"
-            android:maxHeight="150dp"
+            android:autoSizeMinTextSize="9sp"
+            android:autoSizeTextType="uniform"
+            android:background="@drawable/app_rounded_background_lightbluegray"
+            android:capitalize="sentences"
             android:fontFamily="@font/ubuntu"
+            android:hint="Enter your name..."
+            android:maxHeight="150dp"
             android:padding="10dp"
-            android:capitalize="sentences"/>
+            android:textColorHint="#9F9F9F"
+            android:textSize="15sp" />
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/createProfileButton"
             android:layout_width="200dp"
             android:layout_height="40dp"
             android:layout_gravity="center"
+            android:layout_marginTop="10dp"
             android:background="@drawable/app_ui_gradient_sunnymorning"
-            android:text="Save"
             android:fontFamily="@font/ubuntu_medium"
-            android:layout_marginTop="10dp" />
+            android:text="Save" />
 
     </LinearLayout>
 

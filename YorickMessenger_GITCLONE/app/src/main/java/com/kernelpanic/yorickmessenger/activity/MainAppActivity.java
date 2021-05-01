@@ -1,40 +1,30 @@
 package com.kernelpanic.yorickmessenger.activity;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.RequiresApi;
-import androidx.appcompat.app.ActionBarDrawerToggle;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.AppCompatButton;
-import androidx.core.view.GravityCompat;
-import androidx.drawerlayout.widget.DrawerLayout;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-
 import android.annotation.SuppressLint;
-import android.content.BroadcastReceiver;
-import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.pm.ResolveInfo;
 import android.graphics.Bitmap;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.MenuItem;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
+import androidx.appcompat.app.ActionBarDrawerToggle;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 
 import com.google.android.material.navigation.NavigationView;
-import com.google.android.material.snackbar.Snackbar;
 import com.kernelpanic.yorickmessenger.R;
 import com.kernelpanic.yorickmessenger.activity.fragments.ChatFragment;
 import com.kernelpanic.yorickmessenger.activity.fragments.CreateProfileFragment;
@@ -42,23 +32,21 @@ import com.kernelpanic.yorickmessenger.activity.fragments.ReadyToScanFragment;
 import com.kernelpanic.yorickmessenger.database.SQLiteDbHelper;
 import com.kernelpanic.yorickmessenger.util.SoftInputAssist;
 
-import java.util.List;
-
 public class MainAppActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
-    protected   SoftInputAssist         softInputAssistant;
-    protected   FragmentManager         fragmentManager;
-    protected   Bitmap                  imageBitmap;
-    protected   NavigationView          navigationView;
-    protected   Toolbar                 toolbar;
-    protected   ActionBarDrawerToggle   drawerToggle;
-    protected   DrawerLayout            drawerLayout;
+    protected SoftInputAssist softInputAssistant;
+    protected FragmentManager fragmentManager;
+    protected Bitmap imageBitmap;
+    protected NavigationView navigationView;
+    protected Toolbar toolbar;
+    protected ActionBarDrawerToggle drawerToggle;
+    protected DrawerLayout drawerLayout;
 
-    private     ChatFragment            chatFragment;
-    private     ReadyToScanFragment     readyToScanFragment;
+    private ChatFragment chatFragment;
+    private ReadyToScanFragment readyToScanFragment;
 
-    private     SQLiteDbHelper          dbHelper;
-    private     String                  userInfo;
+    private SQLiteDbHelper dbHelper;
+    private String userInfo;
 
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
@@ -118,7 +106,6 @@ public class MainAppActivity extends AppCompatActivity implements NavigationView
         profilePic.setImageBitmap(imageBitmap);
 
 
-
         if (drawerLayout.isDrawerOpen(Gravity.START)) {
             Toast.makeText(this, "Opened", Toast.LENGTH_SHORT).show();
             toolbar.setBackgroundResource(R.drawable.gradient_sunnymorning);
@@ -155,14 +142,11 @@ public class MainAppActivity extends AppCompatActivity implements NavigationView
     }
 
 
-
     @Override
     protected void onResume() {
         softInputAssistant.onResume();
         super.onResume();
     }
-
-
 
 
     @Override
@@ -195,7 +179,7 @@ public class MainAppActivity extends AppCompatActivity implements NavigationView
     }
 
     private boolean checkUserProfile() {
-         SharedPreferences preferences = getSharedPreferences(CreateProfileFragment.PREFERENCE_NAME_USER_PROFILE, MODE_PRIVATE);
-         return preferences.getBoolean(CreateProfileFragment.PREFERENCE_KEY_USER_PROFILE, false);
+        SharedPreferences preferences = getSharedPreferences(CreateProfileFragment.PREFERENCE_NAME_USER_PROFILE, MODE_PRIVATE);
+        return preferences.getBoolean(CreateProfileFragment.PREFERENCE_KEY_USER_PROFILE, false);
     }
 }

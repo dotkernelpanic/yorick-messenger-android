@@ -20,24 +20,19 @@ import java.util.UUID;
 
 public class BluetoothChatServiceClass {
 
-    private static final UUID   MY_UUID_SERIAL_SERVICE_PORT = UUID.fromString("00001101-0000-1000-8000-00805F9B34FB");
-
-    private final String TAG = Constants.APP_LOG_TAG;
-
-    private final BluetoothAdapter    mBluetoothAdapter;
-    private final Handler mHandler;
-    private ConnectThread             mConnectThread;
-    private ConnectedThread           mConnectedThread;
-    private int                       mState;
-
-    private boolean isInsecureConnectionsAllowed = false;
-
-    private Context mAndroidContext;
-
     public static final int STATE_NONE = 0;
     public static final int STATE_LISTEN = 1;
     public static final int STATE_CONNECTING = 2;
     public static final int STATE_CONNECTED = 3;
+    private static final UUID MY_UUID_SERIAL_SERVICE_PORT = UUID.fromString("00001101-0000-1000-8000-00805F9B34FB");
+    private final String TAG = Constants.APP_LOG_TAG;
+    private final BluetoothAdapter mBluetoothAdapter;
+    private final Handler mHandler;
+    private ConnectThread mConnectThread;
+    private ConnectedThread mConnectedThread;
+    private int mState;
+    private boolean isInsecureConnectionsAllowed = false;
+    private Context mAndroidContext;
 
     public BluetoothChatServiceClass(Context context, Handler handler) {
         mHandler = handler;
@@ -47,14 +42,16 @@ public class BluetoothChatServiceClass {
         isInsecureConnectionsAllowed = true;
     }
 
+    public synchronized int getState() {
+        return mState;
+    }
+
     private synchronized void setState(int state) {
         Log.d(TAG, "setState() called; state " + mState + " going to -> " + state);
         mState = state;
 
         mHandler.obtainMessage(Constants.MESSAGE_STATE_CHANGE, state, -1).sendToTarget();
     }
-
-    public synchronized int getState() { return mState; }
 
     public synchronized void start() {
         Log.d(TAG, "Starting");
@@ -76,10 +73,16 @@ public class BluetoothChatServiceClass {
         Log.d(TAG, "performing attempt to connect to: " + device);
 
         if (mState == STATE_CONNECTING) {
-            if (mConnectThread != null) { mConnectThread.cancel(); mConnectThread = null; }
+            if (mConnectThread != null) {
+                mConnectThread.cancel();
+                mConnectThread = null;
+            }
         }
 
-        if (mConnectedThread != null) { mConnectedThread.cancel(); mConnectedThread = null; }
+        if (mConnectedThread != null) {
+            mConnectedThread.cancel();
+            mConnectedThread = null;
+        }
 
         mConnectThread = new ConnectThread(device);
         mConnectThread.start();
@@ -169,10 +172,9 @@ public class BluetoothChatServiceClass {
             try {
                 if (isInsecureConnectionsAllowed) {
                     Method method;
-                    method = device.getClass().getMethod("createRfcommSocket", new Class[] { int.class });
+                    method = device.getClass().getMethod("createRfcommSocket", new Class[]{int.class});
                     tempSocket = (BluetoothSocket) method.invoke(device, 1);
-                }
-                else {
+                } else {
                     tempSocket = device.createRfcommSocketToServiceRecord(MY_UUID_SERIAL_SERVICE_PORT);
                 }
             } catch (Exception e) {
@@ -217,9 +219,9 @@ public class BluetoothChatServiceClass {
     }
 
     private class ConnectedThread extends Thread {
-        private final BluetoothSocket   bluetoothSocket;
-        private final InputStream       inputStream;
-        private final OutputStream      outputStream;
+        private final BluetoothSocket bluetoothSocket;
+        private final InputStream inputStream;
+        private final OutputStream outputStream;
 
         public ConnectedThread(BluetoothSocket socket) {
             Log.d(TAG, "Creating the ConnectedThread");

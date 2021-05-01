@@ -1,8 +1,5 @@
 package com.kernelpanic.yorickmessenger.activity;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.viewpager2.widget.ViewPager2;
-
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -18,7 +15,9 @@ import android.view.animation.AnimationUtils;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
+import androidx.viewpager2.widget.ViewPager2;
 
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
@@ -29,19 +28,18 @@ import java.util.Locale;
 
 public class NewUserSupportActivity extends AppCompatActivity {
 
-    private TabLayout               tabIndicator;
-    private AppCompatButton         buttonNext;
-    private AppCompatButton         buttonGetStarted;
-    private AppCompatButton         buttonSkip;
-    private TextView                buttonChangeAppLocale;
-    private int                     tabPosition = 0;
-    private Animation               buttonGetStartedAnimation;
-
-    private final int       TABS_COUNT = 3;
-    private final String    PREFERENCES_NAME                    = "yorickmessenger_preferences";
-    private final String    PREFERENCE_BOOL_KEY                 = "isUserWatchedIntroActivity";
-    private final String    PREFERENCE_NAME_APPLICATION_LOCALE  = "yorickmessenger_locale_default";
-    private final String    PREFERENCE_KEY_APPLICATION_LOCALE   = "locale";
+    private final int TABS_COUNT = 3;
+    private final String PREFERENCES_NAME = "yorickmessenger_preferences";
+    private final String PREFERENCE_BOOL_KEY = "isUserWatchedIntroActivity";
+    private final String PREFERENCE_NAME_APPLICATION_LOCALE = "yorickmessenger_locale_default";
+    private final String PREFERENCE_KEY_APPLICATION_LOCALE = "locale";
+    private TabLayout tabIndicator;
+    private AppCompatButton buttonNext;
+    private AppCompatButton buttonGetStarted;
+    private AppCompatButton buttonSkip;
+    private TextView buttonChangeAppLocale;
+    private int tabPosition = 0;
+    private Animation buttonGetStartedAnimation;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,8 +65,8 @@ public class NewUserSupportActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_new_user_support);
 
-        buttonChangeAppLocale   = findViewById(R.id.continueAs);
-        buttonSkip              = findViewById(R.id.buttonSkip);
+        buttonChangeAppLocale = findViewById(R.id.continueAs);
+        buttonSkip = findViewById(R.id.buttonSkip);
 
         Toast.makeText(this, localeCode, Toast.LENGTH_SHORT).show();
 

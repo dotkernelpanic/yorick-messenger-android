@@ -7,17 +7,17 @@ import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
 import android.widget.FrameLayout;
 
-import static android.view.ViewTreeObserver.*;
+import static android.view.ViewTreeObserver.OnGlobalLayoutListener;
 
 // Got this from https://gist.github.com/grennis/2e3cd5f7a9238c59861015ce0a7c5584
 public class SoftInputAssist {
     private View rootView;
     private ViewGroup contentContainer;
     private ViewTreeObserver viewTreeObserver;
-    private OnGlobalLayoutListener listener = () -> possiblyResizeChildOfContent();
     private Rect contentAreaOfWindowBounds = new Rect();
     private FrameLayout.LayoutParams rootViewLayout;
     private int usableHeightPrevious = 0;
+    private OnGlobalLayoutListener listener = () -> possiblyResizeChildOfContent();
 
     public SoftInputAssist(Activity activity) {
         contentContainer = (ViewGroup) activity.findViewById(android.R.id.content);

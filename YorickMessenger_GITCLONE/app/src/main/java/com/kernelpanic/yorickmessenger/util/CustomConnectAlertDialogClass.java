@@ -2,29 +2,26 @@ package com.kernelpanic.yorickmessenger.util;
 
 import android.app.Activity;
 import android.app.Dialog;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
 import android.widget.TextView;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.widget.AppCompatButton;
 
 import com.kernelpanic.yorickmessenger.R;
 
 public class CustomConnectAlertDialogClass extends Dialog implements View.OnClickListener {
 
+    private static String EXTRA_DEVICE_ADDRESS;
     private Activity activity;
     private Dialog dialog;
     private AppCompatButton yesBtn, noBtn;
     private TextView text;
     private String deviceName;
     private String deviceAddress;
-
     private Intent intent;
-    private static String EXTRA_DEVICE_ADDRESS;
 
     public CustomConnectAlertDialogClass(Activity activity) {
         super(activity);

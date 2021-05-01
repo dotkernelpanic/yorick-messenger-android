@@ -1,5 +1,7 @@
 package com.kernelpanic.yorickmessenger.util;
 
+//Test implemeentation of file wizard for android version less or equal to 10
+
 import android.annotation.SuppressLint;
 import android.content.ContentUris;
 import android.content.Context;
@@ -21,17 +23,17 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
-public class FileWizard {
-    private static FileWizard util = null;
+public class FileWizardTestImplementation {
+    private static FileWizardTestImplementation util = null;
     private Context context;
 
-    private FileWizard(Context context) {
+    private FileWizardTestImplementation(Context context) {
         this.context = context;
     }
 
-    public static FileWizard getInstance(Context context) {
+    public static FileWizardTestImplementation getInstance(Context context) {
         if (util == null) {
-            util = new FileWizard(context);
+            util = new FileWizardTestImplementation(context);
         }
         return util;
     }

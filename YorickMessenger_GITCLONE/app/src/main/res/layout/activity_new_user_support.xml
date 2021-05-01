@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/myBlack">
 
     <LinearLayout
@@ -15,19 +15,19 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/montserrat_bold"
             android:text="@string/app_newUserSupport_title"
             android:textColor="@color/yellowColor"
-            android:textSize="25sp"
-            android:fontFamily="@font/montserrat_bold"/>
+            android:textSize="25sp" />
 
     </LinearLayout>
 
     <LinearLayout
-        android:layout_below="@id/titleContainer"
-        android:layout_marginTop="50dp"
         android:id="@+id/fragments"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_below="@id/titleContainer"
+        android:layout_marginTop="50dp"
         android:orientation="vertical">
 
         <androidx.viewpager2.widget.ViewPager2
@@ -38,13 +38,13 @@
     </LinearLayout>
 
     <com.google.android.material.tabs.TabLayout
-        android:layout_below="@id/fragments"
         android:id="@+id/tabIndicator"
+        style="@style/tabLayoutItemAppearance"
         android:layout_width="200dp"
         android:layout_height="wrap_content"
-        android:background="@color/myBlack"
-        style="@style/tabLayoutItemAppearance"
+        android:layout_below="@id/fragments"
         android:layout_centerInParent="true"
+        android:background="@color/myBlack"
         app:tabIndicator="@drawable/tab_indicator_default">
 
         <com.google.android.material.tabs.TabItem
@@ -65,62 +65,62 @@
 
     <LinearLayout
         android:id="@+id/continueAsContainer"
-        android:layout_below="@id/tabIndicator"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
+        android:layout_below="@id/tabIndicator"
         android:layout_centerHorizontal="true"
-        android:layout_margin="30dp">
+        android:layout_margin="30dp"
+        android:orientation="vertical">
 
         <TextView
             android:id="@+id/continueAs"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:clickable="true"
+            android:fontFamily="@font/ubuntu"
             android:text="Продовжити українською"
             android:textColor="@color/blue_indirectResort"
-            android:textSize="18sp"
-            android:fontFamily="@font/ubuntu"
-            android:clickable="true"/>
+            android:textSize="18sp" />
 
     </LinearLayout>
 
     <LinearLayout
         android:id="@+id/buttonsContainer"
-        android:layout_below="@id/continueAsContainer"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_centerHorizontal="true">
+        android:layout_below="@id/continueAsContainer"
+        android:layout_centerHorizontal="true"
+        android:orientation="horizontal">
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/buttonNext"
             android:layout_width="150dp"
             android:layout_height="wrap_content"
-            android:text="@string/app_newUserSupport_buttonNext"
-            android:textColor="@color/myBlack"
             android:layout_marginEnd="5dp"
-            android:background="@drawable/app_ui_gradient_sunnymorning" />
+            android:background="@drawable/app_ui_gradient_sunnymorning"
+            android:text="@string/app_newUserSupport_buttonNext"
+            android:textColor="@color/myBlack" />
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/buttonSkip"
             android:layout_width="150dp"
             android:layout_height="wrap_content"
+            android:background="@drawable/app_ui_gradient_sunnymorning"
             android:text="@string/app_newUserSupport_buttonSkip"
-            android:textColor="@color/myBlack"
-            android:background="@drawable/app_ui_gradient_sunnymorning" />
+            android:textColor="@color/myBlack" />
 
     </LinearLayout>
 
     <androidx.appcompat.widget.AppCompatButton
-        android:visibility="gone"
-        android:textColor="@color/myBlack"
         android:id="@+id/buttonGetStarted"
-        android:layout_marginTop="50dp"
-        android:layout_below="@id/buttonsContainer"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
-        android:text="@string/app_newUserSupport_buttonGetStarted"
+        android:layout_below="@id/buttonsContainer"
+        android:layout_centerInParent="true"
+        android:layout_marginTop="50dp"
         android:background="@drawable/app_ui_gradient_sunnymorning"
-        android:layout_centerInParent="true"/>
+        android:text="@string/app_newUserSupport_buttonGetStarted"
+        android:textColor="@color/myBlack"
+        android:visibility="gone" />
 
 </RelativeLayout>

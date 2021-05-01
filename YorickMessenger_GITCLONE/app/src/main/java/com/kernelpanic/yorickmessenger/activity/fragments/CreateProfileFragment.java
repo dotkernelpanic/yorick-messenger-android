@@ -1,25 +1,11 @@
 package com.kernelpanic.yorickmessenger.activity.fragments;
 
 import android.Manifest;
-import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.database.sqlite.SQLiteDatabase;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.appcompat.widget.AppCompatButton;
-import androidx.core.app.ActivityCompat;
-import androidx.core.os.EnvironmentCompat;
-import android.os.Environment;
-import androidx.fragment.app.Fragment;
-
-import android.provider.MediaStore;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,29 +13,29 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.widget.AppCompatButton;
+import androidx.core.app.ActivityCompat;
+import androidx.fragment.app.Fragment;
+
 import com.kernelpanic.yorickmessenger.R;
 import com.kernelpanic.yorickmessenger.database.SQLiteDbHelper;
 import com.kernelpanic.yorickmessenger.database.User;
 
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-
 public class CreateProfileFragment extends Fragment {
 
 
-    private EditText            nameField;
-    private AppCompatButton     createProfileButton;
-    private ReadyToScanFragment readyToScanFragment;
-    private AppCompatButton     browseButton;
-    private byte[]              imageBytes;
-    private final int           IMAGE_PICK_CODE = 1;
-    private ImageView           profilePic;
-
     public static final String PREFERENCE_NAME_USER_PROFILE = "yorickmessenger_userprofile";
     public static final String PREFERENCE_KEY_USER_PROFILE = "isProfileCreated";
-
-    private SQLiteDbHelper      sqlHelper;
+    private final int IMAGE_PICK_CODE = 1;
+    private EditText nameField;
+    private AppCompatButton createProfileButton;
+    private ReadyToScanFragment readyToScanFragment;
+    private AppCompatButton browseButton;
+    private byte[] imageBytes;
+    private ImageView profilePic;
+    private SQLiteDbHelper sqlHelper;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -71,8 +57,8 @@ public class CreateProfileFragment extends Fragment {
         createProfileButton = view.findViewById(R.id.createProfileButton);
         profilePic = view.findViewById(R.id.profilePic);
 
-        ActivityCompat.requestPermissions(getActivity(), new String[] {Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission
-        .WRITE_EXTERNAL_STORAGE}, PackageManager.PERMISSION_GRANTED);
+        ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission
+                .WRITE_EXTERNAL_STORAGE}, PackageManager.PERMISSION_GRANTED);
 
         sqlHelper = new SQLiteDbHelper(getActivity().getApplicationContext());
         SQLiteDatabase db = sqlHelper.getWritableDatabase();

@@ -3,17 +3,16 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".activity.fragments.NoWifiNeededFragment"
-    android:background="@color/myBlack">
+    android:background="@color/myBlack"
+    tools:context=".activity.fragments.NoWifiNeededFragment">
 
     <ImageView
         android:id="@+id/nowifiNeededImage"
-        android:src="@drawable/nowifineedblob"
         android:layout_width="match_parent"
         android:layout_height="400dp"
+        android:layout_centerInParent="true"
         android:layout_marginHorizontal="10dp"
-        android:layout_centerInParent="true"/>
+        android:src="@drawable/nowifineedblob" />
 
 
 </RelativeLayout>

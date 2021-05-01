@@ -2,19 +2,18 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/myBlack">
 
     <TextView
         android:id="@+id/searchingLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="5dp"
+        android:fontFamily="@font/montserrat"
         android:text="@string/scanlist_searching_title"
         android:textColor="@color/yellowColor"
-        android:fontFamily="@font/montserrat"
-        android:textSize="14sp"
-        android:layout_marginTop="5dp"
-        android:layout_marginStart="15dp" />
+        android:textSize="14sp" />
 
     <ProgressBar
         android:id="@+id/progressBar"
@@ -22,42 +21,42 @@
         android:layout_height="20dp"
         android:layout_margin="5dp"
         android:layout_toEndOf="@id/searchingLabel"
-        android:visibility="invisible"/>
+        android:visibility="invisible" />
 
     <LinearLayout
         android:id="@+id/deviceListContainer"
-        android:layout_below="@id/searchingLabel"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_below="@id/searchingLabel">
 
         <ListView
             android:id="@+id/deviceList"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:divider="@color/myBlack"
             android:layout_marginStart="10dp"
             android:layout_marginEnd="10dp"
-            android:dividerHeight="5sp"/>
+            android:divider="@color/myBlack"
+            android:dividerHeight="5sp" />
 
     </LinearLayout>
 
     <LinearLayout
         android:id="@+id/pairedDevicesContainer"
-        android:layout_below="@id/deviceListContainer"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_below="@id/deviceListContainer"
         android:orientation="vertical">
 
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="5dp"
+            android:fontFamily="@font/montserrat"
             android:text="@string/scanlist_paired_label"
             android:textColor="@color/yellowColor"
-            android:fontFamily="@font/montserrat"
-            android:textSize="14sp"
-            android:layout_marginTop="5dp"
-            android:layout_marginStart="15dp" />
+            android:textSize="14sp" />
 
         <ListView
             android:id="@+id/devicePairedList"
@@ -66,20 +65,20 @@
             android:layout_marginStart="10dp"
             android:layout_marginEnd="10dp"
             android:divider="@color/myBlack"
-            android:dividerHeight="5sp"/>
+            android:dividerHeight="5sp" />
 
     </LinearLayout>
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/stopScanButton"
-        android:layout_below="@id/pairedDevicesContainer"
         android:layout_width="200dp"
         android:layout_height="wrap_content"
-        android:text="@string/scanlist_stopScanButton_title"
-        android:background="@drawable/app_ui_gradient_sunnymorning"
-        android:textColor="@color/myBlack"
-        android:fontFamily="@font/ubuntu_bold"
+        android:layout_below="@id/pairedDevicesContainer"
+        android:layout_centerHorizontal="true"
         android:layout_marginTop="30dp"
-        android:layout_centerHorizontal="true"/>
+        android:background="@drawable/app_ui_gradient_sunnymorning"
+        android:fontFamily="@font/ubuntu_bold"
+        android:text="@string/scanlist_stopScanButton_title"
+        android:textColor="@color/myBlack" />
 
 </RelativeLayout>

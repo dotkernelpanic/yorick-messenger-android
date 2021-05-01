@@ -1,18 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu
-    xmlns:android="http://schemas.android.com/apk/res/android">
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item android:title="Comminicate">
         <menu>
             <item
                 android:id="@+id/scanDevicesNavItem"
-                android:title="@string/app_navigation_action_scan"
-                android:icon="@drawable/ic_bluetooth_scan" />
+                android:icon="@drawable/ic_bluetooth_scan"
+                android:title="@string/app_navigation_action_scan" />
 
             <item
                 android:id="@+id/homeNavItem"
-                android:title="@string/app_navigation_action_home"
-                android:icon="@drawable/ic_home"/>
+                android:icon="@drawable/ic_home"
+                android:title="@string/app_navigation_action_home" />
         </menu>
     </item>
 
@@ -22,7 +21,8 @@
             <item
                 android:id="@+id/appearanceSettingsNavItem"
                 android:title="Appearance" />
-            <item android:id="@+id/chatSettingsNavItem"
+            <item
+                android:id="@+id/chatSettingsNavItem"
                 android:title="Chat Settings" />
         </menu>
     </item>

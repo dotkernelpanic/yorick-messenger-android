@@ -23,14 +23,8 @@ import java.util.List;
 
 public class DevicesListAdapter extends ArrayAdapter<Device> {
 
-    private List<Device> devices = new ArrayList<Device>();
     Context context;
-
-    static class DeviceViewHolder {
-        TextView deviceName;
-        TextView deviceAddress;
-        RelativeLayout rootLayout;
-    }
+    private List<Device> devices = new ArrayList<Device>();
 
     public DevicesListAdapter(@NonNull Context context, int resource) {
         super(context, resource);
@@ -70,7 +64,7 @@ public class DevicesListAdapter extends ArrayAdapter<Device> {
             deviceViewHolder.rootLayout = (RelativeLayout) row.findViewById(R.id.singleItemRoot);
             row.setTag(deviceViewHolder);
         } else {
-            deviceViewHolder = (DeviceViewHolder)row.getTag();
+            deviceViewHolder = (DeviceViewHolder) row.getTag();
         }
         Device device = getItem(position);
         if (position % 2 == 0) {
@@ -85,5 +79,11 @@ public class DevicesListAdapter extends ArrayAdapter<Device> {
         }
         deviceViewHolder.deviceAddress.setText(device.getDeviceAdress());
         return row;
+    }
+
+    static class DeviceViewHolder {
+        TextView deviceName;
+        TextView deviceAddress;
+        RelativeLayout rootLayout;
     }
 }

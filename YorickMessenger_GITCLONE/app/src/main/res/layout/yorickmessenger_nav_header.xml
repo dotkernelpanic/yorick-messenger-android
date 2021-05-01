@@ -25,19 +25,19 @@
         android:id="@+id/userInfo"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:fontFamily="@font/ubuntu_medium"
         android:paddingTop="@dimen/nav_header_vertical_spacing"
         android:text="PlaceHolder"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
         android:textColor="@color/myBlack"
-        android:fontFamily="@font/ubuntu_medium"
-        android:textSize="20sp"
-        android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
+        android:textSize="20sp" />
 
     <TextView
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textColor="@color/myBlack"
         android:fontFamily="@font/poiret_one"
-        android:textSize="18sp"
-        android:text="@string/app_navigation_header_tglink" />
+        android:text="@string/app_navigation_header_tglink"
+        android:textColor="@color/myBlack"
+        android:textSize="18sp" />
 </LinearLayout>

@@ -1,4 +1,4 @@
-    package com.kernelpanic.yorickmessenger.service;
+package com.kernelpanic.yorickmessenger.service;
 
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
@@ -16,9 +16,7 @@ import android.os.Handler;
 import android.os.Message;
 import android.provider.MediaStore;
 import android.util.Log;
-import android.widget.Toast;
 
-import com.kernelpanic.yorickmessenger.activity.MainAppActivity;
 import com.kernelpanic.yorickmessenger.activity.fragments.ChatFragment;
 import com.kernelpanic.yorickmessenger.util.Constants;
 
@@ -30,68 +28,59 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
 import java.util.UUID;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 
-
 public class BluetoothChatService {
 
+    public static final int STATE_NONE = 0;
+    public static final int STATE_LISTEN = 1;
+    public static final int STATE_CONNECTING = 2;
+    public static final int STATE_CONNECTED = 3;
     /**
      * BluetoothChatService class made to describe the overall logic of
      * Bluetooth connections interaction
-     *
+     * <p>
      * Here we have the ConnectThread, ManageThread, ServerThread
-     *
+     * <p>
      * One of the main value here is UUID - this value is necessary to work
      * without that we could not start the BluetoothSocket
      */
 
     private static final String app_name = "YorickMessenger";
     private static final UUID MY_UUID = UUID.fromString("8ce255c0-200a-11e0-ac64-0800200c9a66");
-
     private static final String TAG = "Y.Messenger-Logs";
-
-
+    // Implementation for <=10 versions of Android
+    private static final String FILE_PATH = Environment.getExternalStorageDirectory().getAbsolutePath() + "/YMessenger Files/";
     private final BluetoothAdapter bluetoothAdapter;
     private final Handler handler;
     // Thread for accepting incoming connections
-    // Thread для приймання зв'язків, що надходять до пристрою
+    // Thread для приймання зв'язків, що надходять до пристрію
     private ServerThread serverThread;
     /*
     Thread for connecting to remote devices
-    Thread для з'єднання з пристроїм
+    Thread для з'єднання з пристроєм
      */
     private ConnectThread connectThread;
     /*
     Thread that allows to manage with read and write methods
-    Thread що дозволюэ виконувати операції відправки та отримання
+    Thread що дозволює виконувати операції віправлення та отримання
      */
     private ManageThread manageThread;
     private int mState;
     private ContentResolver contentResolver;
-
     private Context mAndroidContext;
-
-    public static final int STATE_NONE = 0;
-    public static final int STATE_LISTEN = 1;
-    public static final int STATE_CONNECTING = 2;
-    public static final int STATE_CONNECTED = 3;
-
-
-    private static String FILE_PATH;
-
     private ExecutorService executor = Executors.newSingleThreadExecutor();
 
     /**
      * Just a constructor
      * Конструктор
+     *
      * @param context - androidContext
      * @param handler - object of the Handler class that defined in {@link ChatFragment}
-     *                  об'єкт класу Handler, що описан у фрагменті чату
+     *                об'єкт класу Handler, що описан у фрагменті чату
      */
     public BluetoothChatService(Context context, Handler handler) {
         bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
@@ -99,16 +88,23 @@ public class BluetoothChatService {
         mAndroidContext = context;
         this.handler = handler;
         contentResolver = context.getContentResolver();
-        FILE_PATH = context.getExternalFilesDir(null).getAbsolutePath() + "/YorickCache/";
     }
 
-
+    /**
+     * No need to describe
+     *
+     * @return - state
+     */
+    public synchronized int getState() {
+        return mState;
+    }
 
     /**
      * This method created to change the state. Changing the state was made to listen to the
      * action that we performing right now. E.g: LISTEN, CONNECTING
      * Ций метод створенний для зміни стану. Стан змінюється для того, щоб слідкуватися за тим,
      * що ми робимо
+     *
      * @param state - value to what we change current state (mState); зміна, на яку ми змінемо стан
      */
     private synchronized void setState(int state) {
@@ -116,12 +112,6 @@ public class BluetoothChatService {
         mState = state;
         handler.obtainMessage(Constants.MESSAGE_STATE_CHANGE, state, -1).sendToTarget();
     }
-
-    /**
-     * No need to describe
-     * @return - state
-     */
-    public synchronized int getState() { return mState; }
 
     /**
      * Method that starts the ServerThread (whom we need to perform bluetooth connections)
@@ -151,6 +141,7 @@ public class BluetoothChatService {
     /**
      * Method that perform connect to another remote bluetooth device
      * Метод, який виконує з'єднання до іншого пристрою
+     *
      * @param device - object of BluetoothDevice class, what we get from the {@link ChatFragment}
      */
     public synchronized void connect(BluetoothDevice device) {
@@ -172,6 +163,7 @@ public class BluetoothChatService {
     /**
      * Method that starts the ManageThread
      * Метод, що запускає ManageThread
+     *
      * @param socket - object of the BluetoothSocket class; об'єкт класу BluetoothSocket
      * @param device - object of the BluetoothDevice class; об'єкт класу BluetoothDevice
      */
@@ -284,6 +276,12 @@ public class BluetoothChatService {
         BluetoothChatService.this.start();
     }
 
+    private void sendMessageToUI(int what, Object object) {
+        Message message = handler.obtainMessage();
+        message.what = what;
+        message.obj = object;
+        handler.sendMessage(message);
+    }
 
     /**
      * ServerThread - class that describe the logic of accepting the incoming connections
@@ -442,7 +440,6 @@ public class BluetoothChatService {
         }
 
 
-
         public void run() {
 
             while (true) {
@@ -494,18 +491,18 @@ public class BluetoothChatService {
 
         public void write(final String message) {
             executor.execute(new Runnable() {
-               public void run() {
-                   try {
-                       dataOutputStream.writeInt(Constants.TYPE_WRITE_DEFAULT);
-                       dataOutputStream.writeUTF(message);
-                   } catch (Throwable ex) {
-                       Log.e(TAG, "We have caught an exception: " + ex);
-                   }
-                   sendMessageToUI(Constants.MESSAGE_WRITE, message);
-               }
+                public void run() {
+                    try {
+                        dataOutputStream.writeInt(Constants.TYPE_WRITE_DEFAULT);
+                        dataOutputStream.writeUTF(message);
+                    } catch (Throwable ex) {
+                        Log.e(TAG, "We have caught an exception: " + ex);
+                    }
+                    sendMessageToUI(Constants.MESSAGE_WRITE, message);
+                }
             });
         }
-        
+
         public void writeFile(final String filePath) {
             executor.execute(new Runnable() {
                 public void run() {
@@ -537,12 +534,5 @@ public class BluetoothChatService {
             }
         }
 
-    }
-
-    private void sendMessageToUI(int what, Object object) {
-        Message message = handler.obtainMessage();
-        message.what = what;
-        message.obj = object;
-        handler.sendMessage(message);
     }
 }
