@@ -13,6 +13,7 @@ import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
 import android.provider.OpenableColumns;
@@ -209,7 +210,6 @@ public class ChatFragment extends Fragment {
                         receivedUsername = (String) msg.obj;
                         break;
                     }
-                    // dbHeelper.addMess(device_id, sent/received, devicename, messgae);
                 case Constants.MESSAGE_WRITE:
                     Toast.makeText(getActivity(), "default write", Toast.LENGTH_SHORT).show();
                     Long currentTimeMillisW = System.currentTimeMillis();
@@ -234,6 +234,7 @@ public class ChatFragment extends Fragment {
                 case Constants.MESSAGE_READ_FILE:
                     Toast.makeText(getActivity(), "file read", Toast.LENGTH_SHORT).show();
                     Long currentTime = System.currentTimeMillis();
+                    Toast.makeText(getActivity(), msg.obj + "", Toast.LENGTH_SHORT).show();
                     messageList.add(new com.kernelpanic.yorickmessenger.util.Message(msg.obj + "",
                             currentTime, Constants.MESSAGE_TYPE_FILE_RECEIVED,
                             receivedUsername, true));
@@ -241,8 +242,9 @@ public class ChatFragment extends Fragment {
                     chatView.smoothScrollToPosition(messageList.size());
                     break;
                 case Constants.MESSAGE_WRITE_FILE:
-                    Toast.makeText(getActivity(), "file write", Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(getActivity(), "file write", Toast.LENGTH_SHORT).show();
                     currentTime = System.currentTimeMillis();
+                    Toast.makeText(getActivity(), msg.obj + "", Toast.LENGTH_SHORT).show();
                     messageList.add(new com.kernelpanic.yorickmessenger.util.Message(
                             msg.obj + "", currentTime,
                             Constants.MESSAGE_TYPE_FILE_SENT,
@@ -280,6 +282,16 @@ public class ChatFragment extends Fragment {
 
         mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
 
+        String FILE_PATH = Environment.getExternalStorageDirectory().getAbsolutePath() + "/YMessenger Files/";
+        File file = new File(FILE_PATH);
+        if (!file.exists()) {
+            Toast.makeText(getActivity(), "Dir not exist", Toast.LENGTH_SHORT).show();
+            file.mkdirs();
+            Toast.makeText(getActivity(), "File mkdirs: " + file.mkdirs(), Toast.LENGTH_SHORT).show();
+        }
+        else {
+            Toast.makeText(getActivity(), "dir exists + " + file.getAbsolutePath(), Toast.LENGTH_SHORT).show();
+        }
         if (mBluetoothAdapter == null) {
             Toast.makeText(getActivity(), "Bluetooth is not available", Toast.LENGTH_SHORT).show();
         }

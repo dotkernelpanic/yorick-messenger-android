@@ -9,7 +9,7 @@
         android:id="@+id/usernameLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="end"
+        android:layout_gravity="start"
         android:layout_marginEnd="5dp"
         android:fontFamily="@font/montserrat"
         android:text="username placeholder"
@@ -19,7 +19,7 @@
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="end"
+        android:layout_gravity="start"
         android:layout_marginEnd="5dp"
         android:background="@drawable/rounded_received_message_color"
         android:orientation="horizontal">
@@ -36,17 +36,19 @@
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:padding="5dp">
 
             <TextView
                 android:id="@+id/filenameLabel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/ubuntu"
+                android:maxWidth="400dp"
                 android:padding="5dp"
                 android:text="filename placeholder"
                 android:textColor="@color/white"
-                android:textSize="14sp" />
+                android:textSize="14sp"/>
 
             <TextView
                 android:id="@+id/fileSizeLabel"
@@ -65,7 +67,7 @@
         android:id="@+id/timestampLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="end"
+        android:layout_gravity="start"
         android:layout_marginEnd="5dp"
         android:fontFamily="@font/montserrat"
         android:text="11:00 AM"

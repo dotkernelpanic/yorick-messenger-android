@@ -42,7 +42,7 @@ public class CustomConnectAlertDialogClass extends Dialog implements View.OnClic
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
-        setContentView(R.layout.custom_connect_dialog);
+        setContentView(R.layout.custom_dialog_layout);
         yesBtn = findViewById(R.id.yesBtn);
         noBtn = findViewById(R.id.noBtn);
         text = findViewById(R.id.text);

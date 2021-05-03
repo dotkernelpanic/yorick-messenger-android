@@ -53,9 +53,7 @@ public class CreateProfileFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         nameField = view.findViewById(R.id.nameField);
-        browseButton = view.findViewById(R.id.browseButton);
         createProfileButton = view.findViewById(R.id.createProfileButton);
-        profilePic = view.findViewById(R.id.profilePic);
 
         ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission
                 .WRITE_EXTERNAL_STORAGE}, PackageManager.PERMISSION_GRANTED);

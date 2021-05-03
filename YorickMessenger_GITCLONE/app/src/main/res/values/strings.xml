@@ -35,5 +35,7 @@
     <string name="app_navigation_header_tglink" translatable="false">t.me/kerne1_pan1c</string>
 
     <string name="util_bluetoothDeviceNoName" translatable="false">noname</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 </resources>

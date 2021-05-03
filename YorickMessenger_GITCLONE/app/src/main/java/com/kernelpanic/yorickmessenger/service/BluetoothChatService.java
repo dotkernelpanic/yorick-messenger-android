@@ -450,7 +450,7 @@ public class BluetoothChatService {
                             sendMessageToUI(Constants.MESSAGE_READ, message);
                             break;
                         case Constants.TYPE_WRITE_FILE:
-                            File destinationDirectory = new File(mAndroidContext.getExternalFilesDir(null).getAbsolutePath() + "/YorickCache/");
+                            File destinationDirectory = new File(FILE_PATH);
                             if (!destinationDirectory.exists())
                                 destinationDirectory.mkdirs();
                             String filename = dataInputStream.readUTF();
@@ -467,17 +467,7 @@ public class BluetoothChatService {
                                     break;
                                 }
                             }
-                            if (Build.VERSION.SDK_INT >= 29) {
-                                ContentValues values = new ContentValues();
-                                values.put(MediaStore.Images.Media.DISPLAY_NAME, filename + ".jpg");
-                                values.put(MediaStore.Images.Media.MIME_TYPE, "image/jpg");
-                                values.put(MediaStore.Images.Media.RELATIVE_PATH, Environment.DIRECTORY_PICTURES + "/Yorick Pictures");
-                                Uri imageUri = contentResolver.insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values);
-                                Bitmap bitmap = MediaStore.Images.Media.getBitmap(contentResolver, imageUri);
-                                out = (FileOutputStream) contentResolver.openOutputStream(imageUri);
-                                bitmap.compress(Bitmap.CompressFormat.JPEG, 90, out);
-                            }
-                            sendMessageToUI(Constants.MESSAGE_READ_FILE, filename);
+                            sendMessageToUI(Constants.MESSAGE_READ_FILE, FILE_PATH + filename);
                             break;
                     }
                 } catch (IOException ioEX) {
@@ -518,7 +508,7 @@ public class BluetoothChatService {
                         while ((r = fileInputStream.read(bytes)) != -1) {
                             dataOutputStream.write(bytes, 0, r);
                         }
-                        sendMessageToUI(Constants.MESSAGE_WRITE_FILE, file.getName());
+                        sendMessageToUI(Constants.MESSAGE_WRITE_FILE, file.getAbsolutePath());
                     } catch (Throwable ex) {
                         Log.e(TAG, "We have caught the exception: ", ex);
                     }

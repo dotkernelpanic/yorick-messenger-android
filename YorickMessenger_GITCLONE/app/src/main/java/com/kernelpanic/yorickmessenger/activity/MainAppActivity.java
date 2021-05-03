@@ -1,6 +1,7 @@
 package com.kernelpanic.yorickmessenger.activity;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.os.Build;
@@ -27,9 +28,12 @@ import androidx.fragment.app.FragmentManager;
 import com.google.android.material.navigation.NavigationView;
 import com.kernelpanic.yorickmessenger.R;
 import com.kernelpanic.yorickmessenger.activity.fragments.ChatFragment;
+import com.kernelpanic.yorickmessenger.activity.fragments.CheckPINCodeFragment;
+import com.kernelpanic.yorickmessenger.activity.fragments.CreatePINCodeFragment;
 import com.kernelpanic.yorickmessenger.activity.fragments.CreateProfileFragment;
 import com.kernelpanic.yorickmessenger.activity.fragments.ReadyToScanFragment;
 import com.kernelpanic.yorickmessenger.database.SQLiteDbHelper;
+import com.kernelpanic.yorickmessenger.util.CustomCreatePINCodeAlertDialogClass;
 import com.kernelpanic.yorickmessenger.util.SoftInputAssist;
 
 public class MainAppActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
@@ -44,6 +48,7 @@ public class MainAppActivity extends AppCompatActivity implements NavigationView
 
     private ChatFragment chatFragment;
     private ReadyToScanFragment readyToScanFragment;
+    private CreatePINCodeFragment createPINCodeFragment;
 
     private SQLiteDbHelper dbHelper;
     private String userInfo;
@@ -78,12 +83,22 @@ public class MainAppActivity extends AppCompatActivity implements NavigationView
                     .commit();
         } else {
             fragmentManager = getSupportFragmentManager();
-            fragmentManager.beginTransaction()
-                    .setReorderingAllowed(true)
-                    .add(R.id.fragmentContainer, ReadyToScanFragment.class, null)
-                    .commit();
-            Toast.makeText(this, "Successfully loaded user's profile information", Toast.LENGTH_SHORT).show();
-            userInfo = dbHelper.getUserInfo();
+            CustomCreatePINCodeAlertDialogClass createPINCodeDialog = new CustomCreatePINCodeAlertDialogClass(this);
+
+            Intent intent = new Intent();
+            if (!checkUserPinCode()) {
+                if (!isUserWantPinCode()) {
+                    createPINCodeDialog.initData(intent, fragmentManager, this);
+                    createPINCodeDialog.show(); }
+                }
+            else {
+                fragmentManager.beginTransaction()
+                        .setReorderingAllowed(true)
+                        .add(R.id.fragmentContainer, CheckPINCodeFragment.class, null)
+                        .commit();
+                Toast.makeText(this, "Successfully loaded user's profile information", Toast.LENGTH_SHORT).show();
+                userInfo = dbHelper.getUserInfo();
+            }
         }
 
         toolbar = findViewById(R.id.appBar);
@@ -181,5 +196,15 @@ public class MainAppActivity extends AppCompatActivity implements NavigationView
     private boolean checkUserProfile() {
         SharedPreferences preferences = getSharedPreferences(CreateProfileFragment.PREFERENCE_NAME_USER_PROFILE, MODE_PRIVATE);
         return preferences.getBoolean(CreateProfileFragment.PREFERENCE_KEY_USER_PROFILE, false);
+    }
+
+    private boolean checkUserPinCode() {
+        SharedPreferences preferences = getSharedPreferences(CreatePINCodeFragment.PREFERENCE_NAME_USER_PINCODE, MODE_PRIVATE);
+        return preferences.getBoolean(CreatePINCodeFragment.PREFERENCE_KEY_USER_PINCODE_BOOLEAN_CREATED, false);
+    }
+
+    private boolean isUserWantPinCode() {
+        SharedPreferences preferences = getSharedPreferences(CreatePINCodeFragment.PREFERENCE_NAME_USER_PINCODE, MODE_PRIVATE);
+        return preferences.getBoolean(CreatePINCodeFragment.PREFERENCE_KEY_USER_PINCODE_BOOLEAN_WANT, false);
     }
 }

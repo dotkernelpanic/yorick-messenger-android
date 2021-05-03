@@ -85,42 +85,48 @@
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/buttonsContainer"
+        android:layout_below="@id/continueAsContainer"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/continueAsContainer"
-        android:layout_centerHorizontal="true"
-        android:orientation="horizontal">
+        android:orientation="vertical"
+        android:layout_centerHorizontal="true">
+
+        <LinearLayout
+            android:id="@+id/buttonsContainer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/continueAsContainer"
+            android:layout_centerHorizontal="true"
+            android:orientation="horizontal">
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/buttonNext"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="5dp"
+                android:background="@drawable/app_ui_gradient_sunnymorning"
+                android:text="@string/app_newUserSupport_buttonNext"
+                android:textColor="@color/myBlack" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/buttonSkip"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:background="@drawable/app_ui_gradient_sunnymorning"
+                android:text="@string/app_newUserSupport_buttonSkip"
+                android:textColor="@color/myBlack" />
+
+        </LinearLayout>
 
         <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/buttonNext"
-            android:layout_width="150dp"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="5dp"
-            android:background="@drawable/app_ui_gradient_sunnymorning"
-            android:text="@string/app_newUserSupport_buttonNext"
-            android:textColor="@color/myBlack" />
-
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/buttonSkip"
-            android:layout_width="150dp"
+            android:id="@+id/buttonGetStarted"
+            android:layout_width="300dp"
             android:layout_height="wrap_content"
             android:background="@drawable/app_ui_gradient_sunnymorning"
-            android:text="@string/app_newUserSupport_buttonSkip"
-            android:textColor="@color/myBlack" />
+            android:text="@string/app_newUserSupport_buttonGetStarted"
+            android:textColor="@color/myBlack"
+            android:visibility="gone" />
 
     </LinearLayout>
-
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/buttonGetStarted"
-        android:layout_width="300dp"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/buttonsContainer"
-        android:layout_centerInParent="true"
-        android:layout_marginTop="50dp"
-        android:background="@drawable/app_ui_gradient_sunnymorning"
-        android:text="@string/app_newUserSupport_buttonGetStarted"
-        android:textColor="@color/myBlack"
-        android:visibility="gone" />
 
 </RelativeLayout>

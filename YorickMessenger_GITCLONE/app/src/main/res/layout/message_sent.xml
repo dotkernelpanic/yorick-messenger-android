@@ -9,11 +9,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:layout_gravity="end">
 
         <TextView
             android:id="@+id/usernameLabel"
             android:layout_width="wrap_content"
+            android:layout_gravity="end"
             android:layout_height="wrap_content"
             android:fontFamily="@font/montserrat"
             android:text="username sent placeholder"
@@ -26,6 +28,7 @@
             android:layout_height="wrap_content"
             android:background="@drawable/rounded_sent_message_color"
             android:fontFamily="@font/ubuntu"
+            android:layout_gravity="end"
             android:padding="10dp"
             android:text="message content placeholder"
             android:textColor="@color/white"
@@ -36,6 +39,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/montserrat"
+            android:layout_gravity="end"
             android:text="11:00 AM"
             android:textColor="@color/white"
             android:textSize="9sp" />

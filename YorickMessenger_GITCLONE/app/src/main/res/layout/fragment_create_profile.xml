@@ -16,44 +16,6 @@
         android:textColor="@color/yellowColor"
         android:textSize="30sp" />
 
-    <RelativeLayout
-        android:id="@+id/profilePicContainer"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@id/fullnameContainer"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="30dp">
-
-        <ImageView
-            android:id="@+id/profilePic"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:background="@drawable/circle_profile_pic"
-            android:src="@drawable/author" />
-
-
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/browseButton"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:layout_centerInParent="true"
-            android:background="@drawable/circle_change_pic_button_background"
-            android:text="TAP TO CHANGE"
-            android:textColor="@color/white" />
-
-    </RelativeLayout>
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@id/fullnameContainer"
-        android:layout_centerHorizontal="true"
-        android:layout_margin="10dp"
-        android:fontFamily="@font/ubuntu"
-        android:text="Profile Picture"
-        android:textColor="@color/yellowColor"
-        android:textSize="16sp" />
-
     <LinearLayout
         android:id="@+id/fullnameContainer"
         android:layout_width="wrap_content"
