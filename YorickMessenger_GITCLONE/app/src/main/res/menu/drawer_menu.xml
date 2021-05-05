@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <item android:title="Comminicate">
+    <item
+        android:title="Comminicate"
+        android:id="@+id/communicateItem">
         <menu>
             <item
                 android:id="@+id/scanDevicesNavItem"
@@ -16,7 +18,8 @@
     </item>
 
 
-    <item android:title="Settings">
+    <item android:title="Settings"
+        android:id="@+id/settingsItem">
         <menu>
             <item
                 android:id="@+id/appearanceSettingsNavItem"

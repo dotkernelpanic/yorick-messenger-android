@@ -1,12 +1,17 @@
 package com.kernelpanic.yorickmessenger.activity;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.Configuration;
 import android.graphics.Bitmap;
 import android.os.Build;
 import android.os.Bundle;
+import android.text.SpannableString;
+import android.text.style.TextAppearanceSpan;
 import android.view.Gravity;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
@@ -19,6 +24,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
@@ -33,7 +39,8 @@ import com.kernelpanic.yorickmessenger.activity.fragments.CreatePINCodeFragment;
 import com.kernelpanic.yorickmessenger.activity.fragments.CreateProfileFragment;
 import com.kernelpanic.yorickmessenger.activity.fragments.ReadyToScanFragment;
 import com.kernelpanic.yorickmessenger.database.SQLiteDbHelper;
-import com.kernelpanic.yorickmessenger.util.CustomCreatePINCodeAlertDialogClass;
+import com.kernelpanic.yorickmessenger.util.CustomCreatePINCodeAlertDialog;
+import com.kernelpanic.yorickmessenger.util.Prefs;
 import com.kernelpanic.yorickmessenger.util.SoftInputAssist;
 
 public class MainAppActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
@@ -66,8 +73,28 @@ public class MainAppActivity extends AppCompatActivity implements NavigationView
         Window window = this.getWindow();
         window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
         window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-        window.setStatusBarColor(this.getResources().getColor(R.color.blue_indirectResort));
-        //window.setFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS, WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
+
+        window.setStatusBarColor(this.getResources().getColor(R.color.appBarBackgroundColor));
+
+        int nightModeFlag =
+                getResources().getConfiguration().uiMode &
+                        Configuration.UI_MODE_NIGHT_MASK;
+
+        SharedPreferences preferencesNightMode = getSharedPreferences(Prefs.PREFERENCE_NAME_NIGHTMODE, MODE_PRIVATE);
+        SharedPreferences.Editor editor = preferencesNightMode.edit();
+
+        switch (nightModeFlag) {
+            case Configuration.UI_MODE_NIGHT_YES:
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+                editor.putBoolean(Prefs.PREFERENCE_KEY_NIGHTMODE, true);
+                break;
+            case Configuration.UI_MODE_NIGHT_NO:
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+                editor.putBoolean(Prefs.PREFERENCE_KEY_NIGHTMODE, false);
+                break;
+        }
+
+        //AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
 
         dbHelper = new SQLiteDbHelper(this);
         chatFragment = new ChatFragment();
@@ -83,7 +110,7 @@ public class MainAppActivity extends AppCompatActivity implements NavigationView
                     .commit();
         } else {
             fragmentManager = getSupportFragmentManager();
-            CustomCreatePINCodeAlertDialogClass createPINCodeDialog = new CustomCreatePINCodeAlertDialogClass(this);
+            CustomCreatePINCodeAlertDialog createPINCodeDialog = new CustomCreatePINCodeAlertDialog(this);
 
             Intent intent = new Intent();
             if (!checkUserPinCode()) {
@@ -105,6 +132,7 @@ public class MainAppActivity extends AppCompatActivity implements NavigationView
         setSupportActionBar(toolbar);
 
         drawerLayout = findViewById(R.id.drawerLayout);
+
         drawerToggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.app_mainActivity_appbar_open,
                 R.string.app_mainActivity_appbar_close);
 
@@ -113,6 +141,17 @@ public class MainAppActivity extends AppCompatActivity implements NavigationView
 
         navigationView = findViewById(R.id.navigationView);
         navigationView.setNavigationItemSelectedListener(this);
+
+        Menu menu = navigationView.getMenu();
+        MenuItem communicateItem = menu.findItem(R.id.communicateItem);
+        MenuItem settingsItem = menu.findItem(R.id.settingsItem);
+        SpannableString spannableStringCommunicate = new SpannableString(communicateItem.getTitle());
+        SpannableString spannableStringSettings = new SpannableString(settingsItem.getTitle());
+        spannableStringCommunicate.setSpan(new TextAppearanceSpan(this, R.style.navItemTitleAppearance), 0, spannableStringCommunicate.length(), 0);
+        spannableStringSettings.setSpan(new TextAppearanceSpan(this, R.style.navItemTitleAppearance), 0, spannableStringSettings.length(), 0);
+        communicateItem.setTitle(spannableStringCommunicate);
+        settingsItem.setTitle(spannableStringSettings);
+
 
         View navHeaderView = navigationView.getHeaderView(0);
         TextView userLabel = navHeaderView.findViewById(R.id.userInfo);
@@ -148,6 +187,17 @@ public class MainAppActivity extends AppCompatActivity implements NavigationView
          */
 
         softInputAssistant = new SoftInputAssist(this);
+    }
+
+    private void setWindowFlag(Activity activity, final int bits, boolean on) {
+        Window win = activity.getWindow();
+        WindowManager.LayoutParams winParams = win.getAttributes();
+        if (on) {
+            winParams.flags |= bits;
+        } else {
+            winParams.flags &= ~bits;
+        }
+        win.setAttributes(winParams);
     }
 
     @Override
@@ -194,17 +244,17 @@ public class MainAppActivity extends AppCompatActivity implements NavigationView
     }
 
     private boolean checkUserProfile() {
-        SharedPreferences preferences = getSharedPreferences(CreateProfileFragment.PREFERENCE_NAME_USER_PROFILE, MODE_PRIVATE);
-        return preferences.getBoolean(CreateProfileFragment.PREFERENCE_KEY_USER_PROFILE, false);
+        SharedPreferences preferences = getSharedPreferences(Prefs.PREFERENCE_NAME_CREATEPROFILE, MODE_PRIVATE);
+        return preferences.getBoolean(Prefs.PREFERENCE_KEY_PROFILE_CREATED, false);
     }
 
     private boolean checkUserPinCode() {
-        SharedPreferences preferences = getSharedPreferences(CreatePINCodeFragment.PREFERENCE_NAME_USER_PINCODE, MODE_PRIVATE);
-        return preferences.getBoolean(CreatePINCodeFragment.PREFERENCE_KEY_USER_PINCODE_BOOLEAN_CREATED, false);
+        SharedPreferences preferences = getSharedPreferences(Prefs.PREFERENCE_NAME_CREATEPINCODE, MODE_PRIVATE);
+        return preferences.getBoolean(Prefs.PREFERENCE_KEY_PIN_CREATED, false);
     }
 
     private boolean isUserWantPinCode() {
-        SharedPreferences preferences = getSharedPreferences(CreatePINCodeFragment.PREFERENCE_NAME_USER_PINCODE, MODE_PRIVATE);
-        return preferences.getBoolean(CreatePINCodeFragment.PREFERENCE_KEY_USER_PINCODE_BOOLEAN_WANT, false);
+        SharedPreferences preferences = getSharedPreferences(Prefs.PREFERENCE_NAME_CREATEPINCODE, MODE_PRIVATE);
+        return preferences.getBoolean(Prefs.PREFERENCE_KEY_PIN_WANT, false);
     }
 }

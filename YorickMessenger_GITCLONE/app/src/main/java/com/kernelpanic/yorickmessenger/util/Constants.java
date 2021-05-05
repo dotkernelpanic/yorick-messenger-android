@@ -16,6 +16,10 @@ public interface Constants {
     int TYPE_WRITE_DEFAULT = 0;
     int TYPE_WRITE_FILE = 1;
 
+    int NOTIFY_ID = 1;
+    String CHANNEL_ID = "YorickMessengerNotifyChannel";
+    String FILE_BROWSER_CACHE_DIR = "YorickCache";
+
     //Message types: sent, received, image_sent, image_received
     int MESSAGE_TYPE_SENT = 0;
     int MESSAGE_TYPE_RECEIVED = 1;

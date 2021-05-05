@@ -15,6 +15,12 @@
     <string name="app_newUserSupport_buttonNext">NEXT</string>
     <string name="app_newUserSupport_buttonGetStarted">GET STARTED</string>
     <string name="app_newUserSupport_buttonSkip">SKIP</string>
+    <string name="app_newUserSupport_noWifiNeeded">NO Wi-Fi NEEDED</string>
+    <string name="app_newUserSupport_noWifiNeededDescription">You do not need to have stable Wi-Fi connection. Just Bluetooth</string>
+    <string name="app_newUserSupport_easyToUse">EASY TO USE</string>
+    <string name="app_newUserSupport_easyToUseDescription">Just open an app and start talking with another people"</string>
+    <string name="app_newUserSupport_privacy">PRIVACY</string>
+    <string name="app_newUserSupport_privacyDescription">Do not worry about your privacy. There is no way to steel your conversations</string>
 
     <!-- Main Activity UI strings -->
     <string name="app_mainActivity_notConnected">NOT CONNECTED</string>
@@ -36,6 +42,5 @@
 
     <string name="util_bluetoothDeviceNoName" translatable="false">noname</string>
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 </resources>

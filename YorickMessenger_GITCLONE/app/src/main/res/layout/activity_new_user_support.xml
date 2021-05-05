@@ -3,37 +3,36 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/myBlack">
+    style="@style/MainAppActivityStyle">
 
     <LinearLayout
         android:id="@+id/titleContainer"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="80dp">
+        android:layout_marginTop="30dp">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/montserrat_bold"
+            style="@style/MainTextAppearanceBold"
             android:text="@string/app_newUserSupport_title"
-            android:textColor="@color/yellowColor"
-            android:textSize="25sp" />
+            android:textSize="26sp"/>
 
     </LinearLayout>
 
     <LinearLayout
         android:id="@+id/fragments"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_height="500dp"
         android:layout_below="@id/titleContainer"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="10dp"
         android:orientation="vertical">
 
         <androidx.viewpager2.widget.ViewPager2
             android:id="@+id/viewpager"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
 
     </LinearLayout>
 
@@ -44,7 +43,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/fragments"
         android:layout_centerInParent="true"
-        android:background="@color/myBlack"
+        android:background="@color/appBackground"
         app:tabIndicator="@drawable/tab_indicator_default">
 
         <com.google.android.material.tabs.TabItem
@@ -101,32 +100,36 @@
 
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/buttonNext"
-                android:layout_width="150dp"
+                android:layout_width="200dp"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="5dp"
-                android:background="@drawable/app_ui_gradient_sunnymorning"
+                android:layout_marginEnd="15dp"
+                android:layout_marginBottom="10dp"
+                style="@style/ButtonStyle"
                 android:text="@string/app_newUserSupport_buttonNext"
                 android:textColor="@color/myBlack" />
 
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/buttonSkip"
-                android:layout_width="150dp"
+                android:layout_width="200dp"
                 android:layout_height="wrap_content"
-                android:background="@drawable/app_ui_gradient_sunnymorning"
+                style="@style/ButtonStyle"
                 android:text="@string/app_newUserSupport_buttonSkip"
                 android:textColor="@color/myBlack" />
 
         </LinearLayout>
 
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/buttonGetStarted"
-            android:layout_width="300dp"
-            android:layout_height="wrap_content"
-            android:background="@drawable/app_ui_gradient_sunnymorning"
-            android:text="@string/app_newUserSupport_buttonGetStarted"
-            android:textColor="@color/myBlack"
-            android:visibility="gone" />
-
     </LinearLayout>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/buttonGetStarted"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentBottom="true"
+        style="@style/ButtonStyle"
+        android:text="@string/app_newUserSupport_buttonGetStarted"
+        android:textColor="@color/myBlack"
+        android:visibility="gone" />
 
 </RelativeLayout>

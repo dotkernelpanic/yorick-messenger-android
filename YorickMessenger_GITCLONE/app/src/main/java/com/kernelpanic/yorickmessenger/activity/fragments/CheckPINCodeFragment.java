@@ -19,6 +19,7 @@ import android.widget.Toast;
 
 import com.chaos.view.PinView;
 import com.kernelpanic.yorickmessenger.R;
+import com.kernelpanic.yorickmessenger.util.Prefs;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -91,9 +92,9 @@ public class CheckPINCodeFragment extends Fragment {
 
     private boolean checkPinCode(String receivedPinCode) {
         SharedPreferences preferences = getActivity().getSharedPreferences(
-                CreatePINCodeFragment.PREFERENCE_NAME_USER_PINCODE,
+                Prefs.PREFERENCE_NAME_CREATEPINCODE,
                 Context.MODE_PRIVATE);
-        String userPinCode = preferences.getString(CreatePINCodeFragment.PREFERENCE_KEY_USER_PINCODE_VALUE, "");
+        String userPinCode = preferences.getString(Prefs.PREFERENCE_KEY_PIN_VALUE, "");
         return userPinCode.equals(receivedPinCode);
     }
 

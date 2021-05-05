@@ -18,7 +18,7 @@ import androidx.fragment.app.FragmentManager;
 import com.kernelpanic.yorickmessenger.R;
 import com.kernelpanic.yorickmessenger.activity.fragments.CreatePINCodeFragment;
 
-public class CustomCreatePINCodeAlertDialogClass extends Dialog implements View.OnClickListener {
+public class CustomCreatePINCodeAlertDialog extends Dialog implements View.OnClickListener {
 
     private Activity activity;
     private AppCompatButton yesBtn, noBtn;
@@ -29,7 +29,7 @@ public class CustomCreatePINCodeAlertDialogClass extends Dialog implements View.
     private FragmentManager fragmentManager;
     private Context context;
 
-    public CustomCreatePINCodeAlertDialogClass(@NonNull Activity activity) {
+    public CustomCreatePINCodeAlertDialog(@NonNull Activity activity) {
         super(activity);
         this.activity = activity;
     }
@@ -48,10 +48,10 @@ public class CustomCreatePINCodeAlertDialogClass extends Dialog implements View.
                 break;
             case R.id.noBtn:
                 SharedPreferences preferences = context.getSharedPreferences(
-                        CreatePINCodeFragment.PREFERENCE_NAME_USER_PINCODE,
+                        Prefs.PREFERENCE_NAME_CREATEPINCODE,
                         Context.MODE_PRIVATE);
                 SharedPreferences.Editor editor = preferences.edit();
-                editor.putBoolean(CreatePINCodeFragment.PREFERENCE_KEY_USER_PINCODE_BOOLEAN_WANT, false);
+                editor.putBoolean(Prefs.PREFERENCE_KEY_PIN_WANT, false);
                 editor.apply();
                 dismiss();
                 break;

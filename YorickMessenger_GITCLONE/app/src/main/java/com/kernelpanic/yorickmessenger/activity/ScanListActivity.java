@@ -27,17 +27,16 @@ import androidx.core.content.ContextCompat;
 import com.kernelpanic.yorickmessenger.R;
 import com.kernelpanic.yorickmessenger.activity.fragments.ChatFragment;
 import com.kernelpanic.yorickmessenger.adapters.DevicesListAdapter;
-import com.kernelpanic.yorickmessenger.util.CustomConnectAlertDialogClass;
+import com.kernelpanic.yorickmessenger.util.CustomConnectAlertDialog;
 import com.kernelpanic.yorickmessenger.util.Device;
+import com.kernelpanic.yorickmessenger.util.Requests;
 
 import java.util.ArrayList;
 import java.util.Set;
 
 public class ScanListActivity extends AppCompatActivity {
 
-    public static final int BLUETOOTH_ENABLE_REQUEST_CODE = 2;
     public static String EXTRA_DEVICE_ADDRESS = "device_address";
-    private final int PERMISSIONS_REQUEST_CODE = 3;
     private final String[] PERMISSIONS = new String[]{Manifest.permission.INTERNET, Manifest.permission.WRITE_EXTERNAL_STORAGE,
             Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.BLUETOOTH, Manifest.permission.BLUETOOTH_ADMIN,
             Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION};
@@ -79,7 +78,7 @@ public class ScanListActivity extends AppCompatActivity {
 
             mBluetoothAdapter.cancelDiscovery();
 
-            CustomConnectAlertDialogClass connectionDialog = new CustomConnectAlertDialogClass(ScanListActivity.this);
+            CustomConnectAlertDialog connectionDialog = new CustomConnectAlertDialog(ScanListActivity.this);
 
             TextView btDeviceName = view.findViewById(R.id.deviceNameListViewLabel);
             TextView btDeviceAddress = view.findViewById(R.id.deviceAddressListViewLabel);
@@ -167,7 +166,7 @@ public class ScanListActivity extends AppCompatActivity {
 
         if (!mBluetoothAdapter.isEnabled()) {
             Intent enableBluetoothIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
-            startActivityForResult(enableBluetoothIntent, BLUETOOTH_ENABLE_REQUEST_CODE);
+            startActivityForResult(enableBluetoothIntent, Requests.REQUEST_PERMISSION_ENABLE_BLUETOOTH);
         }
     }
 
@@ -208,7 +207,7 @@ public class ScanListActivity extends AppCompatActivity {
     private void checkPermissions() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             if (this.checkSelfPermission(Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-                this.requestPermissions(PERMISSIONS, PERMISSIONS_REQUEST_CODE);
+                this.requestPermissions(PERMISSIONS, Requests.REQUEST_PERMISSIONS);
             } else {
                 startDiscovery();
                 progressBar.setVisibility(View.VISIBLE);

@@ -19,6 +19,9 @@ import android.widget.Toast;
 
 import com.chaos.view.PinView;
 import com.kernelpanic.yorickmessenger.R;
+import com.kernelpanic.yorickmessenger.util.Prefs;
+
+import org.jetbrains.annotations.NotNull;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -29,10 +32,6 @@ public class CreatePINCodeFragment extends Fragment {
 
     protected PinView pinView;
     protected AppCompatButton saveBtn;
-    public static final String PREFERENCE_NAME_USER_PINCODE = "yorickmessenger_userpincode";
-    public static final String PREFERENCE_KEY_USER_PINCODE_VALUE = "userPinCode";
-    public static final String PREFERENCE_KEY_USER_PINCODE_BOOLEAN_CREATED = "isPinCodeCreated";
-    public static final String PREFERENCE_KEY_USER_PINCODE_BOOLEAN_WANT = "isPinCodeCreated";
 
     protected FragmentActivity context;
 
@@ -49,6 +48,7 @@ public class CreatePINCodeFragment extends Fragment {
      * @return A new instance of fragment CreatePINCodeFragment.
      */
     // TODO: Rename and change types and number of parameters
+    @NotNull
     public static CreatePINCodeFragment newInstance(String param1, String param2) {
         CreatePINCodeFragment fragment = new CreatePINCodeFragment();
         return fragment;
@@ -60,7 +60,7 @@ public class CreatePINCodeFragment extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NotNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_create_pin_code, container, false);
@@ -81,12 +81,14 @@ public class CreatePINCodeFragment extends Fragment {
                     Toast.makeText(getActivity(), "Not enough symbols",
                             Toast.LENGTH_SHORT).show();
                 else {
-                    SharedPreferences sharedPreferences = getActivity().getSharedPreferences(
-                            PREFERENCE_NAME_USER_PINCODE,
-                            Context.MODE_PRIVATE);
+                    SharedPreferences sharedPreferences = getActivity()
+                            .getSharedPreferences(
+                                    Prefs.PREFERENCE_NAME_CREATEPINCODE,
+                                    Context.MODE_PRIVATE
+                            );
                     SharedPreferences.Editor editor = sharedPreferences.edit();
-                    editor.putBoolean(PREFERENCE_KEY_USER_PINCODE_BOOLEAN_CREATED, true);
-                    editor.putString(PREFERENCE_KEY_USER_PINCODE_VALUE, pinCode);
+                    editor.putBoolean(Prefs.PREFERENCE_KEY_PIN_CREATED, true);
+                    editor.putString(Prefs.PREFERENCE_KEY_PIN_VALUE, pinCode);
                     editor.commit();
                     Toast.makeText(getActivity(), "PIN Code created", Toast.LENGTH_SHORT).show();
                     FragmentManager fragmentManager = context.getSupportFragmentManager();

@@ -1,12 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="purple_500">#FF6200EE</color>
-    <color name="purple_700">#FF3700B3</color>
-    <color name="teal_200">#FF03DAC5</color>
-    <color name="teal_700">#FF018786</color>
-    <color name="black">#FF000000</color>
-    <color name="white">#FFFFFFFF</color>
-
     <!-- Block of mine color definition -->
     <!-- using https://randomwordgenerator.com/ to generate random words for my colors name,
             because just 'black', 'yellow', 'red' etc is so boring... -->
@@ -15,5 +8,26 @@
     <color name="lightBlueGray">#576380</color>
     <color name="blue_indirectResort">#549dde</color>
     <!-- End -->
+
+    <!-- App Main Colors - Light -->
+    <color name="appBackground">#F4F4F4</color>
+    <color name="appMainTextColor">#7084F1</color>
+    <color name="appSecondaryTextColor">#686868</color>
+    <color name="appTextFieldColor">#272727</color>
+    <color name="appButtonBackgroundColor">#FBDD6E</color>
+    <color name="appHintTextColor">#C4ECECEC</color>
+    <color name="appDrawerItemTextColor">#454545</color>
+    <color name="appDrawerItemTitleColor">#FE814B</color>
+    <color name="appDrawerHeaderBacgroundColor">#50A8D9</color>
+    <color name="appButtonTextColor">#000000</color>
+    <color name="appDrawerNavBackgroundColor">#6A6098ED</color>
+
+    <!-- AppBar Light Colors -->
+    <color name="appBarTitleTextColor">#F7CD2E</color>
+    <color name="appBarSubTitleTextColor">#C5C5C5</color>
+    <color name="appBarBackgroundColor">#363636</color>
+
+    <!-- Misc Colors Light -->
+    <color name="white">#FFF</color>
 
 </resources>

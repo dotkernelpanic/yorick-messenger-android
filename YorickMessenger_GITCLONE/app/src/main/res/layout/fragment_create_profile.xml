@@ -3,21 +3,22 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/myBlack"
-    tools:context=".activity.fragments.CreateProfileFragment">
+    tools:context=".activity.fragments.CreateProfileFragment"
+    style="@style/FragmentTheme">
 
     <TextView
+        android:id="@+id/title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="30dp"
-        android:fontFamily="@font/montserrat"
-        android:text="Create your profile"
-        android:textColor="@color/yellowColor"
-        android:textSize="30sp" />
+        android:layout_marginTop="100dp"
+        android:textSize="30sp"
+        android:text="CREATE YOUR PROFILE"
+        style="@style/HeaderTextAppearance"/>
 
     <LinearLayout
         android:id="@+id/fullnameContainer"
+        android:layout_marginTop="20dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
@@ -26,39 +27,33 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/ubuntu_medium"
             android:text="Fullname"
-            android:textColor="@color/yellowColor"
-            android:textSize="18sp" />
+            style="@style/MainTextAppearance" />
 
         <EditText
             android:id="@+id/nameField"
             android:layout_width="300dp"
-            android:layout_height="40dp"
+            android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_margin="10dp"
             android:layout_weight="5"
             android:autoSizeMaxTextSize="100sp"
             android:autoSizeMinTextSize="9sp"
             android:autoSizeTextType="uniform"
-            android:background="@drawable/app_rounded_background_lightbluegray"
             android:capitalize="sentences"
-            android:fontFamily="@font/ubuntu"
             android:hint="Enter your name..."
             android:maxHeight="150dp"
-            android:padding="10dp"
-            android:textColorHint="#9F9F9F"
-            android:textSize="15sp" />
+            style="@style/TextFieldStyle"/>
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/createProfileButton"
             android:layout_width="200dp"
-            android:layout_height="40dp"
+            android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginTop="10dp"
-            android:background="@drawable/app_ui_gradient_sunnymorning"
-            android:fontFamily="@font/ubuntu_medium"
-            android:text="Save" />
+            android:layout_marginBottom="5dp"
+            android:text="Save"
+            style="@style/ButtonStyle"/>
 
     </LinearLayout>
 

@@ -6,6 +6,7 @@ import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.view.ContextThemeWrapper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,20 +23,17 @@ import androidx.fragment.app.Fragment;
 import com.kernelpanic.yorickmessenger.R;
 import com.kernelpanic.yorickmessenger.database.SQLiteDbHelper;
 import com.kernelpanic.yorickmessenger.database.User;
+import com.kernelpanic.yorickmessenger.util.Prefs;
 
 public class CreateProfileFragment extends Fragment {
 
 
-    public static final String PREFERENCE_NAME_USER_PROFILE = "yorickmessenger_userprofile";
-    public static final String PREFERENCE_KEY_USER_PROFILE = "isProfileCreated";
-    private final int IMAGE_PICK_CODE = 1;
     private EditText nameField;
     private AppCompatButton createProfileButton;
     private ReadyToScanFragment readyToScanFragment;
-    private AppCompatButton browseButton;
-    private byte[] imageBytes;
-    private ImageView profilePic;
     private SQLiteDbHelper sqlHelper;
+
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -46,7 +44,9 @@ public class CreateProfileFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_create_profile, container, false);
+        final Context contextThemeWrapper = new ContextThemeWrapper(getActivity(), R.style.FragmentTheme);
+        LayoutInflater localInflater = inflater.cloneInContext(contextThemeWrapper);
+        return localInflater.inflate(R.layout.fragment_create_profile, container, false);
     }
 
     @Override
@@ -67,13 +67,15 @@ public class CreateProfileFragment extends Fragment {
                 String fullname = nameField.getText().toString();
                 readyToScanFragment = new ReadyToScanFragment();
 
+                createProfileButton.setEnabled(fullname.length() != 0);
+
                 User user = new User(fullname);
                 sqlHelper.createUser(user);
                 Toast.makeText(getActivity(), "Added new user", Toast.LENGTH_SHORT).show();
 
-                SharedPreferences sharedPreferences = getActivity().getSharedPreferences(PREFERENCE_NAME_USER_PROFILE, Context.MODE_PRIVATE);
+                SharedPreferences sharedPreferences = getActivity().getSharedPreferences(Prefs.PREFERENCE_NAME_CREATEPROFILE, Context.MODE_PRIVATE);
                 SharedPreferences.Editor editor = sharedPreferences.edit();
-                editor.putBoolean(PREFERENCE_KEY_USER_PROFILE, true);
+                editor.putBoolean(Prefs.PREFERENCE_KEY_PROFILE_CREATED, true);
                 editor.commit();
 
                 getActivity().finish();

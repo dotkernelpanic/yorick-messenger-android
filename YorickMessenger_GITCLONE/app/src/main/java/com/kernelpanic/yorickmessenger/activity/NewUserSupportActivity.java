@@ -23,6 +23,7 @@ import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
 import com.kernelpanic.yorickmessenger.R;
 import com.kernelpanic.yorickmessenger.adapters.UserSupportAdapter;
+import com.kernelpanic.yorickmessenger.util.Prefs;
 
 import java.util.Locale;
 
@@ -49,10 +50,10 @@ public class NewUserSupportActivity extends AppCompatActivity {
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
-        getSupportActionBar().hide();
+        //getSupportActionBar().hide();
 
-        String localeCode = getSharedPreferences(PREFERENCE_NAME_APPLICATION_LOCALE, MODE_PRIVATE)
-                .getString(PREFERENCE_KEY_APPLICATION_LOCALE, "en");
+        String localeCode = getSharedPreferences(Prefs.PREFERENCE_NAME_NEWUSERSUPPORT, MODE_PRIVATE)
+                .getString(Prefs.PREFERENCE_KEY_NEWUSERSUPPORT_LOCALE, "en");
         if (localeCode == null) localeCode = "en";
         setLocale(this, localeCode);
 
@@ -163,17 +164,15 @@ public class NewUserSupportActivity extends AppCompatActivity {
 
     private boolean checkUserSharedPreferences() {
 
-        SharedPreferences preferences = getApplicationContext().getSharedPreferences(PREFERENCES_NAME, MODE_PRIVATE);
-        Boolean isUserWatchedIntroActivity = preferences.getBoolean(PREFERENCE_BOOL_KEY, false);
+        SharedPreferences preferences = getApplicationContext().getSharedPreferences(Prefs.PREFERENCE_NAME_NEWUSERSUPPORT, MODE_PRIVATE);
+        Boolean isUserWatchedIntroActivity = preferences.getBoolean(Prefs.PREFERENCE_KEY_NEWUSERSUPPORT_WATCHED, false);
         return isUserWatchedIntroActivity;
 
     }
 
     private String checkLocaleSharedPreferences() {
-        String locale = "en";
-        SharedPreferences preferences = getApplicationContext().getSharedPreferences(PREFERENCE_NAME_APPLICATION_LOCALE, MODE_PRIVATE);
-        locale = preferences.getString(PREFERENCE_KEY_APPLICATION_LOCALE, "en");
-        return locale;
+        SharedPreferences preferences = getApplicationContext().getSharedPreferences(Prefs.PREFERENCE_NAME_NEWUSERSUPPORT, MODE_PRIVATE);
+        return preferences.getString(Prefs.PREFERENCE_KEY_NEWUSERSUPPORT_LOCALE, "en");
     }
 
     private void getStarted() {
@@ -188,9 +187,9 @@ public class NewUserSupportActivity extends AppCompatActivity {
 
     private void saveUserSharedPreferences() {
 
-        SharedPreferences preferences = getApplicationContext().getSharedPreferences(PREFERENCES_NAME, MODE_PRIVATE);
+        SharedPreferences preferences = getApplicationContext().getSharedPreferences(Prefs.PREFERENCE_NAME_NEWUSERSUPPORT, MODE_PRIVATE);
         SharedPreferences.Editor editor = preferences.edit();
-        editor.putBoolean(PREFERENCE_BOOL_KEY, true);
+        editor.putBoolean(Prefs.PREFERENCE_KEY_NEWUSERSUPPORT_WATCHED, true);
         editor.commit();
 
     }
@@ -205,9 +204,9 @@ public class NewUserSupportActivity extends AppCompatActivity {
         resources.updateConfiguration(configuration, resources.getDisplayMetrics());
 
 
-        SharedPreferences preferences = getApplicationContext().getSharedPreferences(PREFERENCE_NAME_APPLICATION_LOCALE, MODE_PRIVATE);
+        SharedPreferences preferences = getApplicationContext().getSharedPreferences(Prefs.PREFERENCE_NAME_NEWUSERSUPPORT, MODE_PRIVATE);
         SharedPreferences.Editor editor = preferences.edit();
-        editor.putString(PREFERENCE_KEY_APPLICATION_LOCALE, localeCode);
+        editor.putString(Prefs.PREFERENCE_KEY_NEWUSERSUPPORT_LOCALE, localeCode);
         editor.commit();
     }
 }

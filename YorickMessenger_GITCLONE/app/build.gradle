@@ -7,10 +7,10 @@ android {
 
     defaultConfig {
         applicationId "com.kernelpanic.yorickmessenger"
-        minSdkVersion 19
+        minSdkVersion 23
         targetSdkVersion 28
-        versionCode 1
-        versionName "2.0"
+        versionCode 2
+        versionName "BluetoothCookie"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         setProperty("archivesBaseName", "Y.Messenger-PreRelease-$versionName")

@@ -46,6 +46,7 @@ import com.kernelpanic.yorickmessenger.database.SQLiteDbHelper;
 import com.kernelpanic.yorickmessenger.service.BluetoothChatService;
 import com.kernelpanic.yorickmessenger.util.Constants;
 import com.kernelpanic.yorickmessenger.util.FileWizardTestImplementation;
+import com.kernelpanic.yorickmessenger.util.Requests;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -60,16 +61,10 @@ import static androidx.core.app.NotificationCompat.PRIORITY_HIGH;
 
 public class ChatFragment extends Fragment {
 
-
-    protected final int PERMISSION_REQUEST_ENABLE_BLUETOOTH = 2;
-    protected final int PERMISSION_REQUEST_CONNECT_DEVICE_SECURE = 3;
-    protected final int PERMISSION_REQUEST_CONNECT_DEVICE_INSECURE = 4;
     private final String TAG = "Y.Messenger-Logs";
     private final int NOTIFY_ID = 1;
     private final String CHANNEL_ID = "YorickMessenger_Notify_Channel";
-    private final int FILE_SELECT_CODE = 1;
     private final String FILE_BROWSER_CACHE_DIR = "YorickCache";
-    private final boolean isImageWrite = false;
     private String sentUsername = null;
     private String receivedUsername = null;
     private String databaseUsername;
@@ -233,7 +228,7 @@ public class ChatFragment extends Fragment {
                     break;
                 case Constants.MESSAGE_READ_FILE:
                     Toast.makeText(getActivity(), "file read", Toast.LENGTH_SHORT).show();
-                    Long currentTime = System.currentTimeMillis();
+                    long currentTime = System.currentTimeMillis();
                     Toast.makeText(getActivity(), msg.obj + "", Toast.LENGTH_SHORT).show();
                     messageList.add(new com.kernelpanic.yorickmessenger.util.Message(msg.obj + "",
                             currentTime, Constants.MESSAGE_TYPE_FILE_RECEIVED,
@@ -333,7 +328,7 @@ public class ChatFragment extends Fragment {
         try {
             if (!mBluetoothAdapter.isEnabled()) {
                 Intent enableBT = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
-                startActivityForResult(enableBT, PERMISSION_REQUEST_ENABLE_BLUETOOTH);
+                startActivityForResult(enableBT, Requests.REQUEST_PERMISSION_ENABLE_BLUETOOTH);
                 mBluetoothAdapter.enable();
                 Toast.makeText(getActivity(), "Enabling BT adapter", Toast.LENGTH_SHORT).show();
             } else if (chatService == null) {
@@ -348,7 +343,7 @@ public class ChatFragment extends Fragment {
                 postDelayedHandler.postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        startActivityForResult(server, PERMISSION_REQUEST_CONNECT_DEVICE_SECURE);
+                        startActivityForResult(server, Requests.REQUEST_PERMISSION_CONNECT_DEVICE_SECURE);
                     }
                 }, 1000);
             }
@@ -413,6 +408,10 @@ public class ChatFragment extends Fragment {
             public void onClick(View v) {
                 View view = getView();
                 if (null != view) {
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+                        Toast.makeText(getActivity(), "File sending function not yet properly implemented for Android 11. We are sorry", Toast.LENGTH_LONG).show();
+                        return;
+                    }
                     //Implementation for <=10 versions of Android
                     Intent filePickIntent = new Intent(Intent.ACTION_GET_CONTENT);
                     filePickIntent.setType("*/*");
@@ -421,7 +420,7 @@ public class ChatFragment extends Fragment {
 
                     // May have some problems on Xiaomi
                     if (filePickIntent.resolveActivity(getActivity().getPackageManager()) != null) {
-                        startActivityForResult(Intent.createChooser(filePickIntent, "Select a File to Upload"), FILE_SELECT_CODE);
+                        startActivityForResult(Intent.createChooser(filePickIntent, "Select a File to Upload"), Requests.REQUEST_SELECT_FILE);
                     }
                 }
             }
@@ -453,24 +452,24 @@ public class ChatFragment extends Fragment {
     public void onActivityResult(int reqCode, int resCode, @Nullable Intent data) {
         Bitmap bitmap = null;
         switch (reqCode) {
-            case PERMISSION_REQUEST_CONNECT_DEVICE_SECURE:
+            case Requests.REQUEST_PERMISSION_CONNECT_DEVICE_SECURE:
                 if (resCode == Activity.RESULT_OK && chatService.getState() != BluetoothChatService.STATE_CONNECTED) {
                     connectToDevice(data);
                     onConnectDataExchange();
                 }
                 break;
-            case PERMISSION_REQUEST_CONNECT_DEVICE_INSECURE:
+            case Requests.REQUEST_PERMISSIONCONNECT_DEVICE_INSECURE:
                 if (resCode == Activity.RESULT_OK && chatService.getState() != BluetoothChatService.STATE_CONNECTED) {
                     connectToDevice(data);
                     onConnectDataExchange();
                 }
-            case PERMISSION_REQUEST_ENABLE_BLUETOOTH:
+            case Requests.REQUEST_PERMISSION_ENABLE_BLUETOOTH:
                 if (resCode == Activity.RESULT_OK) {
                     setupChat();
                 } else {
                     Log.d("YMessenger.Result()", "Bluetooth is not enabled");
                 }
-            case FILE_SELECT_CODE:
+            case Requests.REQUEST_SELECT_FILE:
                 if (resCode == Activity.RESULT_OK && data != null
                         && chatService.getState() == BluetoothChatService.STATE_CONNECTED) {
                     Uri uri = data.getData();

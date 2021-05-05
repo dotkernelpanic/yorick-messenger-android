@@ -3,16 +3,38 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/myBlack"
+    style="@style/FragmentTheme"
     tools:context=".activity.fragments.ConfidentialFragment">
 
     <ImageView
-        android:id="@+id/nowifiNeededImage"
+        android:id="@+id/privacyImage"
         android:layout_width="match_parent"
         android:layout_height="250dp"
         android:layout_centerInParent="true"
-        android:layout_marginHorizontal="10dp"
-        android:src="@drawable/privacyblob" />
+        android:src="@drawable/ic_privacy" />
+
+    <TextView
+        android:id="@+id/privacyTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/app_newUserSupport_privacy"
+        style="@style/MainTextAppearanceBold"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/privacyImage"
+        android:layout_marginTop="10dp"
+        android:textSize="22sp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/app_newUserSupport_privacyDescription"
+        android:textAlignment="center"
+        style="@style/SecondaryTextAppearanceMedium"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/privacyTitle"
+        android:layout_marginTop="10dp"
+        android:layout_marginStart="25dp"
+        android:layout_marginEnd="25dp" />
 
 
 </RelativeLayout>

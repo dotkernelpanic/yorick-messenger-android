@@ -1,19 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+    android:id="@+id/coordinatorLayout"
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/myBlack"
     tools:context=".activity.MainAppActivity"
-    tools:openDrawer="start">
+    tools:openDrawer="start"
+    style="@style/MainAppActivityStyle">
 
 
     <androidx.drawerlayout.widget.DrawerLayout
         android:id="@+id/drawerLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/myBlack"
         tools:openDrawer="start">
 
         <RelativeLayout
@@ -25,13 +26,11 @@
                 android:id="@+id/appBar"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/blue_indirectResort"
+                style="@style/appBarAppearance"
                 android:padding="15dp"
                 app:menu="@menu/drawer_menu"
                 app:subtitle="@string/app_mainActivity_notConnected"
-                app:subtitleTextAppearance="@style/appBarSubTitleTextAppearance"
-                app:title="@string/app_name"
-                app:titleTextAppearance="@style/appBarTitleTextAppearance" />
+                app:title="@string/app_name" />
 
             <androidx.fragment.app.FragmentContainerView
                 android:id="@+id/fragmentContainer"
@@ -48,9 +47,9 @@
             android:layout_height="match_parent"
             android:layout_gravity="start"
             android:background="@drawable/nav_background"
-            android:fitsSystemWindows="true"
             app:headerLayout="@layout/yorickmessenger_nav_header"
             app:itemTextAppearance="@style/navItemTextAppearance"
+            app:itemTextColor="@color/appDrawerItemTextColor"
             app:menu="@menu/drawer_menu" />
 
     </androidx.drawerlayout.widget.DrawerLayout>

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="yellowColor">#F7CD2E</color>
+    <color name="myBlack">#191919</color>
+    <color name="lightBlueGray">#576380</color>
+    <color name="blue_indirectResort">#549dde</color>
+
+    <!-- App Main Colors - Light -->
+    <color name="appBackground">#363636</color>
+    <color name="appMainTextColor">#7084F1</color>
+    <color name="appSecondaryTextColor">#ABABAB</color>
+    <color name="appTextFieldColor">#F4F4F4</color>
+    <color name="appButtonBackgroundColor">#FBDD6E</color>
+    <color name="appHintTextColor">#484848</color>
+    <color name="appDrawerItemTextColor">#fff</color>
+    <color name="appDrawerItemTitleColor">#FF9800</color>
+    <color name="appDrawerHeaderBacgroundColor">#fff</color>
+    <color name="appDrawerNavBackgroundColor">#6A6098ED</color>
+
+    <!-- AppBar Light Colors -->
+    <color name="appBarTitleTextColor">#E8E8E8</color>
+    <color name="appBarSubTitleTextColor">#CBCBCB</color>
+    <color name="appBarBackgroundColor">#7185EB</color>
+
+    <!-- Misc Colors Light -->
+    <color name="white">#FFF</color>
+
+</resources>

@@ -1,37 +1,37 @@
-<resources xmlns:tools="http://schemas.android.com/tools">
+<resources
+    xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-    <style name="Theme.YorickMessenger_AppTheme" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
-        <!-- Primary brand color. -->
-        <item name="colorPrimary">@color/purple_500</item>
-        <item name="colorPrimaryVariant">@color/purple_700</item>
-        <item name="colorOnPrimary">@color/myBlack</item>
-        <!-- Secondary brand color. -->
-        <item name="colorSecondary">@color/teal_200</item>
-        <item name="colorSecondaryVariant">@color/teal_700</item>
-        <item name="colorOnSecondary">@color/black</item>
-        <item name="android:subtitleTextColor">@color/white</item>
+    <style name="Theme.YorickMessenger_AppTheme" parent="Theme.AppCompat.NoActionBar">
+        <item name="android:subtitleTextColor" tools:targetApi="m">@color/white</item>
         <item name="titleTextColor">@color/yellowColor</item>
         <!-- Status bar color. -->
-        <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
     </style>
 
     <style name="appBarTitleTextAppearance" parent="TextAppearance.AppCompat">
-        <item name="android:fontFamily">@font/montserrat_bold</item>
-        <item name="android:titleTextColor">@color/yellowColor</item>
+        <item name="android:fontFamily">@font/sora_bold</item>
+        <item name="android:background">@color/appBarBackgroundColor</item>
+        <item name="titleTextColor">@color/appBarTitleTextColor</item>
         <item name="android:textSize">18sp</item>
     </style>
 
     <style name="appBarSubTitleTextAppearance" parent="TextAppearance.AppCompat">
         <item name="android:fontFamily">@font/ubuntu</item>
-        <item name="android:subtitleTextColor">@color/white</item>
+        <item name="android:background">@color/appBarBackgroundColor</item>
+        <item name="subtitleTextColor">@color/appBarSubTitleTextColor</item>
         <item name="android:textSize">12sp</item>
     </style>
 
-    <style name="navItemTextAppearance" parent="TextAppearance.AppCompat">
+    <style name="navItemTextAppearance">
         <item name="android:fontFamily">@font/ubuntu</item>
-        <item name="android:subtitleTextColor">@color/white</item>
-        <item name="android:textSize">14sp</item>
+        <item name="itemTextColor">@color/white</item>
+        <item name="android:textSize">18sp</item>
+    </style>
+
+    <style name="navItemTitleAppearance">
+        <item name="android:fontFamily">@font/ubuntu</item>
+        <item name="android:textColor">@color/appDrawerItemTitleColor</item>
+        <item name="android:textSize">20sp</item>
     </style>
 
     <style name="tabLayoutItemAppearance" parent="Widget.Design.TabLayout">
@@ -49,9 +49,98 @@
         <item name="color">@color/white</item>
     </style>
 
-    <style name="PinViewStyle" parent="Theme.YorickMessenger_AppTheme">
-        <item name="android:textColor">@color/myBlack</item>
-        <item name="android:fontFamily">@font/ubuntu</item>
+    <style name="appBarAppearance" parent="Theme.YorickMessenger_AppTheme">
+        <item name="android:background">@color/appBarBackgroundColor</item>
+        <item name="subtitleTextAppearance">@style/appBarSubTitleTextAppearance</item>
+        <item name="subtitleTextColor">@color/appBarSubTitleTextColor</item>
+        <item name="titleTextColor">@color/appBarTitleTextColor</item>
+        <item name="android:colorBackground">@color/appBarBackgroundColor</item>
+        <item name="titleTextAppearance">@style/appBarTitleTextAppearance</item>
     </style>
+
+    <style name="HeaderTextAppearance" parent="TextAppearance.AppCompat">
+        <item name="android:fontFamily">@font/sora_regular</item>
+        <item name="android:textSize">22sp</item>
+        <item name="android:textColor">@color/appMainTextColor</item>
+    </style>
+
+    <style name="HeaderTextAppearanceBold" parent="TextAppearance.AppCompat">
+        <item name="android:fontFamily">@font/montserrat_bold</item>
+        <item name="android:textSize">30sp</item>
+        <item name="android:textColor">@color/appMainTextColor</item>
+    </style>
+
+    <style name="MainTextAppearance" parent="TextAppearance.AppCompat">
+        <item name="android:fontFamily">@font/sora_regular</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:textColor">@color/appMainTextColor</item>
+    </style>
+
+    <style name="MainTextAppearanceBold" parent="TextAppearance.AppCompat">
+        <item name="android:fontFamily">@font/ubuntu_bold</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:textColor">@color/appMainTextColor</item>
+    </style>
+
+    <style name="MainTextAppearanceMedium" parent="TextAppearance.AppCompat">
+        <item name="android:fontFamily">@font/ubuntu_medium</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:textColor">@color/appMainTextColor</item>
+    </style>
+
+    <style name="SecondaryTextAppearanceRegular" parent="TextAppearance.AppCompat">
+        <item name="android:fontFamily">@font/ubuntu</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:textColor">@color/appSecondaryTextColor</item>
+    </style>
+
+    <style name="SecondaryTextAppearanceMedium" parent="TextAppearance.AppCompat">
+        <item name="android:fontFamily">@font/ubuntu_medium</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:textColor">@color/appSecondaryTextColor</item>
+    </style>
+
+    <style name="SecondaryTextAppearanceBold" parent="TextAppearance.AppCompat">
+        <item name="android:fontFamily">@font/ubuntu_bold</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:textColor">@color/appSecondaryTextColor</item>
+    </style>
+
+    <style name="FragmentTheme" parent="Theme.YorickMessenger_AppTheme">
+        <item name="android:background">@color/appBackground</item>
+    </style>
+
+    <style name="MainAppActivityStyle" parent="Theme.YorickMessenger_AppTheme">
+        <item name="android:background">@color/appBackground</item>
+    </style>
+
+    <style name="TextFieldStyle">
+        <item name="android:background">@drawable/app_textfield_rounded_apperance</item>
+        <item name="android:textColorHint">@color/appHintTextColor</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:padding">15dp</item>
+        <item name="android:fontFamily">@font/ubuntu</item>
+        <item name="android:textSize">18sp</item>
+    </style>
+
+    <style name="ChatTextFieldStyle">
+        <item name="android:background">@drawable/app_textfield_rounded_apperance</item>
+        <item name="android:textColorHint">@color/appHintTextColor</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:padding">5dp</item>
+        <item name="android:fontFamily">@font/ubuntu</item>
+        <item name="android:textSize">18sp</item>
+    </style>
+
+
+    <style name="ButtonStyle">
+        <item name="android:background">@drawable/app_button_rounded_background</item>
+        <item name="android:padding">20dp</item>
+        <item name="android:fontFamily">@font/ubuntu_medium</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:textColor">@color/appButtonTextColor</item>
+    </style>
+
+
 
 </resources>

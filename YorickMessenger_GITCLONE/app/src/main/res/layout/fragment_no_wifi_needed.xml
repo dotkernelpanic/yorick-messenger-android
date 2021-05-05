@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/myBlack"
+    style="@style/FragmentTheme"
     tools:context=".activity.fragments.NoWifiNeededFragment">
 
     <ImageView
@@ -11,8 +11,31 @@
         android:layout_width="match_parent"
         android:layout_height="250dp"
         android:layout_centerInParent="true"
-        android:layout_marginHorizontal="10dp"
-        android:src="@drawable/nowifineedblob" />
+        android:src="@drawable/ic_nowifi" />
+
+    <TextView
+        android:id="@+id/noWifiTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/nowifiNeededImage"
+        android:text="@string/app_newUserSupport_noWifiNeeded"
+        style="@style/MainTextAppearanceBold"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="5dp"
+        android:textSize="22sp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/noWifiTitle"
+        android:text="@string/app_newUserSupport_noWifiNeededDescription"
+        android:layout_marginStart="25dp"
+        android:layout_marginEnd="25dp"
+        style="@style/SecondaryTextAppearanceMedium"
+        android:textAlignment="center"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="5dp" />
+
 
 
 </RelativeLayout>

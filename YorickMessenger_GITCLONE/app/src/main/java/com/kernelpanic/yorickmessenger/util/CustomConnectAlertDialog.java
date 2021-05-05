@@ -12,7 +12,7 @@ import androidx.appcompat.widget.AppCompatButton;
 
 import com.kernelpanic.yorickmessenger.R;
 
-public class CustomConnectAlertDialogClass extends Dialog implements View.OnClickListener {
+public class CustomConnectAlertDialog extends Dialog implements View.OnClickListener {
 
     private static String EXTRA_DEVICE_ADDRESS;
     private Activity activity;
@@ -23,7 +23,7 @@ public class CustomConnectAlertDialogClass extends Dialog implements View.OnClic
     private String deviceAddress;
     private Intent intent;
 
-    public CustomConnectAlertDialogClass(Activity activity) {
+    public CustomConnectAlertDialog(Activity activity) {
         super(activity);
         this.activity = activity;
     }

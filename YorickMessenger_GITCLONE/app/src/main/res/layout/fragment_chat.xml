@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/myBlack"
+    style="@style/FragmentTheme"
     tools:context=".activity.fragments.ChatFragment">
 
     <RelativeLayout
@@ -13,30 +13,29 @@
         android:layout_alignParentBottom="true">
 
 
-        <LinearLayout
+         <LinearLayout
             android:id="@+id/messagingLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            android:background="@drawable/app_rounded_background_lightbluegray"
+            android:background="@color/appTextFieldColor"
             android:maxHeight="120dp"
             android:orientation="horizontal"
             android:weightSum="5">
 
             <FrameLayout
                 android:id="@+id/attachButtonContainer"
-                android:layout_width="wrap_content"
-                android:layout_height="20dp"
+                android:layout_width="35dp"
+                android:layout_height="wrap_content"
                 android:layout_gravity="left|center"
                 android:layout_margin="15dp"
-                android:background="@drawable/support_buttons_states"
                 android:clickable="true"
                 android:focusable="false">
 
                 <ImageButton
                     android:id="@+id/btnAttach"
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
+                    android:layout_width="15dp"
+                    android:layout_height="30dp"
+                    android:background="@color/appTextFieldColor"
                     android:layout_gravity="center"
                     android:layout_marginStart="2dp"
                     android:src="@drawable/ic_attach" />
@@ -53,25 +52,23 @@
                 android:autoSizeMaxTextSize="100sp"
                 android:autoSizeMinTextSize="9sp"
                 android:autoSizeTextType="uniform"
-                android:background="@color/lightBlueGray"
                 android:capitalize="sentences"
-                android:fontFamily="@font/ubuntu"
                 android:hint="@string/app_mainActivity_editText_startTyping"
                 android:maxHeight="150dp"
-                android:textColorHint="#9F9F9F"
-                android:textSize="15sp" />
+                style="@style/ChatTextFieldStyle"/>
 
             <FrameLayout
                 android:id="@+id/sendMsgButtonContainer"
-                android:layout_width="20dp"
-                android:layout_height="20dp"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
                 android:layout_gravity="right|center"
                 android:layout_margin="15dp">
 
                 <ImageButton
                     android:id="@+id/btnSend"
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@color/appTextFieldColor"
                     android:layout_gravity="center"
                     android:clickable="true"
                     android:src="@drawable/ic_send" />

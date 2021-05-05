@@ -45,8 +45,6 @@ public class SQLiteDbHelper extends SQLiteOpenHelper {
                 TYPE + " INTEGER, " +
                 TIMESTAMP + " TIMESTAMP" + ")");
 
-        Toast.makeText(context, DEVICE_MAC_ADDRESS, Toast.LENGTH_SHORT).show();
-
         //Executing a SQL command to CREATE user's info table
         db.execSQL("create table " + TABLE_USER_INFO + "(" +
                 uID + " integer primary key autoincrement, " + FULLNAME + " text" + ")");

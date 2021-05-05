@@ -4,7 +4,7 @@
     android:id="@+id/homeFragmentContainer"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/myBlack"
+    style="@style/FragmentTheme"
     tools:context=".activity.fragments.ReadyToScanFragment">
 
     <RelativeLayout
@@ -27,11 +27,9 @@
             android:layout_centerVertical="true"
             android:layout_marginStart="20dp"
             android:layout_marginEnd="20dp"
-            android:fontFamily="@font/ubuntu_medium"
             android:text="@string/fragment_readyToScan_title"
             android:textAlignment="center"
-            android:textColor="@color/yellowColor"
-            android:textSize="20sp" />
+            style="@style/MainTextAppearanceMedium"/>
 
         <TextView
             android:id="@+id/readyToScanDescription"
@@ -40,10 +38,8 @@
             android:layout_below="@id/readyToScanTitle"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="10dp"
-            android:fontFamily="@font/ubuntu"
-            android:text="@string/fragment_readyToScan_description"
-            android:textColor="@color/yellowColor"
-            android:textSize="14sp" />
+            style="@style/SecondaryTextAppearanceBold"
+            android:text="@string/fragment_readyToScan_description" />
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/readyToScanButton"
@@ -52,9 +48,8 @@
             android:layout_below="@id/readyToScanDescription"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="20dp"
-            android:background="@drawable/app_ui_gradient_sunnymorning"
-            android:text="@string/fragment_scanButton_label"
-            android:textColor="@color/myBlack" />
+            style="@style/ButtonStyle"
+            android:text="@string/fragment_scanButton_label" />
 
 
     </RelativeLayout>

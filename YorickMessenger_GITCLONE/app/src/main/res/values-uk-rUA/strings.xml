@@ -19,4 +19,12 @@
     <string name="app_bluetoothservice_connectionLost">Ми втратили зв\'язок</string>
     <string name="app_newUserSupport_buttonSkip">ПРОПУСТИТИ</string>
     <string name="scanlist_searching_title">Пошук...</string>
+    <string name="scanlist_stopScanButton_title">Зупинити пошук</string>
+    <string name="scanlist_paired_label">Зв\'язані пристрої</string>
+    <string name="app_newUserSupport_noWifiNeeded">Wi-Fi НЕ ПОТРІБЕН</string>
+    <string name="app_newUserSupport_easyToUse">ЛЕГКИЙ ДО РОЗУМІННЯ</string>
+    <string name="app_newUserSupport_easyToUseDescription">Просто відкрий застосунок та почни спілкування</string>
+    <string name="app_newUserSupport_privacy">ПРИВАТНІСТЬ</string>
+    <string name="app_newUserSupport_privacyDescription">Не треба пілкуватися про приватність. Ваши чати неможливо викрасти</string>
+    <string name="app_newUserSupport_noWifiNeededDescription">Вам не потрібно мати підключення до Інтернету. Тільки Bluetooth</string>
 </resources>
