@@ -6,6 +6,7 @@
     <string name="app_newUserSupport_buttonGetStarted">РОЗПОЧАТИ</string>
     <string name="app_mainActivity_notConnected">Не з\'єднано</string>
     <string name="app_mainActivity_connected">З\'єднано з <b>%1$s</b></string>
+    <string name="scanlist_alertDialog_doYouWantToConnectTitle">Ви бажаєти підключитися до: \n %1%s?</string>
     <string name="app_mainActivity_connecting">З\'єднання</string>
     <string name="app_mainActivity_editText_startTyping">Почни писати....</string>
     <string name="app_mainActivity_appbar_open">Відкрити</string>
@@ -27,4 +28,15 @@
     <string name="app_newUserSupport_privacy">ПРИВАТНІСТЬ</string>
     <string name="app_newUserSupport_privacyDescription">Не треба пілкуватися про приватність. Ваши чати неможливо викрасти</string>
     <string name="app_newUserSupport_noWifiNeededDescription">Вам не потрібно мати підключення до Інтернету. Тільки Bluetooth</string>
+    <string name="fragment_createPIN_createTitle">СТВОРИТЬ ПІН-КОД</string>
+    <string name="fragment_createPIN_saveBtn">ЗБЕРЕГТИ</string>
+    <string name="fragment_checkPIN_checkTitle">ВВЕДІТЬ ПІН-КОД</string>
+    <string name="fragment_checkPIN_proceedBtn">ДАЛІ</string>
+    <string name="fragment_createProfile_createTitle">СТВОРИТЬ ПРОФІЛЬ</string>
+    <string name="fragment_createProfile_saveBtn">ЗБЕРЕГТИ</string>
+    <string name="fragment_createProfile_fullName">Ім\'я та прізвище</string>
+    <string name="fragment_createProfile_hintText">Почни писати...</string>
+    <string name="fragment_createPIN_doYouWantToCreate">Чи бажаєти ви створити пін-код?</string>
+    <string name="fragment_createPIN_doYouWantToCreate_yesBtn">ТАК</string>
+    <string name="fragment_createPIN_doYouWantToCreate_noBtn">НІ</string>
 </resources>

@@ -2,7 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/myBlack">
+    style="@style/MainAppActivityStyle">
 
     <TextView
         android:id="@+id/searchingLabel"
@@ -33,10 +33,10 @@
             android:id="@+id/deviceList"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:layout_marginEnd="10dp"
-            android:divider="@color/myBlack"
-            android:dividerHeight="5sp" />
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:divider="@color/appBackground"
+            android:dividerHeight="10sp" />
 
     </LinearLayout>
 
@@ -62,10 +62,10 @@
             android:id="@+id/devicePairedList"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:layout_marginEnd="10dp"
-            android:divider="@color/myBlack"
-            android:dividerHeight="5sp" />
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:divider="@color/appBackground"
+            android:dividerHeight="10sp" />
 
     </LinearLayout>
 

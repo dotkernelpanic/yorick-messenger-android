@@ -1,0 +1,16 @@
+<PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <PreferenceCategory
+        app:title="Apperance">
+
+        <SwitchPreferenceCompat
+            app:key="nightMode"
+            app:title="Night Mode"
+            app:defaultValue="true"
+            app:summary="Turn on or turn off the dark mode in app manually"
+            app:icon="@drawable/ic_night_mode" />
+
+    </PreferenceCategory>
+
+</PreferenceScreen>

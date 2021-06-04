@@ -17,7 +17,7 @@
             android:id="@+id/messagingLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/appTextFieldColor"
+            android:background="@color/appChatTextFieldBackgroundColor"
             android:maxHeight="120dp"
             android:orientation="horizontal"
             android:weightSum="5">
@@ -35,7 +35,7 @@
                     android:id="@+id/btnAttach"
                     android:layout_width="15dp"
                     android:layout_height="30dp"
-                    android:background="@color/appTextFieldColor"
+                    android:background="@color/appChatTextFieldBackgroundColor"
                     android:layout_gravity="center"
                     android:layout_marginStart="2dp"
                     android:src="@drawable/ic_attach" />
@@ -49,13 +49,18 @@
                 android:layout_gravity="center"
                 android:layout_margin="10dp"
                 android:layout_weight="5"
+                android:textColor="@color/appTextFieldColor"
+                android:background="@color/appChatTextFieldBackgroundColor"
                 android:autoSizeMaxTextSize="100sp"
                 android:autoSizeMinTextSize="9sp"
                 android:autoSizeTextType="uniform"
                 android:capitalize="sentences"
                 android:hint="@string/app_mainActivity_editText_startTyping"
+                android:textColorHint="@color/appChatHintTextColor"
                 android:maxHeight="150dp"
-                style="@style/ChatTextFieldStyle"/>
+                android:fontFamily="@font/ubuntu"
+                android:textSize="18sp"
+                android:padding="5dp"/>
 
             <FrameLayout
                 android:id="@+id/sendMsgButtonContainer"
@@ -68,7 +73,7 @@
                     android:id="@+id/btnSend"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="@color/appTextFieldColor"
+                    android:background="@color/appChatTextFieldBackgroundColor"
                     android:layout_gravity="center"
                     android:clickable="true"
                     android:src="@drawable/ic_send" />

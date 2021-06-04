@@ -238,6 +238,10 @@ public class MainAppActivity extends AppCompatActivity implements NavigationView
                         .setCustomAnimations(R.anim.fragment_swipe_inleft, R.anim.fragment_swipe_outright)
                         .commit();
                 break;
+            case R.id.appearanceSettingsNavItem:
+                Intent intent = new Intent(MainAppActivity.this, AppearanceSettingsActivity.class);
+                startActivity(intent);
+                break;
         }
         drawerLayout.closeDrawer(GravityCompat.START);
         return true;

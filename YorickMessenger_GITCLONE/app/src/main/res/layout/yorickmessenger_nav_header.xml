@@ -29,6 +29,6 @@
         android:layout_marginTop="10dp"
         android:text="PlaceHolder"
         style="@style/MainTextAppearance"
-        android:textColor="@color/myBlack"/>
+        android:textColor="@color/white"/>
 
 </LinearLayout>

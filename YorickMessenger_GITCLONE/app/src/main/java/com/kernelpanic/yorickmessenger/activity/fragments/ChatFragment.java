@@ -118,7 +118,7 @@ public class ChatFragment extends Fragment {
                                         btnAttach.setEnabled(true);
                                         inputField.setEnabled(true);
                                         Snackbar.make(getView(), "Done", Snackbar.LENGTH_SHORT).show();
-                                        Toast.makeText(getActivity(), "globalDeviceAddress: " + connectedDeviceBluetoothAddress, Toast.LENGTH_SHORT).show();
+                                        //Toast.makeText(getActivity(), "globalDeviceAddress: " + connectedDeviceBluetoothAddress, Toast.LENGTH_SHORT).show();
                                         List<ChatMessage> chatList = dbHelper.querySelect(connectedDeviceBluetoothAddress);
                                         for (ChatMessage chatMessage : chatList)
                                             messageList.add(new com.kernelpanic.yorickmessenger.util.Message(chatMessage.getContent(), chatMessage.getCurrentTime(),
@@ -189,7 +189,7 @@ public class ChatFragment extends Fragment {
                     }
                     break;
                 case Constants.MESSAGE_READ:
-                    Toast.makeText(getActivity(), "default read", Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(getActivity(), "default read", Toast.LENGTH_SHORT).show();
                     String readMessage = (String) msg.obj;
                     if (isOnConnectExchangeDone) {
                         Long currentTimeR = System.currentTimeMillis();
@@ -197,7 +197,7 @@ public class ChatFragment extends Fragment {
                                 currentTimeR, Constants.MESSAGE_TYPE_RECEIVED, receivedUsername, false));
                         chatListArrayAdapter.notifyDataSetChanged();
                         chatView.smoothScrollToPosition(messageList.size());
-                        Toast.makeText(getActivity(), receivedUsername + " received user", Toast.LENGTH_SHORT).show();
+                        //Toast.makeText(getActivity(), receivedUsername + " received user", Toast.LENGTH_SHORT).show();
                         dbHelper.addMessageRecord(new ChatMessage(connectedDeviceBluetoothAddress, Constants.MESSAGE_TYPE_RECEIVED, readMessage,
                                 receivedUsername, currentTimeR));
                         break;
@@ -206,11 +206,11 @@ public class ChatFragment extends Fragment {
                         break;
                     }
                 case Constants.MESSAGE_WRITE:
-                    Toast.makeText(getActivity(), "default write", Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(getActivity(), "default write", Toast.LENGTH_SHORT).show();
                     Long currentTimeMillisW = System.currentTimeMillis();
                     String writeMessage = (String) msg.obj;
                     if (isOnConnectExchangeDone) {
-                        Toast.makeText(getActivity(), sentUsername + " sent user", Toast.LENGTH_SHORT).show();
+                        //Toast.makeText(getActivity(), sentUsername + " sent user", Toast.LENGTH_SHORT).show();
                         Long currentTime = System.currentTimeMillis();
                         messageList.add(new com.kernelpanic.yorickmessenger.util.Message(writeMessage,
                                 currentTimeMillisW, Constants.MESSAGE_TYPE_SENT, sentUsername, false));
@@ -227,9 +227,9 @@ public class ChatFragment extends Fragment {
                     //Snackbar.make(getView(), (String) msg.obj, Snackbar.LENGTH_SHORT).show();
                     break;
                 case Constants.MESSAGE_READ_FILE:
-                    Toast.makeText(getActivity(), "file read", Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(getActivity(), "file read", Toast.LENGTH_SHORT).show();
                     long currentTime = System.currentTimeMillis();
-                    Toast.makeText(getActivity(), msg.obj + "", Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(getActivity(), msg.obj + "", Toast.LENGTH_SHORT).show();
                     messageList.add(new com.kernelpanic.yorickmessenger.util.Message(msg.obj + "",
                             currentTime, Constants.MESSAGE_TYPE_FILE_RECEIVED,
                             receivedUsername, true));
@@ -239,7 +239,7 @@ public class ChatFragment extends Fragment {
                 case Constants.MESSAGE_WRITE_FILE:
                     //Toast.makeText(getActivity(), "file write", Toast.LENGTH_SHORT).show();
                     currentTime = System.currentTimeMillis();
-                    Toast.makeText(getActivity(), msg.obj + "", Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(getActivity(), msg.obj + "", Toast.LENGTH_SHORT).show();
                     messageList.add(new com.kernelpanic.yorickmessenger.util.Message(
                             msg.obj + "", currentTime,
                             Constants.MESSAGE_TYPE_FILE_SENT,
@@ -282,10 +282,10 @@ public class ChatFragment extends Fragment {
         if (!file.exists()) {
             Toast.makeText(getActivity(), "Dir not exist", Toast.LENGTH_SHORT).show();
             file.mkdirs();
-            Toast.makeText(getActivity(), "File mkdirs: " + file.mkdirs(), Toast.LENGTH_SHORT).show();
+            //Toast.makeText(getActivity(), "File mkdirs: " + file.mkdirs(), Toast.LENGTH_SHORT).show();
         }
         else {
-            Toast.makeText(getActivity(), "dir exists + " + file.getAbsolutePath(), Toast.LENGTH_SHORT).show();
+            //Toast.makeText(getActivity(), "dir exists + " + file.getAbsolutePath(), Toast.LENGTH_SHORT).show();
         }
         if (mBluetoothAdapter == null) {
             Toast.makeText(getActivity(), "Bluetooth is not available", Toast.LENGTH_SHORT).show();
@@ -523,8 +523,8 @@ public class ChatFragment extends Fragment {
     private void connectToDevice(Intent data) {
         String deviceAddress = data.getExtras()
                 .getString(ScanListActivity.EXTRA_DEVICE_ADDRESS);
-        Toast.makeText(getActivity(), deviceAddress, Toast.LENGTH_SHORT).show();
-        Toast.makeText(getActivity(), deviceAddress, Toast.LENGTH_LONG).show();
+        //Toast.makeText(getActivity(), deviceAddress, Toast.LENGTH_SHORT).show();
+       // Toast.makeText(getActivity(), deviceAddress, Toast.LENGTH_LONG).show();
         BluetoothDevice device = mBluetoothAdapter.getRemoteDevice(deviceAddress);
         chatService.connect(device);
     }

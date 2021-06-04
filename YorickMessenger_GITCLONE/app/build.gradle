@@ -10,10 +10,10 @@ android {
         minSdkVersion 23
         targetSdkVersion 28
         versionCode 2
-        versionName "BluetoothCookie"
+        versionName "BlueberryPie-Release-Stable"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
-        setProperty("archivesBaseName", "Y.Messenger-PreRelease-$versionName")
+        setProperty("archivesBaseName", "Y.Messenger-$versionName")
     }
 
     buildTypes {
@@ -49,6 +49,7 @@ dependencies {
     implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.2.0'
     implementation 'com.github.jaiselrahman:FilePicker:1.3.2'
     implementation 'com.chaos.view:pinview:1.4.4'
+    implementation 'androidx.preference:preference:1.1.1'
 
     testImplementation 'junit:junit:4.+'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'

@@ -76,6 +76,6 @@ public class CustomCreatePINCodeAlertDialog extends Dialog implements View.OnCli
         textView = findViewById(R.id.text);
         yesBtn.setOnClickListener(this);
         noBtn.setOnClickListener(this);
-        textView.setText("Do you want to create PIN code?");
+        textView.setText(context.getString(R.string.fragment_createPIN_doYouWantToCreate));
     }
 }

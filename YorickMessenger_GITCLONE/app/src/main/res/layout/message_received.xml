@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_gravity="end"
-    android:background="@color/myBlack"
+    android:background="@color/appBackground"
     android:orientation="vertical">
 
     <LinearLayout
@@ -11,7 +11,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="start"
-        android:layout_marginEnd="10dp"
+        android:layout_marginStart="5dp"
         android:clickable="true"
         android:orientation="vertical">
 
@@ -44,7 +44,7 @@
             android:layout_gravity="start"
             android:fontFamily="@font/montserrat"
             android:text="11:00 AM"
-            android:textColor="@color/white"
+            android:textColor="@color/timeStampColor"
             android:textSize="9sp" />
     </LinearLayout>
 </LinearLayout>

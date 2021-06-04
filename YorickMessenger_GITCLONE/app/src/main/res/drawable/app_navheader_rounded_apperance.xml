@@ -5,7 +5,7 @@
         android:topRightRadius="15dp" />
 
     <solid
-        android:color="@color/appDrawerHeaderBacgroundColor" />
+        android:color="@color/navDrawerHeaderBackgroundColor" />
 
 
 </shape>

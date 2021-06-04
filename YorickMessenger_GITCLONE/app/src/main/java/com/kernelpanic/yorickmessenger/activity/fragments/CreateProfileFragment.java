@@ -71,7 +71,7 @@ public class CreateProfileFragment extends Fragment {
 
                 User user = new User(fullname);
                 sqlHelper.createUser(user);
-                Toast.makeText(getActivity(), "Added new user", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(), "Added new user: " + fullname, Toast.LENGTH_SHORT).show();
 
                 SharedPreferences sharedPreferences = getActivity().getSharedPreferences(Prefs.PREFERENCE_NAME_CREATEPROFILE, Context.MODE_PRIVATE);
                 SharedPreferences.Editor editor = sharedPreferences.edit();

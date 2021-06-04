@@ -26,6 +26,7 @@ import com.kernelpanic.yorickmessenger.adapters.UserSupportAdapter;
 import com.kernelpanic.yorickmessenger.util.Prefs;
 
 import java.util.Locale;
+import java.util.Objects;
 
 public class NewUserSupportActivity extends AppCompatActivity {
 
@@ -50,7 +51,7 @@ public class NewUserSupportActivity extends AppCompatActivity {
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
-        //getSupportActionBar().hide();
+        //Objects.requireNonNull(getSupportActionBar()).hide();
 
         String localeCode = getSharedPreferences(Prefs.PREFERENCE_NAME_NEWUSERSUPPORT, MODE_PRIVATE)
                 .getString(Prefs.PREFERENCE_KEY_NEWUSERSUPPORT_LOCALE, "en");

@@ -22,4 +22,16 @@
         <item name="android:subtitleTextColor">@color/white</item>
         <item name="android:textSize">12sp</item>
     </style>
+
+    <style name="navItemTextAppearance">
+        <item name="android:fontFamily">@font/ubuntu</item>
+        <item name="itemTextColor">@color/white</item>
+        <item name="android:textSize">18sp</item>
+    </style>
+
+    <style name="navItemTitleAppearance">
+        <item name="android:fontFamily">@font/ubuntu</item>
+        <item name="android:textColor">@color/navDrawerItemTitleColor</item>
+        <item name="android:textSize">20sp</item>
+    </style>
 </resources>

@@ -10,6 +10,7 @@
     <string name="scanlist_searching_title">Searching...</string>
     <string name="scanlist_stopScanButton_title">Stop Scan</string>
     <string name="scanlist_paired_label">Paired Devices</string>
+    <string name="scanlist_alertDialog_doYouWantToConnectTitle">Do you want to connect to: \n %1%s?</string>
 
     <string name="app_newUserSupport_title">Why Yorick Messenger?</string>
     <string name="app_newUserSupport_buttonNext">NEXT</string>
@@ -41,6 +42,37 @@
     <string name="app_navigation_header_tglink" translatable="false">t.me/kerne1_pan1c</string>
 
     <string name="util_bluetoothDeviceNoName" translatable="false">noname</string>
+    <string name="title_activity_appearance_settings">AppearanceSettingsActivity</string>
+
+    <!-- Create\Check PIN fragment -->
+    <string name="fragment_createPIN_createTitle">CREATE YOUR PIN CODE</string>
+    <string name="fragment_createPIN_saveBtn">SAVE</string>
+    <string name="fragment_checkPIN_checkTitle">ENTER YOUR PIN CODE"</string>
+    <string name="fragment_checkPIN_proceedBtn">PROCEED</string>
+    <string name="fragment_createPIN_doYouWantToCreate">Do you want to create PIN code?</string>
+    <string name="fragment_createPIN_doYouWantToCreate_yesBtn">YES</string>
+    <string name="fragment_createPIN_doYouWantToCreate_noBtn">NO</string>
+
+    <!-- Create Profile fragment -->
+    <string name="fragment_createProfile_createTitle">CREATE YOUR PROFILE</string>
+    <string name="fragment_createProfile_saveBtn">SAVE</string>
+    <string name="fragment_createProfile_fullName">Fullname</string>
+    <string name="fragment_createProfile_hintText">Type here...</string>
+
+    <!-- Preference Titles -->
+    <string name="messages_header" translatable="false">Messages</string>
+    <string name="sync_header" translatable="false">Sync</string>
+
+    <!-- Messages Preferences -->
+    <string name="signature_title" translatable="false">Your signature</string>
+    <string name="reply_title" translatable="false">Default reply action</string>
+
+    <!-- Sync Preferences -->
+    <string name="sync_title" translatable="false">Sync email periodically</string>
+    <string name="attachment_title" translatable="false">Download incoming attachments</string>
+    <string name="attachment_summary_on" translatable="false">Automatically download attachments for incoming emails
+    </string>
+    <string name="attachment_summary_off" translatable="false">Only download attachments when manually requested</string>
     <!-- TODO: Remove or change this placeholder text -->
 
 </resources>

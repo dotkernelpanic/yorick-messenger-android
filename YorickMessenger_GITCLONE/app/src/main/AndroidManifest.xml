@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     package="com.kernelpanic.yorickmessenger">
 
@@ -13,9 +12,6 @@
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 
-    <!-- For Android 11-->
-    <!-- <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" /> -->
-
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_ymessenger_logo"
@@ -25,6 +21,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.YorickMessenger_AppTheme"
         tools:targetApi="q">
+        <activity
+            android:name=".activity.AppearanceSettingsActivity"
+            android:label="@string/title_activity_appearance_settings"></activity>
 
         <provider
             android:name="androidx.core.content.FileProvider"
@@ -44,13 +43,17 @@
             android:theme="@style/Theme.YorickMessenger_AppTheme.NoActionBar"
             android:windowSoftInputMode="stateHidden|adjustPan" />
         <activity android:name=".activity.NewUserSupportActivity">
+
+        </activity>
+        <activity
+            android:name=".activity.SplashScreenActivity"
+            android:theme="@style/Theme.YorickMessenger_AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activity.SplashScreenActivity"></activity>
 
         <meta-data
             android:name="preloaded_fonts"

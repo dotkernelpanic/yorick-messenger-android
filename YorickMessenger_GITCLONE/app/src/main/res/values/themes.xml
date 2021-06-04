@@ -30,7 +30,7 @@
 
     <style name="navItemTitleAppearance">
         <item name="android:fontFamily">@font/ubuntu</item>
-        <item name="android:textColor">@color/appDrawerItemTitleColor</item>
+        <item name="android:textColor">@color/navDrawerItemTitleColor</item>
         <item name="android:textSize">20sp</item>
     </style>
 
@@ -59,25 +59,25 @@
     </style>
 
     <style name="HeaderTextAppearance" parent="TextAppearance.AppCompat">
-        <item name="android:fontFamily">@font/sora_regular</item>
+        <item name="android:fontFamily">@font/ubuntu</item>
         <item name="android:textSize">22sp</item>
         <item name="android:textColor">@color/appMainTextColor</item>
     </style>
 
     <style name="HeaderTextAppearanceBold" parent="TextAppearance.AppCompat">
-        <item name="android:fontFamily">@font/montserrat_bold</item>
+        <item name="android:fontFamily">@font/ubuntu_medium</item>
         <item name="android:textSize">30sp</item>
         <item name="android:textColor">@color/appMainTextColor</item>
     </style>
 
     <style name="MainTextAppearance" parent="TextAppearance.AppCompat">
-        <item name="android:fontFamily">@font/sora_regular</item>
+        <item name="android:fontFamily">@font/ubuntu</item>
         <item name="android:textSize">18sp</item>
         <item name="android:textColor">@color/appMainTextColor</item>
     </style>
 
     <style name="MainTextAppearanceBold" parent="TextAppearance.AppCompat">
-        <item name="android:fontFamily">@font/ubuntu_bold</item>
+        <item name="android:fontFamily">@font/ubuntu_medium</item>
         <item name="android:textSize">18sp</item>
         <item name="android:textColor">@color/appMainTextColor</item>
     </style>
@@ -117,7 +117,7 @@
     <style name="TextFieldStyle">
         <item name="android:background">@drawable/app_textfield_rounded_apperance</item>
         <item name="android:textColorHint">@color/appHintTextColor</item>
-        <item name="android:textColor">@color/white</item>
+        <item name="android:textColor">@color/appTextFieldColor</item>
         <item name="android:padding">15dp</item>
         <item name="android:fontFamily">@font/ubuntu</item>
         <item name="android:textSize">18sp</item>
@@ -132,7 +132,6 @@
         <item name="android:textSize">18sp</item>
     </style>
 
-
     <style name="ButtonStyle">
         <item name="android:background">@drawable/app_button_rounded_background</item>
         <item name="android:padding">20dp</item>
@@ -141,6 +140,10 @@
         <item name="android:textColor">@color/appButtonTextColor</item>
     </style>
 
-
+    <style name="PrefsActivity">
+        <item name="android:textColorSecondary">@color/prefsSecondaryTextColor</item>
+        <item name="android:textColor">@color/prefsTextColor</item>
+        <item name="android:background">@color/appBackground</item>
+    </style>
 
 </resources>

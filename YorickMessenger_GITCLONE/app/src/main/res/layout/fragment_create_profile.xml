@@ -13,7 +13,7 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="100dp"
         android:textSize="30sp"
-        android:text="CREATE YOUR PROFILE"
+        android:text="@string/fragment_createProfile_createTitle"
         style="@style/HeaderTextAppearance"/>
 
     <LinearLayout
@@ -27,7 +27,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Fullname"
+            android:text="@string/fragment_createProfile_fullName"
             style="@style/MainTextAppearance" />
 
         <EditText
@@ -36,6 +36,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_margin="10dp"
+            android:textColor="@color/appTextFieldColor"
             android:layout_weight="5"
             android:autoSizeMaxTextSize="100sp"
             android:autoSizeMinTextSize="9sp"
@@ -52,7 +53,7 @@
             android:layout_gravity="center"
             android:layout_marginTop="10dp"
             android:layout_marginBottom="5dp"
-            android:text="Save"
+            android:text="@string/fragment_createProfile_saveBtn"
             style="@style/ButtonStyle"/>
 
     </LinearLayout>

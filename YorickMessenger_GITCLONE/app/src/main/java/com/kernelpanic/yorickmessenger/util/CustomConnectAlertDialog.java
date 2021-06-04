@@ -48,7 +48,7 @@ public class CustomConnectAlertDialog extends Dialog implements View.OnClickList
         text = findViewById(R.id.text);
         yesBtn.setOnClickListener(this);
         noBtn.setOnClickListener(this);
-        text.setText("Do you want to connect to: \n" + deviceName + "?");
+        text.setText(getContext().getString(R.string.scanlist_alertDialog_doYouWantToConnectTitle));
     }
 
     @Override

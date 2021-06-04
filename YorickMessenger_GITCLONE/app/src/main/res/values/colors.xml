@@ -13,21 +13,40 @@
     <color name="appBackground">#F4F4F4</color>
     <color name="appMainTextColor">#7084F1</color>
     <color name="appSecondaryTextColor">#686868</color>
-    <color name="appTextFieldColor">#272727</color>
+    <color name="appTextFieldColor">#F4F4F4</color>
+    <color name="appTextFieldBackgroundColor">#363636</color>
+    <color name="appChatTextFieldBackgroundColor">#363636</color>
     <color name="appButtonBackgroundColor">#FBDD6E</color>
-    <color name="appHintTextColor">#C4ECECEC</color>
-    <color name="appDrawerItemTextColor">#454545</color>
-    <color name="appDrawerItemTitleColor">#FE814B</color>
-    <color name="appDrawerHeaderBacgroundColor">#50A8D9</color>
+    <color name="appHintTextColor">#C4F6F5F5</color>
+    <color name="appChatHintTextColor">#C5C5C5</color>
     <color name="appButtonTextColor">#000000</color>
-    <color name="appDrawerNavBackgroundColor">#6A6098ED</color>
 
     <!-- AppBar Light Colors -->
     <color name="appBarTitleTextColor">#F7CD2E</color>
     <color name="appBarSubTitleTextColor">#C5C5C5</color>
     <color name="appBarBackgroundColor">#363636</color>
+    
+    <!-- PIN Code colors -->
+    <color name="pinViewBordersColor">@color/yellowColor</color>
+    <color name="pinViewTextColor">#353535</color>
+    <color name="pinViewHintTextColor">#9F9F9F</color>
+
+    <!-- NavDrawer Colors -->
+    <color name="navDrawerBackgroundColor">#EFEFEF</color>
+    <color name="navDrawerItemTextColor">#454545</color>
+    <color name="navDrawerItemTitleColor">#FE814B</color>
+    <color name="navDrawerHeaderBackgroundColor">#50A8D9</color>
 
     <!-- Misc Colors Light -->
     <color name="white">#FFF</color>
+    <color name="prefsSecondaryTextColor">#2C2C2C</color>
+    <color name="prefsTextColor">#FFC107</color>
+    <color name="timeStampColor">#333333</color>
+    <color name="evenListItemColor">#FFEB3B</color>
+    <color name="oddListItemColor">#FF9800</color>
+
+    <!-- App ic icons colors -->
+    <color name="icBluetoothScanBorderColor">#2C2C2C</color>
+    <color name="icBluetoothScanFillColor">#FFC107</color>
 
 </resources>
